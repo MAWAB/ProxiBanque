@@ -3,12 +3,36 @@ package fr.adaming.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class VisaElectron extends Carte implements Serializable{
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "visaelectrons")
+public class VisaElectron extends Carte implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idVisaElectron;
+
+	@Temporal(TemporalType.DATE)
+	protected Date dateExpiration;
+
+	@OneToOne
+	@JoinColumn(name = "compte_id", referencedColumnName = "id_compteC")
+	private CompteCourant compteCourant;
+
 	private double plafondCredit;
 
 	/**
@@ -22,8 +46,11 @@ public class VisaElectron extends Carte implements Serializable{
 	 */
 	public VisaElectron(int idCarte, String numeroCarte, Date dateExpiration, String codePin,
 			CompteCourant compteCourant, Boolean active, double plafondCredit) {
-		super(idCarte, numeroCarte, dateExpiration, codePin, compteCourant, active);
+		super(numeroCarte, codePin, active);
+		this.idVisaElectron = idCarte;
+		this.dateExpiration = dateExpiration;
 		this.plafondCredit = plafondCredit;
+		this.compteCourant = compteCourant;
 	}
 
 	/**
@@ -36,8 +63,10 @@ public class VisaElectron extends Carte implements Serializable{
 	 */
 	public VisaElectron(String numeroCarte, Date dateExpiration, String codePin, CompteCourant compteCourant,
 			Boolean active, double plafondCredit) {
-		super(numeroCarte, dateExpiration, codePin, compteCourant, active);
+		super(numeroCarte, codePin, active);
 		this.plafondCredit = plafondCredit;
+		this.plafondCredit = plafondCredit;
+		this.compteCourant = compteCourant;
 	}
 
 	/**
@@ -48,6 +77,51 @@ public class VisaElectron extends Carte implements Serializable{
 	}
 
 	/**
+	 * @return the idVisaElectron
+	 */
+	public int getIdVisaElectron() {
+		return idVisaElectron;
+	}
+
+	/**
+	 * @param idVisaElectron
+	 *            the idVisaElectron to set
+	 */
+	public void setIdVisaElectron(int idVisaElectron) {
+		this.idVisaElectron = idVisaElectron;
+	}
+
+	/**
+	 * @return the dateExpiration
+	 */
+	public Date getDateExpiration() {
+		return dateExpiration;
+	}
+
+	/**
+	 * @param dateExpiration
+	 *            the dateExpiration to set
+	 */
+	public void setDateExpiration(Date dateExpiration) {
+		this.dateExpiration = dateExpiration;
+	}
+
+	/**
+	 * @return the compteCourant
+	 */
+	public CompteCourant getCompteCourant() {
+		return compteCourant;
+	}
+
+	/**
+	 * @param compteCourant
+	 *            the compteCourant to set
+	 */
+	public void setCompteCourant(CompteCourant compteCourant) {
+		this.compteCourant = compteCourant;
+	}
+
+	/**
 	 * @return the plafondCredit
 	 */
 	public double getPlafondCredit() {
@@ -55,7 +129,8 @@ public class VisaElectron extends Carte implements Serializable{
 	}
 
 	/**
-	 * @param plafondCredit the plafondCredit to set
+	 * @param plafondCredit
+	 *            the plafondCredit to set
 	 */
 	public void setPlafondCredit(double plafondCredit) {
 		this.plafondCredit = plafondCredit;
@@ -68,6 +143,5 @@ public class VisaElectron extends Carte implements Serializable{
 		super();
 		this.plafondCredit = plafondCredit;
 	}
-	
-	
+
 }
