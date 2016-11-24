@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,9 +30,13 @@ public class Client extends Personne implements Serializable {
 	private String telephone;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idConseiller",referencedColumnName="idConseiller")
+	@JoinColumn(name="id_conseiller",referencedColumnName="idConseiller")
 	private Conseiller conseiller;
+	
+	@OneToOne(mappedBy="client")
 	private CompteEpargne compteEpargne;
+	
+	@OneToOne(mappedBy="client")
 	private CompteCourant compteCourant;
 
 	/**
