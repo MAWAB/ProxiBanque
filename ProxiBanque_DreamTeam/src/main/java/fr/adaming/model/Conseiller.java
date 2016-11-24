@@ -1,21 +1,33 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name="conseillers")
-public class Conseiller extends Personne {
+public class Conseiller extends Personne implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	// Propriétés ---------------------------------------------------------------------------------------------
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idConseiller;
@@ -23,11 +35,16 @@ public class Conseiller extends Personne {
 	private String numeroImmatriculation;
 	private String motDePasse;
 	// transormer l'agregation entre le conseiller et le gerant
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+	@JoinColumn(name="idGerant")
 	private Gerant gerant;
 
 	// transormer l'agregation entre le conseiller et le gerant
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="conseiller")
 	private List<Client> listeClients = new ArrayList<Client>();
 
+	
+	// Constructeurs -----------------------------------------------------------------------------------------
 	/**
 	 * @param nom
 	 * @param prenom
@@ -73,6 +90,7 @@ public class Conseiller extends Personne {
 		this.listeClients = listeClients;
 	}
 
+	
 	/**
 	 * 
 	 */
@@ -80,6 +98,8 @@ public class Conseiller extends Personne {
 		super();
 	}
 
+	
+	// Getters & Setters ---------------------------------------------------------------------------------------
 	/**
 	 * @return the idConseiller
 	 */
