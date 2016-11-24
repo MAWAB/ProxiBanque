@@ -10,6 +10,7 @@
 		<class>fr.adaming.model.Adresse</class>
 		<class>fr.adaming.model.Agence</class>
 		<class>fr.adaming.model.Client</class>
+		<class>fr.adaming.model.Gerant</class>
 		<class>fr.adaming.model.Conseiller</class>
 		<class>fr.adaming.model.CompteCourant</class>
 		<class>fr.adaming.model.CompteEpargne</class>
