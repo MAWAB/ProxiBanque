@@ -6,9 +6,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Conseiller;
+import fr.adaming.model.Gerant;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.IConseillerService;
 
@@ -20,6 +23,12 @@ public class GerantManagedBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/** atrtibuts session*/
+	HttpSession session;
+	
+	/** attributs gerant*/
+	private Gerant gerant;
 	
 	/** attributs conseiller*/
 	IConseillerService conseillerService;
@@ -109,8 +118,13 @@ public class GerantManagedBean implements Serializable {
 	/** init: chargement de toutes les listes*/
 	@PostConstruct
 	public void init(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		
+		gerant= (Gerant) session.getAttribute("gerant");
 		listeConseiller = conseillerService.getAllConseillerService();
 		listeClient = clientService.getAllClientsService();
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("gerant", gerant);
 	}
 	
 	/** CRUD conseiller*/
