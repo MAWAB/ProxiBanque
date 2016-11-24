@@ -65,6 +65,37 @@
 					</p:inputText>
 				</p:inplace>
 			</p:column>
+			
+			<p:column headerText="adresse">
+				<h:outputText value="" />
+				<p:inplace id="adresseConseiller" editor="true">
+					<p:inputText id="adresseDT" value="#{conseiller.adresse}"
+						required="true" label="Adresse">
+						<p:message for="adresseDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+			
+			<p:column headerText="dateDeNaissance">
+				<h:outputText value="" />
+				<p:inplace id="dnConseiller" editor="true">
+					<p:inputText id="dnDT" value="#{conseiller.dateDeNaissance}"
+						required="true" label="dateDeNaissance">
+						<f:convertDateTime pattern="MM/dd/yyyy" />
+						<p:message for="prenomDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+			
+			<p:column headerText="Immatriculation">
+				<h:outputText value="" />
+				<p:inplace id="immatriculationConseiller" editor="true">
+					<p:inputText id="immatriculationDT" value="#{conseiller.Immatriculation}"
+						required="true" label="Immatriculation">
+						<p:message for="immatriculationDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
 
 			<p:column headerText="Edition">
 
