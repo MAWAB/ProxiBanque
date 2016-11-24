@@ -1,21 +1,39 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class Personne {
+public abstract class Personne implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	// Propriétés ---------------------------------------------------------------------------------------------
 	protected String nom;
 	protected String prenom;
+	
+	@Temporal(TemporalType.DATE)
 	protected Date dateDeNaissance;
+	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="idAdresse", referencedColumnName="idAdresse")
 	protected Adresse adresse;
 	
 	
-	
+	// Constructeurs --------------------------------------------------------------------------------------------
 	
 	/**
 	 * 
@@ -36,7 +54,9 @@ public abstract class Personne {
 		this.dateDeNaissance = dateDeNaissance;
 		this.adresse = adresse;
 	}
-	/* getters et setters */
+	
+	
+	/* getters et setters -------------------------------------------------------------------------------- */
 	
 	
 	/**
@@ -88,6 +108,8 @@ public abstract class Personne {
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
+	
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
