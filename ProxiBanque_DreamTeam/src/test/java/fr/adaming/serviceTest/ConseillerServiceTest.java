@@ -1,7 +1,10 @@
 package fr.adaming.serviceTest;
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -10,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import fr.adaming.model.Conseiller;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/resources/application-context.xml"})
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/application-context.xml"})
 public class ConseillerServiceTest {
 
 	
@@ -20,22 +23,16 @@ public class ConseillerServiceTest {
 	
 	@BeforeClass
 	public static void beforeCTest() {
-		System.out.println("-----------------------Début des tests----------------");
+		System.out.println("-----------------------Début des tests----------------\n");
 	}
 	
-	@Before
-	public void beforeTest() {
-		System.out.println("-----------------------Dans la méthode beforeTest()-----------------");
-	}
-	
-	@After
-	public void afterTest() {
-		System.out.println("-----------------------Dans la méthode afterTest()------------------");
-	}
+
 	
 	@AfterClass
 	public static void afterCTest() {
-		System.out.println("-----------------------Dans la méthode afterCTest()-----------------");
+		System.out.println("-----------------------Dans des tests-----------------\n");
 	}
+	
+	
 	
 }

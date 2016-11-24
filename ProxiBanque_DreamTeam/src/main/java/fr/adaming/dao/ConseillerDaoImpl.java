@@ -55,14 +55,14 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	@Override
 	public Conseiller updateConseillerDao(Conseiller conseiller) {
 
-		String req = "UPDATE Conseiller c SET c.nom=:nom, c.prenom=:prenom, c.dateDeNaissance=:dN, c.nomDuService=:serv, c.numeroImmatriculation=:imm, c.numeroBureau=:bureau, c.motDePasse=:mdp WHERE c.id_conseiller=:id";
+		String req = "UPDATE Conseiller c SET c.nom=:nom, c.prenom=:prenom, c.dateDeNaissance=:dN, c.adresse=:adresse, c.nomDuService=:serv, c.numeroImmatriculation=:imm, c.motDePasse=:mdp WHERE c.idConseiller=:id";
 		Query query = em.createQuery(req);
 		query.setParameter("nom", conseiller.getNom());
 		query.setParameter("prenom", conseiller.getPrenom());
 		query.setParameter("dN", conseiller.getDateDeNaissance());
+		query.setParameter("adresse", conseiller.getAdresse());
 		query.setParameter("serv", conseiller.getNomDuService());
 		query.setParameter("imm", conseiller.getNumeroImmatriculation());
-		query.setParameter("bureau", conseiller.getNumeroBureau());
 		query.setParameter("mdp", conseiller.getMotDePasse());
 		
 		return conseiller;

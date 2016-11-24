@@ -69,6 +69,19 @@ public abstract class Personne {
 	public void setDateDeNaissance(Date dateDeNaissance) {
 		this.dateDeNaissance = dateDeNaissance;
 	}
+
+	/**
+	 * @return the adresse
+	 */
+	public Adresse getAdresse() {
+		return adresse;
+	}
+	/**
+	 * @param adresse the adresse to set
+	 */
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
