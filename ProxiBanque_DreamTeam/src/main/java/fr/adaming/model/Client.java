@@ -1,14 +1,41 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Client extends Personne {
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="clients")
+public class Client extends Personne implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idClient;
 	private int numeroClient;
 	private String telephone;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_conseiller",referencedColumnName="idConseiller")
 	private Conseiller conseiller;
+	
+	@OneToOne(mappedBy="client")
 	private CompteEpargne compteEpargne;
+	
+	@OneToOne(mappedBy="client")
 	private CompteCourant compteCourant;
 
 	/**

@@ -1,13 +1,37 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Agence {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
+@Table(name="agences")
+public class Agence implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idAgence;
 	private String nom;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dateCreation;
+	
+	@OneToOne(mappedBy="agence")
 	private Gerant gerant;
+	
 	private String numeroAgence;
 	
 	

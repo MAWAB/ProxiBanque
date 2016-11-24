@@ -13,10 +13,10 @@ import fr.adaming.model.Conseiller;
  */
 public interface IConseillerService {
 
-	public Conseiller getConseillerByIdDao(int id);
-	public List<Conseiller> getAllConseillerDao();
-	public Conseiller addConseillerDao(Conseiller conseiller);
-	public void deleteConseillerDao(Conseiller conseiller);
-	public Conseiller updateConseillerDao(Conseiller conseiller);
+	public Conseiller getConseillerByIdService(int id);
+	public List<Conseiller> getAllConseillerService();
+	public Conseiller addConseillerService(Conseiller conseiller);
+	public void deleteConseillerService(Conseiller conseiller);
+	public Conseiller updateConseillerService(Conseiller conseiller);
 	
 }
