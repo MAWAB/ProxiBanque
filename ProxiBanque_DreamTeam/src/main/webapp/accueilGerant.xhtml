@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<h:body> 
+
+<h:form>
+		<p:breadCrumb>
+			<p:menuitem value="accueilGerant" action="#" />
+			<p:menuitem value="#{gerantMB}" url="ajouterProduit.xhtml" />
+			<p:menuitem value="#{produitMB.modifierProduit()}" url="modifierProduit.xhtml" />
+			<p:menuitem value="#{produitMB.supprimerProduit()}" url="supprimerProduit.xhtml" />
+			<p:menuitem value="#{categorieMB.ajouterCategorie()}" url="ajouterCategorie.xhtml" />
+			<p:menuitem value="#{categorieMB.modifierCategorie()}" url="modifierCategorie.xhtml" />
+			<p:menuitem value="#{categorieMB.supprimerCategorie()}" url="supprimerCategorie.xhtml" />
+		</p:breadCrumb>
+	</h:form>
+	
+	
+
+	<h:form id="EditP">
+		<p:spacer height="10" />
+
+		<p:separator />
+		<h2 style="color: red">UsersList</h2>
+		<p:dataTable id="DTP" var="prod" value="#{sessionScope.listP}" style="text-align:center"
+   		 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+   		 paginator="true" rows="5">
+   		 
+			<p:column headerText="id">
+				<h:outputText value="#{prod.id_p}" />
+			</p:column>
+
+			<p:column headerText="nom">
+				<h:outputText value="" />
+				<p:inplace id="nomP" editor="true">
+					<p:inputText id="nomDTP" value="#{prod.nom}" required="true" label="Nom" />
+				</p:inplace>
+				<p:message for="nomDTP" style="color:red" />
+			</p:column>
+
+			<p:column headerText="#{msg.dateB}">
+				<h:outputText value="" />
+				<p:inplace id="descriptionP" editor="true">
+					<p:inputText id="descriptionDT" value="#{prod.description}" required="true" label="Description">
+						<p:message for="descriptionDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+			
+			<p:column headerText="Edition">
+
+   			 <p:commandButton update="DT" action="#{produitMB.supprimerProduit()}"
+   				 icon="ui-icon-close">
+   				 <f:setPropertyActionListener target="#{produitMB.produit}"
+   					 value="#{prod}" />
+   			 </p:commandButton>
+   			 <p:commandButton update="DT" action="#{produitMB.modifierProduit()}"
+   				 icon="ui-icon-disk">
+   				 <f:setPropertyActionListener target="#{produitMB.produit}"
+   					 value="#{prod}" />
+   			 </p:commandButton>
+   		 </p:column>
+		</p:dataTable>
+	</h:form>
+	
+	<h:form id="EditC">
+		<p:spacer height="10" />
+
+		<p:separator />
+		<h2 style="color: red">UsersList</h2>
+		<p:dataTable id="DTC" var="cat" value="#{sessionScope.listC}" style="text-align:center"
+   		 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+   		 paginator="true" rows="5">
+   		 
+			<p:column headerText="id">
+				<h:outputText value="#{cat.id_c}" />
+			</p:column>
+
+			<p:column headerText="nom">
+				<h:outputText value="" />
+				<p:inplace id="nomC" editor="true">
+					<p:inputText id="nomDTC" value="#{cat.nom}" required="true" label="nom" />
+				</p:inplace>
+				<p:message for="nomDTC" style="color:red" />
+			</p:column>
+
+			<p:column headerText="description">
+				<h:outputText value="" />
+				<p:inplace id="descriptionC" editor="true">
+					<p:inputText id="descriptionDTC" value="#{cat.description}" required="true" label="description">
+						<p:message for="descriptionDTC" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+			
+			<p:column headerText="Edition">
+
+   			 <p:commandButton update="DTC" action="#{categorieMB.supprimerCategorie()}"
+   				 icon="ui-icon-close">
+   				 <f:setPropertyActionListener target="#{categorieMB.supprimerCategorie()}"
+   					 value="#{cat}" />
+   			 </p:commandButton>
+   			 <p:commandButton update="DT" action="#{categorieMB.modifierCategorie()}"
+   				 icon="ui-icon-disk">
+   				 <f:setPropertyActionListener target="#{categorieMB.modifierCategorie()}"
+   					 value="#{cat}" />
+   			 </p:commandButton>
+   		 </p:column>
+		</p:dataTable>
+	</h:form>
+
+
+
+	<br />
+	<br />
+	<br />
+	<h:form>
+		<h:commandButton value="deconnexion" action="#{gestioMB.seDeconnecter}"></h:commandButton>
+	</h:form>
+
+</h:body>
+
+</html>

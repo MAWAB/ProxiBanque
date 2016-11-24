@@ -12,7 +12,7 @@ import fr.adaming.model.Conseiller;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.IConseillerService;
 
-@ManagedBean
+@ManagedBean(name="gerantMB")
 @SessionScoped
 public class GerantManagedBean implements Serializable {
 
@@ -105,10 +105,70 @@ public class GerantManagedBean implements Serializable {
 	}
 	
 	/** autres méthodes*/
+	
+	/** init: chargement de toutes les listes*/
 	@PostConstruct
-	public init(){
-		listeConseiller = conseillerService.getAllConseillerDao();
+	public void init(){
+		listeConseiller = conseillerService.getAllConseillerService();
+		listeClient = clientService.getAllClientsService();
 	}
+	
+	/** CRUD conseiller*/
+	
+	public String getConseillerById(){
+		conseillerService.getConseillerByIdService(conseiller.getIdConseiller());
+		listeConseiller = conseillerService.getAllConseillerService();
+		return "accueilGerant.xhtml";
+	}
+	
+	public String ajouterConseiller(){
+		conseillerService.addConseillerService(conseiller);
+		listeConseiller = conseillerService.getAllConseillerService();
+		return "accueilGerant.xhtml";
+		
+	}
+	
+	public String modifierConseiller(){
+		conseillerService.updateConseillerService(conseiller);
+		listeConseiller = conseillerService.getAllConseillerService();
+		return "accueilGerant.xhtml";
+	}
+	
+	public String supprimerConseiller(){
+		conseillerService.deleteConseillerService(conseiller);
+		listeConseiller = conseillerService.getAllConseillerService();
+		return "accueilGerant.xhtml";
+	}
+	
+	/** CRUD client*/
+	
+	public String getClientById(){
+		clientService.getClientByIdService(client.getIdClient());
+		listeClient = clientService.getAllClientsService();
+		return "accueilGerant.xhtml";
+	}
+	
+	public String ajouterClient(){
+		clientService.addClientService(client);
+		listeClient = clientService.getAllClientsService();
+		return "accueilGerant.xhtml";
+	}
+	
+	public String modifierClient(){
+		clientService.updateClientService(client);
+		listeClient = clientService.getAllClientsService();
+		return "accueilGerant.xhtml";
+	}
+	
+	public String supprimerClient(){
+		clientService.deleteClientService(client.getIdClient());
+		listeClient = clientService.getAllClientsService();
+		return "accueilGerant.xhtml";
+	}
+	
+	
+	
+	
 	
 	
 	
