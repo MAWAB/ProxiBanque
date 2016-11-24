@@ -3,8 +3,8 @@ package fr.adaming.model;
 import java.util.Date;
 
 public class VisaElectron extends Carte{
-	private int id;
-	private double plafond;
+
+	private double plafondCredit;
 	
 	
 	/* constructeurs */

@@ -3,31 +3,33 @@ package fr.adaming.model;
 import java.util.Date;
 
 public abstract class Personne {
-	private String nom;
-	private String prenom;
-	private Date dateDeNaissance;
+	protected String nom;
+	protected String prenom;
+	protected Date dateDeNaissance;
+	protected Adresse adresse;
 	
 	
-	/* constructeurs*/ 
 	
-	/**
-	 * @param nom
-	 * @param prenom
-	 * @param dateDeNaissance
-	 */
-	public Personne(String nom, String prenom, Date dateDeNaissance) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.dateDeNaissance = dateDeNaissance;
-	}
+	
 	/**
 	 * 
 	 */
 	public Personne() {
 		super();
 	}
-	
+	/**
+	 * @param nom
+	 * @param prenom
+	 * @param dateDeNaissance
+	 * @param adresse
+	 */
+	public Personne(String nom, String prenom, Date dateDeNaissance, Adresse adresse) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.dateDeNaissance = dateDeNaissance;
+		this.adresse = adresse;
+	}
 	/* getters et setters */
 	
 	

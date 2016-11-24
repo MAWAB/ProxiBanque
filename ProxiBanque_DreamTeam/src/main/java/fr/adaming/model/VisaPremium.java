@@ -3,8 +3,8 @@ package fr.adaming.model;
 import java.util.Date;
 
 public class VisaPremium extends Carte{
-private int id;
-private String nomAssurance;
+
+private String plafondRetrait;
 /**
  * @param numeroCarte
  * @param dateExpiration

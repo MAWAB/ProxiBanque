@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Gerant extends Conseiller{
-	private int id;
+	private int idGerant;
 	private String numeroBureau;
 	
 	//transormer l'agregation entre le conseiller et le gerant
