@@ -4,159 +4,112 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Conseiller extends Personne{
-private int id;
-private String nomDuService;
-private String numeroImmatriculation;
-private String numeroBureau;
-
-//transormer l'agregation entre le conseiller et le gerant
+public class Conseiller extends Personne {
+	private int id;
+	private String nomDuService;
+	private String numeroImmatriculation;
+	private String numeroBureau;
+	private String motDePasse;
+	// transormer l'agregation entre le conseiller et le gerant
 	private Gerant gerant;
-	
-//transormer l'agregation entre le conseiller et le gerant
-		private List<Client> listeClients=new ArrayList<Client>();
-		
-		/* constructeurs */
 
-/**
- * @param id
- * @param nomDuService
- * @param numeroImmatriculation
- * @param numeroBureau
- * @param gerant
- * @param listeClients
- */
-public Conseiller(int id, String nomDuService, String numeroImmatriculation, String numeroBureau, Gerant gerant,
-		List<Client> listeClients) {
-	super();
-	this.id = id;
-	this.nomDuService = nomDuService;
-	this.numeroImmatriculation = numeroImmatriculation;
-	this.numeroBureau = numeroBureau;
-	this.gerant = gerant;
-	this.listeClients = listeClients;
-}
+	// transormer l'agregation entre le conseiller et le gerant
+	private List<Client> listeClients = new ArrayList<Client>();
 
-/**
- * @param nomDuService
- * @param numeroImmatriculation
- * @param numeroBureau
- * @param gerant
- * @param listeClients
- */
-public Conseiller(String nomDuService, String numeroImmatriculation, String numeroBureau, Gerant gerant,
-		List<Client> listeClients) {
-	super();
-	this.nomDuService = nomDuService;
-	this.numeroImmatriculation = numeroImmatriculation;
-	this.numeroBureau = numeroBureau;
-	this.gerant = gerant;
-	this.listeClients = listeClients;
-}
+	/* constructeurs */
 
-/**
- * 
- */
-public Conseiller() {
-	super();
-}
+	public Conseiller(String nom, String prenom, Date dateDeNaissance) {
+		super(nom, prenom, dateDeNaissance);
+	}
 
-/* méthodes */
+	public Conseiller(String nom, String prenom, Date dateDeNaissance, String nomDuService,
+			String numeroImmatriculation, String numeroBureau, String motDePasse, Gerant gerant,
+			List<Client> listeClients) {
+		super(nom, prenom, dateDeNaissance);
+		this.nomDuService = nomDuService;
+		this.numeroImmatriculation = numeroImmatriculation;
+		this.numeroBureau = numeroBureau;
+		this.motDePasse = motDePasse;
+		this.gerant = gerant;
+		this.listeClients = listeClients;
+	}
 
-/**
- * @return the id
- */
-public int getId() {
-	return id;
-}
+	public Conseiller(String nom, String prenom, Date dateDeNaissance, int id, String nomDuService,
+			String numeroImmatriculation, String numeroBureau, String motDePasse, Gerant gerant,
+			List<Client> listeClients) {
+		super(nom, prenom, dateDeNaissance);
+		this.id = id;
+		this.nomDuService = nomDuService;
+		this.numeroImmatriculation = numeroImmatriculation;
+		this.numeroBureau = numeroBureau;
+		this.motDePasse = motDePasse;
+		this.gerant = gerant;
+		this.listeClients = listeClients;
+	}
 
-/**
- * @param id the id to set
- */
-public void setId(int id) {
-	this.id = id;
-}
+	/* getters et setters */
 
-/**
- * @return the nomDuService
- */
-public String getNomDuService() {
-	return nomDuService;
-}
+	public int getId() {
+		return id;
+	}
 
-/**
- * @param nomDuService the nomDuService to set
- */
-public void setNomDuService(String nomDuService) {
-	this.nomDuService = nomDuService;
-}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-/**
- * @return the numeroImmatriculation
- */
-public String getNumeroImmatriculation() {
-	return numeroImmatriculation;
-}
+	public String getNomDuService() {
+		return nomDuService;
+	}
 
-/**
- * @param numeroImmatriculation the numeroImmatriculation to set
- */
-public void setNumeroImmatriculation(String numeroImmatriculation) {
-	this.numeroImmatriculation = numeroImmatriculation;
-}
+	public void setNomDuService(String nomDuService) {
+		this.nomDuService = nomDuService;
+	}
 
-/**
- * @return the numeroBureau
- */
-public String getNumeroBureau() {
-	return numeroBureau;
-}
+	public String getNumeroImmatriculation() {
+		return numeroImmatriculation;
+	}
 
-/**
- * @param numeroBureau the numeroBureau to set
- */
-public void setNumeroBureau(String numeroBureau) {
-	this.numeroBureau = numeroBureau;
-}
+	public void setNumeroImmatriculation(String numeroImmatriculation) {
+		this.numeroImmatriculation = numeroImmatriculation;
+	}
 
-/**
- * @return the gerant
- */
-public Gerant getGerant() {
-	return gerant;
-}
+	public String getNumeroBureau() {
+		return numeroBureau;
+	}
 
-/**
- * @param gerant the gerant to set
- */
-public void setGerant(Gerant gerant) {
-	this.gerant = gerant;
-}
+	public void setNumeroBureau(String numeroBureau) {
+		this.numeroBureau = numeroBureau;
+	}
 
-/**
- * @return the listeClients
- */
-public List<Client> getListeClients() {
-	return listeClients;
-}
+	public String getMotDePasse() {
+		return motDePasse;
+	}
 
-/**
- * @param listeClients the listeClients to set
- */
-public void setListeClients(List<Client> listeClients) {
-	this.listeClients = listeClients;
-}
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
 
-/* (non-Javadoc)
- * @see java.lang.Object#toString()
- */
-@Override
-public String toString() {
-	return "Conseiller [id=" + id + ", nomDuService=" + nomDuService + ", numeroImmatriculation="
-			+ numeroImmatriculation + ", numeroBureau=" + numeroBureau + ", gerant=" + gerant + ", listeClients="
-			+ listeClients + "]";
-}
+	public Gerant getGerant() {
+		return gerant;
+	}
 
-		
-		
+	public void setGerant(Gerant gerant) {
+		this.gerant = gerant;
+	}
+
+	public List<Client> getListeClients() {
+		return listeClients;
+	}
+
+	public void setListeClients(List<Client> listeClients) {
+		this.listeClients = listeClients;
+	}
+
+	@Override
+	public String toString() {
+		return "Conseiller [id=" + id + ", nomDuService=" + nomDuService + ", numeroImmatriculation="
+				+ numeroImmatriculation + ", numeroBureau=" + numeroBureau + ", motDePasse=" + motDePasse + ", gerant="
+				+ gerant + ", listeClients=" + listeClients + "]";
+	}
+
 }
