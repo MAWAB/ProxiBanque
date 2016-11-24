@@ -7,6 +7,8 @@
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>fr.adaming.model.Conseiller</class>
+		
+		
 
 		<!-- Proterties de la connexion à la base de données -->
 		<properties>
