@@ -1,9 +1,14 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class VisaElectron extends Carte{
+public class VisaElectron extends Carte implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double plafondCredit;
 
 	/**
