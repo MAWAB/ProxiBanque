@@ -4,9 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="conseillers")
 public class Conseiller extends Personne {
 	
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idConseiller;
 	private String nomDuService;
 	private String numeroImmatriculation;
