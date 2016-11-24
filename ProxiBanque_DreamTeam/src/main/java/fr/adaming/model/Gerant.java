@@ -20,33 +20,7 @@ public class Gerant extends Conseiller{
 	private List<Conseiller> listeConselliers=new ArrayList<Conseiller>();
 	//transormer l'agregation entre l'agence et le gerant
 	private Agence agence;
-	/**
-	 * @param nom
-	 * @param prenom
-	 * @param dateDeNaissance
-	 * @param adresse
-	 * @param idConseiller
-	 * @param nomDuService
-	 * @param numeroImmatriculation
-	 * @param motDePasse
-	 * @param gerant
-	 * @param listeClients
-	 * @param idGerant
-	 * @param numeroBureau
-	 * @param listeConselliers
-	 * @param agence
-	 */
-	public Gerant(String nom, String prenom, Date dateDeNaissance, Adresse adresse, int idConseiller,
-			String nomDuService, String numeroImmatriculation, String motDePasse, Gerant gerant,
-			List<Client> listeClients, int idGerant, String numeroBureau, List<Conseiller> listeConselliers,
-			Agence agence) {
-		super(nom, prenom, dateDeNaissance, adresse, idConseiller, nomDuService, numeroImmatriculation, motDePasse,
-				gerant, listeClients);
-		this.idGerant = idGerant;
-		this.numeroBureau = numeroBureau;
-		this.listeConselliers = listeConselliers;
-		this.agence = agence;
-	}
+
 	/**
 	 * @param nom
 	 * @param prenom
@@ -89,18 +63,7 @@ public class Gerant extends Conseiller{
 		super(nom, prenom, dateDeNaissance, adresse, idConseiller, nomDuService, numeroImmatriculation, motDePasse,
 				gerant, listeClients);
 	}
-	/**
-	 * @return the idGerant
-	 */
-	public int getIdGerant() {
-		return idGerant;
-	}
-	/**
-	 * @param idGerant the idGerant to set
-	 */
-	public void setIdGerant(int idGerant) {
-		this.idGerant = idGerant;
-	}
+
 	/**
 	 * @return the numeroBureau
 	 */
