@@ -5,74 +5,64 @@ import java.util.Date;
 public class VisaPremium extends Carte{
 
 private String plafondRetrait;
+
+/**
+ * @param idCarte
+ * @param numeroCarte
+ * @param dateExpiration
+ * @param codePin
+ * @param compteCourant
+ * @param active
+ * @param plafondRetrait
+ */
+public VisaPremium(int idCarte, String numeroCarte, Date dateExpiration, String codePin, CompteCourant compteCourant,
+		Boolean active, String plafondRetrait) {
+	super(idCarte, numeroCarte, dateExpiration, codePin, compteCourant, active);
+	this.plafondRetrait = plafondRetrait;
+}
+
 /**
  * @param numeroCarte
  * @param dateExpiration
  * @param codePin
  * @param compteCourant
- * @param id
- * @param nomAssurance
+ * @param active
+ * @param plafondRetrait
  */
-public VisaPremium(long numeroCarte, Date dateExpiration, int codePin, CompteCourant compteCourant, int id,
-		String nomAssurance) {
-	super(numeroCarte, dateExpiration, codePin, compteCourant);
-	this.id = id;
-	this.nomAssurance = nomAssurance;
+public VisaPremium(String numeroCarte, Date dateExpiration, String codePin, CompteCourant compteCourant, Boolean active,
+		String plafondRetrait) {
+	super(numeroCarte, dateExpiration, codePin, compteCourant, active);
+	this.plafondRetrait = plafondRetrait;
 }
+
 /**
- * @param numeroCarte
- * @param dateExpiration
- * @param codePin
- * @param compteCourant
- * @param nomAssurance
+ * 
  */
-public VisaPremium(long numeroCarte, Date dateExpiration, int codePin, CompteCourant compteCourant,
-		String nomAssurance) {
-	super(numeroCarte, dateExpiration, codePin, compteCourant);
-	this.nomAssurance = nomAssurance;
+public VisaPremium() {
+	super();
 }
+
 /**
- * @param numeroCarte
- * @param dateExpiration
- * @param codePin
- * @param compteCourant
+ * @return the plafondRetrait
  */
-public VisaPremium(long numeroCarte, Date dateExpiration, int codePin, CompteCourant compteCourant) {
-	super(numeroCarte, dateExpiration, codePin, compteCourant);
+public String getPlafondRetrait() {
+	return plafondRetrait;
 }
+
 /**
- * @return the id
+ * @param plafondRetrait the plafondRetrait to set
  */
-public int getId() {
-	return id;
+public void setPlafondRetrait(String plafondRetrait) {
+	this.plafondRetrait = plafondRetrait;
 }
-/**
- * @param id the id to set
- */
-public void setId(int id) {
-	this.id = id;
-}
-/**
- * @return the nomAssurance
- */
-public String getNomAssurance() {
-	return nomAssurance;
-}
-/**
- * @param nomAssurance the nomAssurance to set
- */
-public void setNomAssurance(String nomAssurance) {
-	this.nomAssurance = nomAssurance;
-}
+
 /* (non-Javadoc)
  * @see java.lang.Object#toString()
  */
 @Override
 public String toString() {
-	return "VisaPremium [id=" + id + ", nomAssurance=" + nomAssurance + "]";
+	return "VisaPremium [plafondRetrait=" + plafondRetrait + "]";
 }
-
-
 
 
 }
