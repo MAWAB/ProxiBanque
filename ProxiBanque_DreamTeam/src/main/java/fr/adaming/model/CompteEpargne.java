@@ -1,5 +1,6 @@
 package fr.adaming.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cEpargne")
-public class CompteEpargne extends Compte {
+public class CompteEpargne extends Compte implements Serializable{
 
 
 	@Id
