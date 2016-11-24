@@ -13,7 +13,7 @@ import fr.adaming.model.Client;
  */
 public interface IClientService {
 
-	public void addClientService(Client client);
+	public int addClientService(Client client);
 
 	public void updateClientService(Client client);
 

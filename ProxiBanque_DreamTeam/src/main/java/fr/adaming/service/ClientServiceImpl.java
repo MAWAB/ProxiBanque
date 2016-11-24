@@ -31,11 +31,10 @@ public class ClientServiceImpl implements IClientService {
 	 */
 	@Override
 	public int addClientService(Client client) {
-		if (){
-		clientDao.addClient(client);
-		return 1;
-		}
-		else if(){
+		if (client.getConseiller().getListeClients().size() < 10) {
+			clientDao.addClient(client);
+			return 1;
+		} else {
 			return 0;
 		}
 	}
