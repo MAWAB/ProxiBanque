@@ -203,6 +203,18 @@
 			<version>4.1.9.RELEASE</version>
 
 		</dependency>
+		
+		<!-- spring-tx Library -->
+
+		<dependency>
+
+			<groupId>org.springframework</groupId>
+
+			<artifactId>spring-jdbc</artifactId>
+
+			<version>4.1.9.RELEASE</version>
+
+		</dependency>F
 
 		<!-- Junit -->
 
