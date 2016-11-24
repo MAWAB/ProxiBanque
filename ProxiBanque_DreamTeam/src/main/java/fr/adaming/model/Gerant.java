@@ -14,9 +14,6 @@ import javax.persistence.Table;
 @Table(name="gerants")
 public class Gerant extends Conseiller{
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int idGerant;
 	private String numeroBureau;
 	
 	//transormer l'agregation entre le conseiller et le gerant
