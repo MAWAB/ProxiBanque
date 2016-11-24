@@ -2,6 +2,12 @@ package fr.adaming.model;
 
 import java.util.Date;
 
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Personne {
 	protected String nom;
 	protected String prenom;
