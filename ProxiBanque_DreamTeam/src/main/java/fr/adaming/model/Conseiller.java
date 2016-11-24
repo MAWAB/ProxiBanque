@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Conseiller extends Personne {
 	
+	
 	private int idConseiller;
 	private String nomDuService;
 	private String numeroImmatriculation;
