@@ -9,6 +9,7 @@ private int codePostal;
 /* constructeurs */
 
 
+
 /**
  * @param id
  * @param rue

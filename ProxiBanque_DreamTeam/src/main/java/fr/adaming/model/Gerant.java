@@ -14,117 +14,53 @@ public class Gerant extends Conseiller{
 	private Agence agence;
 	
 	
-	
-	
 	/* constructeurs */
-	
-	/**
-	 * @param id
-	 * @param nomDuService
-	 * @param numeroImmatriculation
-	 * @param numeroBureau
-	 * @param gerant
-	 * @param listeClients
-	 * @param id2
-	 * @param numeroBureau2
-	 * @param listeConselliers
-	 * @param agence
-	 */
-	public Gerant(int id, String nomDuService, String numeroImmatriculation, String numeroBureau, Gerant gerant,
-			List<Client> listeClients, int id2, String numeroBureau2, List<Conseiller> listeConselliers,
-			Agence agence) {
-		super(id, nomDuService, numeroImmatriculation, numeroBureau, gerant, listeClients);
-		id = id2;
-		numeroBureau = numeroBureau2;
+	public Gerant(String nom, String prenom, Date dateDeNaissance, int id, String numeroBureau,
+			List<Conseiller> listeConselliers, Agence agence) {
+		super(nom, prenom, dateDeNaissance);
+		this.id = id;
+		this.numeroBureau = numeroBureau;
 		this.listeConselliers = listeConselliers;
 		this.agence = agence;
 	}
-	/**
-	 * @param id
-	 * @param nomDuService
-	 * @param numeroImmatriculation
-	 * @param numeroBureau
-	 * @param gerant
-	 * @param listeClients
-	 * @param numeroBureau2
-	 * @param listeConselliers
-	 * @param agence
-	 */
-	public Gerant(int id, String nomDuService, String numeroImmatriculation, String numeroBureau, Gerant gerant,
-			List<Client> listeClients, String numeroBureau2, List<Conseiller> listeConselliers, Agence agence) {
-		super(id, nomDuService, numeroImmatriculation, numeroBureau, gerant, listeClients);
-		numeroBureau = numeroBureau2;
+	public Gerant(String nom, String prenom, Date dateDeNaissance, String numeroBureau,
+			List<Conseiller> listeConselliers, Agence agence) {
+		super(nom, prenom, dateDeNaissance);
+		this.numeroBureau = numeroBureau;
 		this.listeConselliers = listeConselliers;
 		this.agence = agence;
 	}
-	/**
-	 * @param id
-	 * @param nomDuService
-	 * @param numeroImmatriculation
-	 * @param numeroBureau
-	 * @param gerant
-	 * @param listeClients
-	 */
-	public Gerant(int id, String nomDuService, String numeroImmatriculation, String numeroBureau, Gerant gerant,
-			List<Client> listeClients) {
-		super(id, nomDuService, numeroImmatriculation, numeroBureau, gerant, listeClients);
+	public Gerant(String nom, String prenom, Date dateDeNaissance) {
+		super(nom, prenom, dateDeNaissance);
 	}
 	
 	/* getters et setters */
-	
-	
-	
-	/**
-	 * @return the id
-	 */
 	public int getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	/**
-	 * @return the numeroBureau
-	 */
 	public String getNumeroBureau() {
 		return numeroBureau;
 	}
-	/**
-	 * @param numeroBureau the numeroBureau to set
-	 */
 	public void setNumeroBureau(String numeroBureau) {
 		this.numeroBureau = numeroBureau;
 	}
-	/**
-	 * @return the listeConselliers
-	 */
 	public List<Conseiller> getListeConselliers() {
 		return listeConselliers;
 	}
-	/**
-	 * @param listeConselliers the listeConselliers to set
-	 */
 	public void setListeConselliers(List<Conseiller> listeConselliers) {
 		this.listeConselliers = listeConselliers;
 	}
-	/**
-	 * @return the agence
-	 */
 	public Agence getAgence() {
 		return agence;
 	}
-	/**
-	 * @param agence the agence to set
-	 */
 	public void setAgence(Agence agence) {
 		this.agence = agence;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	
+	
 	@Override
 	public String toString() {
 		return "Gerant [id=" + id + ", numeroBureau=" + numeroBureau + ", listeConselliers=" + listeConselliers
