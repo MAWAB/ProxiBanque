@@ -2,11 +2,16 @@ package fr.adaming.model;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public abstract class Compte {
 
-	protected int idCompte;
+	
 	protected String numeroCompte;
 	protected double solde;
+	
+	@Temporal(TemporalType.DATE)
 	protected Date dateCreation;
 	
 	
@@ -31,32 +36,7 @@ public abstract class Compte {
 	}
 	/* getters et setters */
 	
-	
-	/**
-	 * @param idCompte
-	 * @param numeroCompte
-	 * @param solde
-	 * @param dateCreation
-	 */
-	public Compte(int idCompte, String numeroCompte, double solde, Date dateCreation) {
-		super();
-		this.idCompte = idCompte;
-		this.numeroCompte = numeroCompte;
-		this.solde = solde;
-		this.dateCreation = dateCreation;
-	}
-	/**
-	 * @return the idCompte
-	 */
-	public int getIdCompte() {
-		return idCompte;
-	}
-	/**
-	 * @param idCompte the idCompte to set
-	 */
-	public void setIdCompte(int idCompte) {
-		this.idCompte = idCompte;
-	}
+
 	/**
 	 * @return the numeroCompte
 	 */

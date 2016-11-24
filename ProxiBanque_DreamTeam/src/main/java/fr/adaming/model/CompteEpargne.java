@@ -2,10 +2,31 @@ package fr.adaming.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "cEpargne")
 public class CompteEpargne extends Compte {
 
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_compteE")
+	private int idCompte;	
+	
 	private double tauxRenumeration;
+	
+	@OneToOne(cascade=CascadeType.REMOVE)
+	@JoinColumn(name="client_id", referencedColumnName="idClient")
+	private Client client;
 
 	/**
 	 * @param idCompte
@@ -15,7 +36,7 @@ public class CompteEpargne extends Compte {
 	 * @param tauxRenumeration
 	 */
 	public CompteEpargne(int idCompte, String numeroCompte, double solde, Date dateCreation, double tauxRenumeration) {
-		super(idCompte, numeroCompte, solde, dateCreation);
+		super(numeroCompte, solde, dateCreation);
 		this.tauxRenumeration = tauxRenumeration;
 	}
 
@@ -35,6 +56,22 @@ public class CompteEpargne extends Compte {
 	 */
 	public CompteEpargne() {
 		super();
+	}
+
+	
+	
+	/**
+	 * @return the idCompte
+	 */
+	public int getIdCompte() {
+		return idCompte;
+	}
+
+	/**
+	 * @param idCompte the idCompte to set
+	 */
+	public void setIdCompte(int idCompte) {
+		this.idCompte = idCompte;
 	}
 
 	/**
