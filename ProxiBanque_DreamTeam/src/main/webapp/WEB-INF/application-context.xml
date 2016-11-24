@@ -28,7 +28,8 @@
 
 	<!-- Entity Manager Factory -->
 	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitManager" ref="persistenceUnitManager"></property>
 		<property name="persistenceUnitName" value="PU"></property>
 	</bean>
 
