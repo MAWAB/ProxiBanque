@@ -12,11 +12,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "cEpargne")
 public class CompteEpargne extends Compte implements Serializable{
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,31 +32,43 @@ public class CompteEpargne extends Compte implements Serializable{
 	
 	private double tauxRenumeration;
 	
+	@Temporal(TemporalType.DATE)
+	protected Date dateCreation;
+	
 	@OneToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="client_id", referencedColumnName="idClient")
 	private Client client;
 
 	/**
-	 * @param idCompte
 	 * @param numeroCompte
 	 * @param solde
-	 * @param dateCreation
+	 * @param idCompte
 	 * @param tauxRenumeration
+	 * @param dateCreation
+	 * @param client
 	 */
-	public CompteEpargne(int idCompte, String numeroCompte, double solde, Date dateCreation, double tauxRenumeration) {
-		super(numeroCompte, solde, dateCreation);
+	public CompteEpargne(String numeroCompte, double solde, int idCompte,
+			double tauxRenumeration, Date dateCreation, Client client) {
+		super(numeroCompte, solde);
+		this.idCompte = idCompte;
 		this.tauxRenumeration = tauxRenumeration;
+		this.dateCreation = dateCreation;
+		this.client = client;
 	}
 
 	/**
 	 * @param numeroCompte
 	 * @param solde
-	 * @param dateCreation
 	 * @param tauxRenumeration
+	 * @param dateCreation
+	 * @param client
 	 */
-	public CompteEpargne(String numeroCompte, double solde, Date dateCreation, double tauxRenumeration) {
-		super(numeroCompte, solde, dateCreation);
+	public CompteEpargne(String numeroCompte, double solde,
+			double tauxRenumeration, Date dateCreation, Client client) {
+		super(numeroCompte, solde);
 		this.tauxRenumeration = tauxRenumeration;
+		this.dateCreation = dateCreation;
+		this.client = client;
 	}
 
 	/**
@@ -59,8 +78,6 @@ public class CompteEpargne extends Compte implements Serializable{
 		super();
 	}
 
-	
-	
 	/**
 	 * @return the idCompte
 	 */
@@ -89,12 +106,35 @@ public class CompteEpargne extends Compte implements Serializable{
 		this.tauxRenumeration = tauxRenumeration;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the dateCreation
 	 */
-	@Override
-	public String toString() {
-		return "CompteEpargne [tauxRenumeration=" + tauxRenumeration + "]";
+	public Date getDateCreation() {
+		return dateCreation;
 	}
+
+	/**
+	 * @param dateCreation the dateCreation to set
+	 */
+	public void setDateCreation(Date dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+
+	/**
+	 * @return the client
+	 */
+	public Client getClient() {
+		return client;
+	}
+
+	/**
+	 * @param client the client to set
+	 */
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+
+	
 	
 }

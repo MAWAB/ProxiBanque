@@ -12,10 +12,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "cCourant")
 public class CompteCourant extends Compte implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +30,9 @@ public class CompteCourant extends Compte implements Serializable{
 	private int idCompte;
 	
 	private double decouvert;
+	
+	@Temporal(TemporalType.DATE)
+	protected Date dateCreation;
 	
 	//transormer la compotision entre le client et le compteCourant
 	@OneToOne(cascade=CascadeType.REMOVE)
@@ -37,46 +47,43 @@ public class CompteCourant extends Compte implements Serializable{
 	@OneToOne(mappedBy="compteCourant")
 	private VisaPremium visaPremium;
 
-
-
-
-
 	/**
 	 * @param numeroCompte
 	 * @param solde
-	 * @param dateCreation
 	 * @param idCompte
 	 * @param decouvert
+	 * @param dateCreation
 	 * @param client
 	 * @param visaElectron
 	 * @param visaPremium
 	 */
-	public CompteCourant(String numeroCompte, double solde, Date dateCreation,
-			int idCompte, double decouvert, Client client,
+	public CompteCourant(String numeroCompte, double solde, int idCompte,
+			double decouvert, Date dateCreation, Client client,
 			VisaElectron visaElectron, VisaPremium visaPremium) {
-		super(numeroCompte, solde, dateCreation);
+		super(numeroCompte, solde);
 		this.idCompte = idCompte;
 		this.decouvert = decouvert;
+		this.dateCreation = dateCreation;
 		this.client = client;
 		this.visaElectron = visaElectron;
 		this.visaPremium = visaPremium;
 	}
-	
-	
 
 	/**
 	 * @param numeroCompte
 	 * @param solde
-	 * @param dateCreation
 	 * @param decouvert
+	 * @param dateCreation
 	 * @param client
 	 * @param visaElectron
 	 * @param visaPremium
 	 */
-	public CompteCourant(String numeroCompte, double solde, Date dateCreation, double decouvert, Client client,
-			VisaElectron visaElectron, VisaPremium visaPremium) {
-		super(numeroCompte, solde, dateCreation);
+	public CompteCourant(String numeroCompte, double solde, double decouvert,
+			Date dateCreation, Client client, VisaElectron visaElectron,
+			VisaPremium visaPremium) {
+		super(numeroCompte, solde);
 		this.decouvert = decouvert;
+		this.dateCreation = dateCreation;
 		this.client = client;
 		this.visaElectron = visaElectron;
 		this.visaPremium = visaPremium;
@@ -89,8 +96,6 @@ public class CompteCourant extends Compte implements Serializable{
 		super();
 	}
 
-	
-	
 	/**
 	 * @return the idCompte
 	 */
@@ -98,16 +103,12 @@ public class CompteCourant extends Compte implements Serializable{
 		return idCompte;
 	}
 
-
-
 	/**
 	 * @param idCompte the idCompte to set
 	 */
 	public void setIdCompte(int idCompte) {
 		this.idCompte = idCompte;
 	}
-
-
 
 	/**
 	 * @return the decouvert
@@ -121,6 +122,20 @@ public class CompteCourant extends Compte implements Serializable{
 	 */
 	public void setDecouvert(double decouvert) {
 		this.decouvert = decouvert;
+	}
+
+	/**
+	 * @return the dateCreation
+	 */
+	public Date getDateCreation() {
+		return dateCreation;
+	}
+
+	/**
+	 * @param dateCreation the dateCreation to set
+	 */
+	public void setDateCreation(Date dateCreation) {
+		this.dateCreation = dateCreation;
 	}
 
 	/**
@@ -166,8 +181,6 @@ public class CompteCourant extends Compte implements Serializable{
 	}
 
 
-	
-	
-	
+		
 	
 }
