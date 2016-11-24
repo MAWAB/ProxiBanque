@@ -13,7 +13,6 @@
 		<class>fr.adaming.model.Conseiller</class>
 		<class>fr.adaming.model.CompteCourant</class>
 		<class>fr.adaming.model.CompteEpargne</class>
-		<class>fr.adaming.model.Conseiller</class>
 		<class>fr.adaming.model.VisaElectron</class>
 		<class>fr.adaming.model.VisaPremium</class>
 		

@@ -43,6 +43,10 @@ public class Gerant extends Conseiller implements Serializable {
 	
 	// Constructeurs ---------------------------------------------------------------------------------------------
 	
+	public Gerant() {
+		super();
+	}
+	
 	/**
 	 * @param nom
 	 * @param prenom
@@ -67,6 +71,7 @@ public class Gerant extends Conseiller implements Serializable {
 		this.listeConseillers = listeConseillers;
 		this.agence = agence;
 	}
+
 	/**
 	 * @param nom
 	 * @param prenom
