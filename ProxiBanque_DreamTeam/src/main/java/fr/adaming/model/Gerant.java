@@ -60,11 +60,11 @@ public class Gerant extends Conseiller implements Serializable {
 	 */
 	public Gerant(String nom, String prenom, Date dateDeNaissance, Adresse adresse, int idConseiller,
 			String nomDuService, String numeroImmatriculation, String motDePasse, Gerant gerant,
-			List<Client> listeClients, String numeroBureau, List<Conseiller> listeConselliers, Agence agence) {
+			List<Client> listeClients, String numeroBureau, List<Conseiller> listeConseillers, Agence agence) {
 		super(nom, prenom, dateDeNaissance, adresse, idConseiller, nomDuService, numeroImmatriculation, motDePasse,
 				gerant, listeClients);
 		this.numeroBureau = numeroBureau;
-		this.listeConselliers = listeConselliers;
+		this.listeConseillers = listeConseillers;
 		this.agence = agence;
 	}
 	/**
@@ -98,17 +98,18 @@ public class Gerant extends Conseiller implements Serializable {
 	public void setNumeroBureau(String numeroBureau) {
 		this.numeroBureau = numeroBureau;
 	}
+
 	/**
-	 * @return the listeConselliers
+	 * @return the listeConseillers
 	 */
-	public List<Conseiller> getListeConselliers() {
-		return listeConselliers;
+	public List<Conseiller> getListeConseillers() {
+		return listeConseillers;
 	}
 	/**
-	 * @param listeConselliers the listeConselliers to set
+	 * @param listeConseillers the listeConseillers to set
 	 */
-	public void setListeConselliers(List<Conseiller> listeConselliers) {
-		this.listeConselliers = listeConselliers;
+	public void setListeConseillers(List<Conseiller> listeConseillers) {
+		this.listeConseillers = listeConseillers;
 	}
 	/**
 	 * @return the agence
@@ -127,9 +128,14 @@ public class Gerant extends Conseiller implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Gerant [idGerant=" + idGerant + ", numeroBureau=" + numeroBureau + ", listeConselliers="
-				+ listeConselliers + ", agence=" + agence + "]";
+		return "Gerant [numeroBureau=" + numeroBureau + ", listeConseillers=" + listeConseillers + ", agence=" + agence
+				+ ", nom=" + nom + ", prenom=" + prenom + ", dateDeNaissance=" + dateDeNaissance + ", adresse="
+				+ adresse + "]";
 	}
+	
+	
+
+	
 	
 	
 	
