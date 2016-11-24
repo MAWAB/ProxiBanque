@@ -1,5 +1,10 @@
 package fr.adaming.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="adresses")
 public class Adresse {
 	
 private int idAdresse;
