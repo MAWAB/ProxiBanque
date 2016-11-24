@@ -25,7 +25,6 @@ public class Client extends Personne implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idClient;
-	
 	private int numeroClient;
 	private String telephone;
 	
