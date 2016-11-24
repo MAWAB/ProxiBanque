@@ -4,29 +4,43 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 
-<listener>
-	<listener-class>
-		org.springframework.web.context.ContextLoaderListener
-	</listener-class>
-</listener>
-<listener>
-	<listener-class>
-		org.springframework.web.context.request.RequestContextListener
-	</listener-class>
-</listener>
 
-<context-param>
-	<param-name>javax.faces.PROJECT_STAGE</param-name>
-	<param-value>Development</param-value>
-</context-param>
-<servlet>
-	<servlet-name>Faces Servlet</servlet-name>
-	<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-	<load-on-startup>1</load-on-startup>
-</servlet>
-<servlet-mapping>
-	<servlet-name>Faces Servlet</servlet-name>
-	<url-pattern>/*</url-pattern>
-</servlet-mapping>
+	<!-- Tout ce qui concerne le conteneur spring -->
+	<!-- Recharger le context Spring -->
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/application-context.xml</param-value>
+	</context-param>
+
+	<!-- Démarrage de l'application -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- Pour chaque requete il va regarder le context de spring -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<!-- Tout ce qui concerne le conteneur web -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+
+	<!-- servlet JSF -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
 </web-app>
    
