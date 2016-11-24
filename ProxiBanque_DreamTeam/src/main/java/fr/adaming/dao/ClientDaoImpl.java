@@ -52,9 +52,9 @@ public class ClientDaoImpl implements IClientDao {
 	public void updateClient(Client client) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT cl FROM Client cl WHERE cl.id=:aId";
+			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);
-			query.setParameter("aId", client.getId());
+			query.setParameter("aId", client.getIdClient());
 
 			Client cl = (Client) query.getSingleResult();
 			cl.setDateDeNaissance(client.getDateDeNaissance());
@@ -77,7 +77,7 @@ public class ClientDaoImpl implements IClientDao {
 	public void deleteClient(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT cl FROM Client cl WHERE cl.id=:aId";
+			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
@@ -140,7 +140,7 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> getAllClientsByIdAgence(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl WHERE cl.conseiller.agence.idAgence=:aId";
+			String req = "SELECT * FROM Client cl WHERE cl.conseiller.gerant.agence.idAgence=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
