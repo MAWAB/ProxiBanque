@@ -28,7 +28,7 @@ public abstract class Personne implements Serializable {
 	@Temporal(TemporalType.DATE)
 	protected Date dateDeNaissance;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="idAdresse", referencedColumnName="idAdresse")
 	protected Adresse adresse;
 	

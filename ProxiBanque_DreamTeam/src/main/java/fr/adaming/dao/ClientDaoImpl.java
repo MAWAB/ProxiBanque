@@ -4,8 +4,6 @@
 package fr.adaming.dao;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -57,6 +55,7 @@ public class ClientDaoImpl implements IClientDao {
 	public void updateClient(Client client) {
 		EntityManager em = emf.createEntityManager();
 		try {
+			em.getTransaction().begin();
 			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", client.getIdClient());
@@ -68,6 +67,7 @@ public class ClientDaoImpl implements IClientDao {
 			cl.setPrenom(client.getPrenom());
 			cl.setTelephone(client.getTelephone());
 			em.merge(cl);
+			em.getTransaction().commit();
 		} catch (NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
@@ -82,12 +82,15 @@ public class ClientDaoImpl implements IClientDao {
 	public void deleteClient(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
+			em.getTransaction().begin();
 			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
 			Client cl = (Client) query.getSingleResult();
+			
 			em.remove(cl);
+			em.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
