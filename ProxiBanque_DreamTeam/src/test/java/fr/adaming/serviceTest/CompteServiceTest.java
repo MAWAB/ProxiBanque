@@ -53,25 +53,27 @@ public class CompteServiceTest {
 
 
 
-	String numeroCompte="81589";
-	double solde=15000;
-	int idCompte=2;
-	double decouvert=5000;
-	Date dateCreation=new Date(2017,12,24);
-	
-		
-	Client client=clientDao.getClientById(1);
-	
-	CompteCourant compteCourant=null;
-	
-	VisaElectron visaElectron=new VisaElectron("n5191959carte", dateCreation, "c254Pin", compteCourant, true, 19515619);
-	VisaPremium visaPremium=new VisaPremium("n126119carte", dateCreation, "c654Pin", compteCourant, false, 5191);
-	
-	compteCourant=new CompteCourant(numeroCompte, solde, idCompte, decouvert, dateCreation, client, visaElectron, visaPremium);
-	
 	@Ignore
 	@Test
 	public void testAjouterCompteService() {
+		
+
+		String numeroCompte="81589";
+		double solde=15000;
+		int idCompte=2;
+		double decouvert=5000;
+		Date dateCreation=new Date(2017,12,24);
+		
+			
+		Client client=clientDao.getClientById(1);
+		
+		CompteCourant compteCourant=null;
+		
+		VisaElectron visaElectron=new VisaElectron("n5191959carte", dateCreation, "c254Pin", compteCourant, true, 19515619);
+		VisaPremium visaPremium=new VisaPremium("n126119carte", dateCreation, "c654Pin", compteCourant, false, 5191);
+		
+		compteCourant=new CompteCourant(numeroCompte, solde, idCompte, decouvert, dateCreation, client, visaElectron, visaPremium);
+		
 		
 		//assertEquals(1, clientService.addClientService(cl));
 		compteService.ajouterCompteService(compteCourant);
