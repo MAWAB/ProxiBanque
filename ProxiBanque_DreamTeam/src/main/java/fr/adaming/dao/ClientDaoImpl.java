@@ -18,7 +18,7 @@ import fr.adaming.model.Client;
  * @author inti0302
  *
  */
-@Repository
+@Repository("clientDaoImpl")
 public class ClientDaoImpl implements IClientDao {
 
 	@Autowired
@@ -39,8 +39,11 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public void addClient(Client client) {
+		System.out.println("OK1");
 		EntityManager em = emf.createEntityManager();
+		System.out.println("OK2");
 		em.persist(client);
+		System.out.println("OK3");
 	}
 
 	/*
@@ -97,7 +100,7 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> getAllClients() {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl";
+			String req = "SELECT cl FROM Client cl";
 			Query query = em.createQuery(req);
 
 			@SuppressWarnings("unchecked")
@@ -118,7 +121,7 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> getAllClientsByIdConseiller(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl WHERE cl.conseiller.idConseiller=:aId";
+			String req = "SELECT cl FROM Client cl WHERE cl.conseiller.idConseiller=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
@@ -140,7 +143,7 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> getAllClientsByIdAgence(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl WHERE cl.conseiller.gerant.agence.idAgence=:aId";
+			String req = "SELECT cl FROM Client cl WHERE cl.conseiller.gerant.agence.idAgence=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
@@ -162,7 +165,7 @@ public class ClientDaoImpl implements IClientDao {
 	public Client getClientById(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl WHERE cl.idClient=:aId";
+			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Accueil conseiller</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="messages" showDetail="true" />
+
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton type="button" value="nouveau client"
+					icon="ui-icon-document" />
+				<p:commandButton type="button" value="modifier client"
+					icon="ui-icon-folder-open" />
+				<span class="ui-separator"> <span
+					class="ui-icon ui-icon-grip-dotted-vertical" />
+				</span>
+				<p:commandButton type="button" title="supprimer client"
+					icon="ui-icon-disk" />
+			</f:facet>
+		</p:toolbar>
+	</h:form>
+
+	<div align="center">
+		<h1>Liste des clients traités par
+			#{conseillerMB.conseillerLogged.prenom}</h1>
+
+		<p:dataTable var="client" value="#{conseillerMB.listeClients}">
+
+			<p:column headerText="numéro du client">
+				<h:outputText value="#{client.numeroClient}" />
+			</p:column>
+
+			<p:column headerText="Nom du client">
+				<h:outputText value="#{client.nom}" />
+			</p:column>
+
+			<p:column headerText="Prénom du client">
+				<h:outputText value="#{client.prenom}" />
+			</p:column>
+
+			<p:column headerText="Date de naissance du client">
+				<h:outputText value="#{client.dateDeNaissance}" />
+			</p:column>
+			<p:column headerText="Informations bancaires">
+				<h:commandButton value="informations bancaires" action="#{conseillerMB.methodeTemporaire}">
+					<f:param name="client" value="#{client.idClient}" />
+				</h:commandButton>
+			</p:column>
+		</p:dataTable>
+
+	</div>
+</h:body>
+</h:html>
+
+
+
+
+
