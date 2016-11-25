@@ -3,6 +3,7 @@ package fr.adaming.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,11 @@ import fr.adaming.model.Conseiller;
 public class ConseillerServiceImpl implements IConseillerService {
 
 	@Autowired
+	@Qualifier("conseillerDaoImpl")
 	IConseillerDao conseillerDao;
 
 	@Autowired
+	@Qualifier("clientDaoImpl")
 	IClientDao clientDao;
 
 	@Override

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Conseiller;
 
-@Repository
+@Repository("conseillerDaoImpl")
 public class ConseillerDaoImpl implements IConseillerDao {
 
 	@Autowired
