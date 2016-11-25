@@ -30,14 +30,56 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 	
 
 	@Override
-	public List<C> getAllCompteDao() {
-		// TODO Auto-generated method stub
+	public List<C> getAllCompteCourantDao() {
+		
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			String req = "SELECT * FROM CompteCourant cmpC";
+			Query query = em.createQuery(req);
+
+			@SuppressWarnings("unchecked")
+			List<CompteCourant> listeCompteC = query.getResultList();
+			return (List<C>) listeCompteC;
+			
+		} catch (NullPointerException | IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<C> getAllCompteEpargneDao() {
+		
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			String req = "SELECT * FROM CompteEpargne cmpC";
+			Query query = em.createQuery(req);
+
+			@SuppressWarnings("unchecked")
+			List<CompteEpargne> listeCompteE = query.getResultList();
+			return (List<C>) listeCompteE;
+			
+		} catch (NullPointerException | IllegalArgumentException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public C getCompteByIdDao(int id_cn) {
-		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		try {
+			String req = "SELECT * FROM Client cl WHERE cl.idClient=:aId";
+			Query query = em.createQuery(req);
+			query.setParameter("aId", id);
+
+			Client cl = (Client) query.getSingleResult();
+			return cl;
+		} catch (NullPointerException | IllegalArgumentException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -67,7 +109,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		
 		if(compte instanceof CompteCourant ){
 			try {
-				String req = "SELECT cmp FROM Compte cmp WHERE cmp.idCompte=:cmp_id";
+				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
 		
@@ -88,7 +130,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 			
 		}else if(compte instanceof CompteEpargne ){
 			try {
-				String req = "SELECT cmp FROM Compte cmp WHERE cmp.idCompte=:cmp_id";
+				String req = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
 		
@@ -114,12 +156,12 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		
 		if(compte instanceof CompteCourant ){
 			try {
-				String req = "SELECT cmp FROM Compte cmp WHERE cmp.idCompte=:cmp_id";
+				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
 
 				CompteCourant cmpC = (CompteCourant) query.getSingleResult();
-				em.remove(compte);
+				em.remove(cmpC);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -128,12 +170,12 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 						
 		}else if(compte instanceof CompteEpargne ){
 			try {
-				String req = "SELECT cmp FROM Compte cmp WHERE cmp.idCompte=:cmp_id";
+				String req = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
 
-				CompteEpargne cmpC = (CompteEpargne) query.getSingleResult();
-				em.remove(compte);
+				CompteEpargne cmpE = (CompteEpargne) query.getSingleResult();
+				em.remove(cmpE);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -145,20 +187,113 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 	}
 
 	@Override
-	public void virementDao(C compe1, C compte1, double somme) {
-		// TODO Auto-generated method stub
+	public void virementDao(C compe1, C compte2, double somme) {
+EntityManager em = emf.createEntityManager();
+		
+		if(compte instanceof CompteCourant ){
+			try {
+				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
+				Query query = em.createQuery(req);
+				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
+		
+				CompteCourant cmpC = (CompteCourant) query.getSingleResult();
+								
+				cmpC.setSolde(compte.getSolde()+somme);
+				em.merge(cmpC);
+				
+			} catch (NullPointerException | IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+			
+		}else if(compte instanceof CompteEpargne ){
+			try {
+				String req = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
+				Query query = em.createQuery(req);
+				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
+		
+				CompteEpargne cmpE = (CompteEpargne) query.getSingleResult();
+				
+				cmpE.setSolde(compte.getSolde()+somme);
+				em.merge(cmpE);
+				
+			} catch (NullPointerException | IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
 	@Override
 	public void retraitDao(C compte, double somme) {
-		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		
+		if(compte instanceof CompteCourant ){
+			try {
+				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
+				Query query = em.createQuery(req);
+				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
+		
+				CompteCourant cmpC = (CompteCourant) query.getSingleResult();
+								
+				cmpC.setSolde(compte.getSolde()-somme);
+				em.merge(cmpC);
+				
+			} catch (NullPointerException | IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+			
+		}else if(compte instanceof CompteEpargne ){
+			try {
+				String req = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
+				Query query = em.createQuery(req);
+				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
+		
+				CompteEpargne cmpE = (CompteEpargne) query.getSingleResult();
+				
+				cmpE.setSolde(compte.getSolde()-somme);
+				em.merge(cmpE);
+				
+			} catch (NullPointerException | IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
 	@Override
 	public void depotDao(C compte, double somme) {
-		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		
+		if(compte instanceof CompteCourant ){
+			try {
+				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
+				Query query = em.createQuery(req);
+				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
+		
+				CompteCourant cmpC = (CompteCourant) query.getSingleResult();
+								
+				cmpC.setSolde(compte.getSolde()+somme);
+				em.merge(cmpC);
+				
+			} catch (NullPointerException | IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+			
+		}else if(compte instanceof CompteEpargne ){
+			try {
+				String req = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
+				Query query = em.createQuery(req);
+				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
+		
+				CompteEpargne cmpE = (CompteEpargne) query.getSingleResult();
+				
+				cmpE.setSolde(compte.getSolde()+somme);
+				em.merge(cmpE);
+				
+			} catch (NullPointerException | IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+		}
 		
 	}
 

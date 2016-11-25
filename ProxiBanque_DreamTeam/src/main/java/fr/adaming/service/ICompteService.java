@@ -6,7 +6,9 @@ import fr.adaming.model.Compte;
 
 public interface ICompteService <C extends Compte> {
 	
-	public List<C> getAllCompteService();
+	public List<C> getAllCompteCourantService();
+	
+	public List<C> getAllCompteEpargneService();
 	
 	public C getCompteByIdService(int id_cn);
 

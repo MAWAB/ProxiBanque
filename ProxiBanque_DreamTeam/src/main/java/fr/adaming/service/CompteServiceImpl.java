@@ -25,8 +25,13 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 	
 	
 	@Override
-	public List<C> getAllCompteService() {
-		return compteDao.getAllCompteDao();
+	public List<C> getAllCompteCourantService() {
+		return compteDao.getAllCompteCourantDao();
+	}
+	
+	@Override
+	public List<C> getAllCompteEpargneService() {
+		return compteDao.getAllCompteEpargneDao();
 	}
 
 	@Override
