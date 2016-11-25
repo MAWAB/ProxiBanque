@@ -36,13 +36,19 @@ public class ConseillerServiceImpl implements IConseillerService {
 	}
 
 	@Override
-	public void deleteConseillerService(Conseiller conseiller) {
+	public int deleteConseillerService(Conseiller conseiller) {
 		// TODO Auto-generated method stub
-		
+		return 0;
 	}
 
 	@Override
 	public Conseiller updateConseillerService(Conseiller conseiller) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Conseiller> getConseillerByAgenceService(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

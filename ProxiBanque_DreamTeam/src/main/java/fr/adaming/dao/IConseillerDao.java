@@ -18,5 +18,6 @@ public interface IConseillerDao {
 	public Conseiller addConseillerDao(Conseiller conseiller);
 	public void deleteConseillerDao(Conseiller conseiller);
 	public Conseiller updateConseillerDao(Conseiller conseiller);
+	public List<Conseiller> getConseillerByAgenceDao(int id);
 	
 }
