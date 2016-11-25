@@ -134,10 +134,7 @@
 //
 //		gerant.setListeConseillers(listeCons);
 //
-//		CompteCourant cptC = null;
-//		CompteEpargne cptE = null;
-//
-//		Client cl = new Client("Soule", "Toto", date, adresse, 123, "0553474147", conseiller, cptE, cptC);
+//		Client cl = new Client("Soule", "Toto", date, adresse, 123, "0553474147", conseiller);
 //
 //		// assertEquals(1, clientService.addClientService(cl));
 //		clientService.addClientService(cl);
