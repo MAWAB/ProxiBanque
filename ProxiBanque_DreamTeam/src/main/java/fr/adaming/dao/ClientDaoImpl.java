@@ -4,6 +4,8 @@
 package fr.adaming.dao;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -39,11 +41,11 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public void addClient(Client client) {
-		System.out.println("OK1");
+
 		EntityManager em = emf.createEntityManager();
-		System.out.println("OK2");
+		em.getTransaction().begin();
 		em.persist(client);
-		System.out.println("OK3");
+		em.getTransaction().commit();
 	}
 
 	/*

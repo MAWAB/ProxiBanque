@@ -113,9 +113,13 @@
 //		Date dateCons = new Date(1970 + 1900, 02, 11);
 //		Date dateGer = new Date(1970 + 1900, 11, 23);
 //		Date dateAg = new Date(2016 + 1900, 11, 22);
-//		Adresse adresse = new Adresse("Scorff", 44000, "Orvault");
+//		
+//		
+//		Adresse adresse = new Adresse(4,"Scorff", 44000, "Orvault");
 //		Adresse adresseCons = new Adresse(1, "Remy", 33000, "Bordeaux");
 //		Adresse adresseGer = new Adresse(2, "Fleurus", 47000, "Agen");
+//		
+//		
 //		List<Client> listeCl = null;
 //		List<Conseiller> listeCons = new ArrayList<Conseiller>();
 //
@@ -134,10 +138,7 @@
 //
 //		gerant.setListeConseillers(listeCons);
 //
-//		CompteCourant cptC = null;
-//		CompteEpargne cptE = null;
-//
-//		Client cl = new Client("Soule", "Toto", date, adresse, 123, "0553474147", conseiller, cptE, cptC);
+//		Client cl = new Client("Soule", "Toto", date, adresse, 123, "0553474147", conseiller);
 //
 //		// assertEquals(1, clientService.addClientService(cl));
 //		clientService.addClientService(cl);
