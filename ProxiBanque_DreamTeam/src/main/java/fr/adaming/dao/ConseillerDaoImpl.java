@@ -36,15 +36,18 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		EntityManager em = emf.createEntityManager();
 		String req = "SELECT c FROM Conseiller c";
 		Query query = em.createQuery(req);
-
-		return query.getResultList();
+		List<Conseiller> liste = query.getResultList();
+		
+		return liste;
 	}
 
 	@Override
 	public Conseiller addConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
 		em.persist(conseiller);
-
+	
+		em.getTransaction().commit();
 		return conseiller;
 	}
 
@@ -57,8 +60,13 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	@Override
 	public Conseiller updateConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
-		String req = "UPDATE Conseiller c SET c.nom=:nom, c.prenom=:prenom, c.dateDeNaissance=:dN, c.adresse=:adresse, c.nomDuService=:serv, c.numeroImmatriculation=:imm, c.motDePasse=:mdp WHERE c.idConseiller=:id";
+		em.getTransaction().begin();
+		String req = "UPDATE Conseiller c SET c.nom=:nom, c.prenom=:prenom, c.dateDeNaissance=:dN, c.adresse=:adresse, c.nomDuService=:serv, c.numeroImmatriculation=:imm, c.motDePasse=:mdp, c.gerant=:gerant WHERE c.idConseiller=:id";
 		Query query = em.createQuery(req);
+		query.setParameter("id", conseiller.getIdConseiller());
+		
+		Conseiller c = (Conseiller) query.getSingleResult();
+		
 		query.setParameter("nom", conseiller.getNom());
 		query.setParameter("prenom", conseiller.getPrenom());
 		query.setParameter("dN", conseiller.getDateDeNaissance());
@@ -66,6 +74,9 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		query.setParameter("serv", conseiller.getNomDuService());
 		query.setParameter("imm", conseiller.getNumeroImmatriculation());
 		query.setParameter("mdp", conseiller.getMotDePasse());
+		query.setParameter("gerant", conseiller.getGerant());
+		em.merge(c);
+		em.getTransaction().commit();
 		
 		return conseiller;
 	}
