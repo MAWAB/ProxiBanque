@@ -97,6 +97,7 @@
 //		System.out.println("---------------------------Prenom avant update---------------------------");
 //		System.out.println(c.getPrenom());
 //		c.setPrenom("titi");
+//		
 //		conseillerService.updateConseillerService(c);
 //		System.out.println("-------------------------Prenom après update-------------------------");
 //		System.out.println(conseillerService.getConseillerByIdService(1).getPrenom());

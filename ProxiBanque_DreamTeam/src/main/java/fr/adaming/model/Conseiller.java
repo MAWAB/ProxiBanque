@@ -47,7 +47,7 @@ public class Conseiller extends Personne implements Serializable {
 	private Gerant gerant;
 
 	// transormer l'agregation entre le conseiller et le gerant
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="conseiller")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="conseiller", cascade=CascadeType.MERGE)
 	private List<Client> listeClients = new ArrayList<Client>();
 
 	

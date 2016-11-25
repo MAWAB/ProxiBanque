@@ -61,11 +61,14 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	public Conseiller updateConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
+		
+		System.out.println("----------------Dao après begin transaction------------------------");
 		String req = "SELECT c FROM Conseiller c WHERE c.idConseiller=:id";
 		Query query = em.createQuery(req);
 		query.setParameter("id", conseiller.getIdConseiller());
 		
 		Conseiller c = (Conseiller) query.getSingleResult();
+		System.out.println(c.getPrenom());
 		
 		c.setNom(conseiller.getNom());
 		c.setPrenom(conseiller.getPrenom());
@@ -75,9 +78,11 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		c.setNumeroImmatriculation(conseiller.getNumeroImmatriculation());
 		c.setMotDePasse(conseiller.getMotDePasse());
 		c.setGerant(conseiller.getGerant());
+		c.setListeClients(conseiller.getListeClients());
 		
-		
+		System.out.println(c.getPrenom());
 		em.merge(c);
+		System.out.println("-----------------merge----------------");
 		em.getTransaction().commit();
 		
 		return conseiller;
