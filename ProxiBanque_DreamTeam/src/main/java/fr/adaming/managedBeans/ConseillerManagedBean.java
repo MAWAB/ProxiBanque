@@ -7,9 +7,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
 import fr.adaming.model.Client;
 import fr.adaming.model.Conseiller;
 import fr.adaming.service.IClientService;
@@ -22,6 +22,7 @@ import fr.adaming.service.IClientService;
 @SessionScoped
 public class ConseillerManagedBean {
 	
+	@Autowired
 	@Qualifier("clientServiceImpl")
 	IClientService clientService;
 	private Conseiller conseillerLogged;
