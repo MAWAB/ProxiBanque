@@ -81,6 +81,7 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		c.setListeClients(conseiller.getListeClients());
 		
 		System.out.println(c.getPrenom());
+		em.detach(c);
 		em.merge(c);
 		System.out.println("-----------------merge----------------");
 		em.getTransaction().commit();
