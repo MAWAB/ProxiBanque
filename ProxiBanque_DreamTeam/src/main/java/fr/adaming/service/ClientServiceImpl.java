@@ -15,7 +15,7 @@ import fr.adaming.model.Client;
  * @author inti0302
  *
  */
-@Service
+@Service("clientServiceImpl")
 @Transactional
 public class ClientServiceImpl implements IClientService {
 
