@@ -18,7 +18,7 @@ import fr.adaming.model.Client;
  * @author inti0302
  *
  */
-@Repository
+@Repository("clientDaoImpl")
 public class ClientDaoImpl implements IClientDao {
 
 	@Autowired
