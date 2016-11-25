@@ -82,6 +82,14 @@ public class Client extends Personne implements Serializable {
 		this.compteCourant = compteCourant;
 	}
 	
+	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, int idClient, int numeroClient,
+			String telephone, Conseiller conseiller) {
+		super(nom, prenom, dateDeNaissance, adresse);
+		this.idClient = idClient;
+		this.numeroClient = numeroClient;
+		this.telephone = telephone;
+		this.conseiller = conseiller;
+	}
 	
 	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, int numeroClient, String telephone,
 			Conseiller conseiller) {
