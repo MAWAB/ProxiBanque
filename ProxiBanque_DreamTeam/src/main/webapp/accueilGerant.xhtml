@@ -21,13 +21,6 @@
 				url="modifierConseiller.xhtml" />
 			<p:menuitem value="#{gerantMB.supprimerConseiller()}"
 				url="supprimerConseiller.xhtml" />
-			<p:menuitem value="#{gerantMB.getClientById()}" url="getClient.xhtml" />
-			<p:menuitem value="#{gerantMB.ajouterClient()}"
-				url="ajouterClient.xhtml" />
-			<p:menuitem value="#{gerantMB.modifierClient()}"
-				url="modifierClient.xhtml" />
-			<p:menuitem value="#{gerantMB.supprimerClient()}"
-				url="supprimerClient.xhtml" />
 		</p:breadCrumb>
 	</h:form>
 
@@ -116,7 +109,7 @@
 	<br />
 	<h:form>
 		<h:commandButton value="deconnexion"
-			action="#{gestioMB.seDeconnecter}"></h:commandButton>
+			action="#{gerantMB.seDeconnecter}"></h:commandButton>
 	</h:form>
 
 </h:body>

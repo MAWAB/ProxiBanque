@@ -70,4 +70,17 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		return conseiller;
 	}
 
+
+
+	@Override
+	public List<Conseiller> getConseillerByAgenceDao(int id) {
+
+		EntityManager em = emf.createEntityManager();
+		String req = "SELECT c FROM Conseiller WHERE c.gerant.agence.idAgence=:id";
+		Query query = em.createQuery(req);
+		query.setParameter("id", id);
+		
+		return query.getResultList();
+	}
+
 }

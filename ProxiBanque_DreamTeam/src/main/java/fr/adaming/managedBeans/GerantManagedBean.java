@@ -122,35 +122,43 @@ public class GerantManagedBean implements Serializable {
 		session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		
 		gerant= (Gerant) session.getAttribute("gerant");
-		listeConseiller = conseillerService.getAllConseillerService();
-		listeClient = clientService.getAllClientsService();
+		listeConseiller = conseillerService.getConseillerByAgenceService(gerant.getAgence().getIdAgence());
+		listeClient = clientService.getAllClientsByIdAgenceService(gerant.getAgence().getIdAgence());
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("gerant", gerant);
 	}
+	
+	
+	/** Deconnexion*/
+	
+	public String seDeconnecter(){
+		 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		 return "accueilGerant";
+		}
 	
 	/** CRUD conseiller*/
 	
 	public String getConseillerById(){
 		conseillerService.getConseillerByIdService(conseiller.getIdConseiller());
-		listeConseiller = conseillerService.getAllConseillerService();
+		listeConseiller = conseillerService.getConseillerByAgenceService(gerant.getAgence().getIdAgence());
 		return "accueilGerant.xhtml";
 	}
 	
 	public String ajouterConseiller(){
 		conseillerService.addConseillerService(conseiller);
-		listeConseiller = conseillerService.getAllConseillerService();
+		listeConseiller = conseillerService.getConseillerByAgenceService(gerant.getAgence().getIdAgence());
 		return "accueilGerant.xhtml";
 		
 	}
 	
 	public String modifierConseiller(){
 		conseillerService.updateConseillerService(conseiller);
-		listeConseiller = conseillerService.getAllConseillerService();
+		listeConseiller = conseillerService.getConseillerByAgenceService(gerant.getAgence().getIdAgence());
 		return "accueilGerant.xhtml";
 	}
 	
 	public String supprimerConseiller(){
 		conseillerService.deleteConseillerService(conseiller);
-		listeConseiller = conseillerService.getAllConseillerService();
+		listeConseiller = conseillerService.getConseillerByAgenceService(gerant.getAgence().getIdAgence());
 		return "accueilGerant.xhtml";
 	}
 	
@@ -158,25 +166,25 @@ public class GerantManagedBean implements Serializable {
 	
 	public String getClientById(){
 		clientService.getClientByIdService(client.getIdClient());
-		listeClient = clientService.getAllClientsService();
+		listeClient = clientService.getAllClientsByIdAgenceService(gerant.getAgence().getIdAgence());
 		return "accueilGerant.xhtml";
 	}
 	
 	public String ajouterClient(){
 		clientService.addClientService(client);
-		listeClient = clientService.getAllClientsService();
+		listeClient = clientService.getAllClientsByIdAgenceService(gerant.getAgence().getIdAgence());
 		return "accueilGerant.xhtml";
 	}
 	
 	public String modifierClient(){
 		clientService.updateClientService(client);
-		listeClient = clientService.getAllClientsService();
+		listeClient = clientService.getAllClientsByIdAgenceService(gerant.getAgence().getIdAgence());
 		return "accueilGerant.xhtml";
 	}
 	
 	public String supprimerClient(){
 		clientService.deleteClientService(client.getIdClient());
-		listeClient = clientService.getAllClientsService();
+		listeClient = clientService.getAllClientsByIdAgenceService(gerant.getAgence().getIdAgence());
 		return "accueilGerant.xhtml";
 	}
 	
