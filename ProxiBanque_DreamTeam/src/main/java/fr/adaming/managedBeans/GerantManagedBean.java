@@ -9,6 +9,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
 import fr.adaming.model.Client;
 import fr.adaming.model.Conseiller;
 import fr.adaming.model.Gerant;
@@ -31,11 +36,13 @@ public class GerantManagedBean implements Serializable {
 	private Gerant gerant;
 	
 	/** attributs conseiller*/
+	@Autowired
 	IConseillerService conseillerService;
 	private Conseiller conseiller;
 	private List<Conseiller> listeConseiller;
 	
 	/** attributs clients*/
+	@Autowired
 	IClientService clientService;
 	private Client client;
 	private List<Client> listeClient;
@@ -50,6 +57,7 @@ public class GerantManagedBean implements Serializable {
 	public GerantManagedBean() {
 		this.conseiller = new Conseiller();
 		this.client = new Client();
+		this.gerant = new Gerant();
 	}
 
 	
