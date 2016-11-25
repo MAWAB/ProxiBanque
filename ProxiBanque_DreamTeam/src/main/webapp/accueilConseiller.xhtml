@@ -17,9 +17,9 @@
 
 		<p:toolbar>
 			<f:facet name="left">
-				<p:commandButton type="button" value="nouveau client" action="#{conseillerMB.navigationAjoutClient()}"
+				<h:commandButton type="button" value="nouveau client" 
 					icon="ui-icon-document" />
-				<p:commandButton type="button" value="modifier client"
+				<h:commandButton type="button" value="modifier client"
 					icon="ui-icon-folder-open" />
 				<span class="ui-separator"> <span
 					class="ui-icon ui-icon-grip-dotted-vertical" />
@@ -52,8 +52,8 @@
 				<h:outputText value="#{client.dateDeNaissance}" />
 			</p:column>
 			<p:column headerText="Informations bancaires">
-				<h:commandButton value="informations bancaires" action="#{conseillerMB.navigationSuppressionClient}">
-					<f:param name="client" value="#{client.idClient}" />
+				<h:commandButton value="informations bancaires" action="#{conseillerMB.nav}">
+					<f:param name="id_client" value="#{client.idClient}" />
 				</h:commandButton>
 			</p:column>
 		</p:dataTable>

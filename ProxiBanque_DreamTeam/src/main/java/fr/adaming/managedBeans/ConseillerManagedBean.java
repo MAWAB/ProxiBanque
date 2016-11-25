@@ -4,10 +4,14 @@
 package fr.adaming.managedBeans;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,6 +33,8 @@ public class ConseillerManagedBean {
 	
 	private Conseiller conseillerLogged;
 	private List<Client> listeClients;
+	HttpSession session;
+	
 	
 	@PostConstruct
 	public void init()
@@ -37,15 +43,27 @@ public class ConseillerManagedBean {
 		conseillerLogged.setIdConseiller(1);
 		conseillerLogged.setPrenom(" Mr. Picsou");
 		listeClients = clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
+		FacesContext fc = FacesContext.getCurrentInstance();
+		 session= (HttpSession) fc.getExternalContext().getSession(false);
 	}
 	
 	public ConseillerManagedBean()
 	{
 		
 	}
-	
+	public String navigationInformationclient()
+	{
+		 FacesContext fc = FacesContext.getCurrentInstance();
+	      Map<String,String> params = 
+	      fc.getExternalContext().getRequestParameterMap();
+	      int id =  Integer.parseInt(params.get("id_client")); 
+	      session .setAttribute("client", clientService.getClientByIdService(id));
+	    
+		return "infosClient.xhtml";
+	}
 	public String navigationAjoutClient(){
-		return "ajoutClient.xhtml";
+		System.out.println("navigation vers la page ajout");
+		return "ajoutClient";
 	}
 
 	
