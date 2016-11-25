@@ -141,10 +141,14 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		EntityManager em = emf.createEntityManager();
 		
 		if(compte instanceof CompteCourant ){
+			em.getTransaction().begin();
 			em.persist(compte);
+			em.getTransaction().commit();
 			
 		}else if(compte instanceof CompteEpargne ){
+			em.getTransaction().begin();
 			em.persist(compte);
+			em.getTransaction().commit();
 		}
 		
 		
@@ -156,6 +160,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		
 		if(compte instanceof CompteCourant ){
 			try {
+				em.getTransaction().begin();
 				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
@@ -170,6 +175,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 				cmpC.setNumeroCompte(compte.getNumeroCompte());
 				cmpC.setSolde(compte.getSolde());
 				em.merge(cmpC);
+				em.getTransaction().commit();
 				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();
@@ -177,6 +183,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 			
 		}else if(compte instanceof CompteEpargne ){
 			try {
+				em.getTransaction().begin();
 				String req = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
@@ -189,6 +196,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 				cmpE.setNumeroCompte(compte.getNumeroCompte());
 				cmpE.setSolde(compte.getSolde());
 				em.merge(cmpE);
+				em.getTransaction().commit();
 				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();
@@ -239,6 +247,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		
 		if(compte1 instanceof CompteCourant && compte2 instanceof CompteCourant){
 			try {
+				em.getTransaction().begin();
 				String req1 = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id1";
 				Query query1 = em.createQuery(req1);
 				query1.setParameter("cmp_id1", ((CompteCourant) compte1).getIdCompte());
@@ -257,6 +266,8 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 								
 				cmpC2.setSolde(compte2.getSolde()+somme);
 				em.merge(cmpC2);
+				
+				em.getTransaction().commit();
 				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();
@@ -264,6 +275,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 			
 		}else if(compte1 instanceof CompteCourant && compte2 instanceof CompteEpargne ){
 			try {
+				em.getTransaction().begin();
 				String req1 = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id1";
 				Query query1 = em.createQuery(req1);
 				query1.setParameter("cmp_id1", ((CompteCourant) compte1).getIdCompte());
@@ -282,6 +294,8 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 								
 				cmpC2.setSolde(compte2.getSolde()+somme);
 				em.merge(cmpC2);
+				
+				em.getTransaction().commit();
 				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();
@@ -290,6 +304,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 			
 		}else if(compte1 instanceof CompteEpargne && compte2 instanceof CompteCourant){
 			try {
+				em.getTransaction().begin();
 				String req1 = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id1";
 				Query query1 = em.createQuery(req1);
 				query1.setParameter("cmp_id1", ((CompteCourant) compte1).getIdCompte());
@@ -308,6 +323,8 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 								
 				cmpC2.setSolde(compte2.getSolde()+somme);
 				em.merge(cmpC2);
+				
+				em.getTransaction().commit();
 				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();
@@ -322,6 +339,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		
 		if(compte instanceof CompteCourant ){
 			try {
+				em.getTransaction().begin();
 				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
@@ -331,12 +349,15 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 				cmpC.setSolde(compte.getSolde()-somme);
 				em.merge(cmpC);
 				
+				em.getTransaction().commit();
+				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 			
 		}else if(compte instanceof CompteEpargne ){
 			try {
+				em.getTransaction().begin();
 				String req = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
@@ -345,6 +366,8 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 				
 				cmpE.setSolde(compte.getSolde()-somme);
 				em.merge(cmpE);
+				
+				em.getTransaction().commit();
 				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();
@@ -359,6 +382,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		
 		if(compte instanceof CompteCourant ){
 			try {
+				em.getTransaction().begin();
 				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
@@ -368,12 +392,15 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 				cmpC.setSolde(compte.getSolde()+somme);
 				em.merge(cmpC);
 				
+				em.getTransaction().commit();
+				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 			
 		}else if(compte instanceof CompteEpargne ){
 			try {
+				em.getTransaction().begin();
 				String req = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
@@ -382,6 +409,8 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 				
 				cmpE.setSolde(compte.getSolde()+somme);
 				em.merge(cmpE);
+				
+				em.getTransaction().commit();
 				
 			} catch (NullPointerException | IllegalArgumentException e) {
 				e.printStackTrace();

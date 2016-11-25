@@ -33,7 +33,7 @@ public class VisaPremium extends Carte implements Serializable {
 	@JoinColumn(name = "compte_id", referencedColumnName = "id_compteC")
 	private CompteCourant compteCourant;
 
-	private String plafondRetrait;
+	private double plafondRetrait;
 
 	/**
 	 * @param idCarte
@@ -45,7 +45,7 @@ public class VisaPremium extends Carte implements Serializable {
 	 * @param plafondRetrait
 	 */
 	public VisaPremium(int idCarte, String numeroCarte, Date dateExpiration, String codePin,
-			CompteCourant compteCourant, Boolean active, String plafondRetrait) {
+			CompteCourant compteCourant, Boolean active, double plafondRetrait) {
 		super(numeroCarte, codePin, active);
 		this.idVisaPremium = idCarte;
 		this.plafondRetrait = plafondRetrait;
@@ -62,7 +62,7 @@ public class VisaPremium extends Carte implements Serializable {
 	 * @param plafondRetrait
 	 */
 	public VisaPremium(String numeroCarte, Date dateExpiration, String codePin, CompteCourant compteCourant,
-			Boolean active, String plafondRetrait) {
+			Boolean active, double plafondRetrait) {
 		super(numeroCarte, codePin, active);
 		this.plafondRetrait = plafondRetrait;
 		this.dateExpiration = dateExpiration;
@@ -124,7 +124,7 @@ public class VisaPremium extends Carte implements Serializable {
 	/**
 	 * @return the plafondRetrait
 	 */
-	public String getPlafondRetrait() {
+	public double getPlafondRetrait() {
 		return plafondRetrait;
 	}
 
@@ -132,7 +132,7 @@ public class VisaPremium extends Carte implements Serializable {
 	 * @param plafondRetrait
 	 *            the plafondRetrait to set
 	 */
-	public void setPlafondRetrait(String plafondRetrait) {
+	public void setPlafondRetrait(double plafondRetrait) {
 		this.plafondRetrait = plafondRetrait;
 	}
 
