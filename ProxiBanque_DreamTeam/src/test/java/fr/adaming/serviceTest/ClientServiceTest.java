@@ -44,7 +44,7 @@
 //		System.out.println("-----------------------Après le test du Service Client------------------");
 //	}
 //
-<<<<<<< HEAD
+
 //	
 //	public void testGetClientById()
 //	{
@@ -72,10 +72,9 @@
 //	@Test
 //	public void testGetAllClientsByIdAgence() {
 //		List<Client> listeCl = clientService.getAllClientsByIdAgenceService(1);
-=======
+
 //	public void testGetAllClient() {
 //		List<Client> listeCl = clientService.getAllClientsService();
->>>>>>> branch 'master' of https://github.com/MAWAB/ProxiBanque.git
 //
 //		for (Client cl : listeCl) {
 //			System.out.println(cl.getNom());
