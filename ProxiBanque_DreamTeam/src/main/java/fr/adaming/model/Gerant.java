@@ -127,15 +127,20 @@ public class Gerant extends Conseiller implements Serializable {
 	public void setAgence(Agence agence) {
 		this.agence = agence;
 	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Gerant [numeroBureau=" + numeroBureau + ", listeConseillers=" + listeConseillers + ", agence=" + agence
-				+ ", nom=" + nom + ", prenom=" + prenom + ", dateDeNaissance=" + dateDeNaissance + ", adresse="
-				+ adresse + "]";
+				+ "]";
 	}
+	
+	
+
+	
+	
 	
 	
 

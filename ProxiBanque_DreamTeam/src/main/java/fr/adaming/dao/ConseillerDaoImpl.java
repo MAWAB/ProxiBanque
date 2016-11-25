@@ -61,20 +61,22 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	public Conseiller updateConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		String req = "UPDATE Conseiller c SET c.nom=:nom, c.prenom=:prenom, c.dateDeNaissance=:dN, c.adresse=:adresse, c.nomDuService=:serv, c.numeroImmatriculation=:imm, c.motDePasse=:mdp, c.gerant=:gerant WHERE c.idConseiller=:id";
+		String req = "SELECT c FROM Conseiller c WHERE c.idConseiller=:id";
 		Query query = em.createQuery(req);
 		query.setParameter("id", conseiller.getIdConseiller());
 		
 		Conseiller c = (Conseiller) query.getSingleResult();
 		
-		query.setParameter("nom", conseiller.getNom());
-		query.setParameter("prenom", conseiller.getPrenom());
-		query.setParameter("dN", conseiller.getDateDeNaissance());
-		query.setParameter("adresse", conseiller.getAdresse());
-		query.setParameter("serv", conseiller.getNomDuService());
-		query.setParameter("imm", conseiller.getNumeroImmatriculation());
-		query.setParameter("mdp", conseiller.getMotDePasse());
-		query.setParameter("gerant", conseiller.getGerant());
+		c.setNom(conseiller.getNom());
+		c.setPrenom(conseiller.getPrenom());
+		c.setDateDeNaissance(conseiller.getDateDeNaissance());
+		c.setAdresse(conseiller.getAdresse());
+		c.setNomDuService(conseiller.getNomDuService());
+		c.setNumeroImmatriculation(conseiller.getNumeroImmatriculation());
+		c.setMotDePasse(conseiller.getMotDePasse());
+		c.setGerant(conseiller.getGerant());
+		
+		
 		em.merge(c);
 		em.getTransaction().commit();
 		
