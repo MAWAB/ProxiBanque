@@ -34,7 +34,7 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	@Override
 	public List<Conseiller> getAllConseillerDao() {
 		EntityManager em = emf.createEntityManager();
-		String req = "SELECT c FROM Conseiller";
+		String req = "SELECT c FROM Conseiller c";
 		Query query = em.createQuery(req);
 
 		return query.getResultList();
