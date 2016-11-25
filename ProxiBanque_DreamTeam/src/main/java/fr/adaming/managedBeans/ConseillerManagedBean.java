@@ -53,6 +53,7 @@ public class ConseillerManagedBean {
 	}
 	public String navigationInformationclient()
 	{
+		System.out.println("navigation infor clients");
 		 FacesContext fc = FacesContext.getCurrentInstance();
 	      Map<String,String> params = 
 	      fc.getExternalContext().getRequestParameterMap();
@@ -77,23 +78,6 @@ public class ConseillerManagedBean {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	/**
 	 * @return the listeClients
 	 */
