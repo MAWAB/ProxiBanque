@@ -3,34 +3,35 @@
  */
 package fr.adaming.managedBeans;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import fr.adaming.model.Client;
-import fr.adaming.service.IConseillerService;
+import fr.adaming.model.Conseiller;
+import fr.adaming.service.IClientService;
 
 /**
  * @author inti0302
  *
  */
-@ManagedBean
+@ManagedBean(name="conseillerMB")
 @SessionScoped
 public class ConseillerManagedBean {
 	
-	IConseillerService conseillerService;
-
-	
+	@Qualifier("clientServiceImpl")
+	IClientService clientService;
+	private Conseiller conseillerLogged;
 	private List<Client> listeClients;
 	
 	@PostConstruct
 	public void init()
 	{
-		listeClients = new ArrayList<Client>();
-		
+		conseillerLogged = new Conseiller();
+		listeClients = clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
 	}
 	
 	
