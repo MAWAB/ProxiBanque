@@ -3,6 +3,7 @@ package fr.adaming.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -27,7 +28,7 @@ public abstract class Personne implements Serializable {
 	@Temporal(TemporalType.DATE)
 	protected Date dateDeNaissance;
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="idAdresse", referencedColumnName="idAdresse")
 	protected Adresse adresse;
 	
