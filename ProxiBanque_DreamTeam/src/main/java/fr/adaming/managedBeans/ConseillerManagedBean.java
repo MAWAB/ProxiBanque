@@ -6,13 +6,11 @@ package fr.adaming.managedBeans;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import fr.adaming.model.Client;
 import fr.adaming.model.Conseiller;
 import fr.adaming.service.IClientService;
@@ -21,13 +19,14 @@ import fr.adaming.service.IClientService;
  * @author inti0302
  *
  */
-@Controller("conseillerMB")
-@Scope("session")
+@ManagedBean(name="conseillerMB")
+@SessionScoped
 public class ConseillerManagedBean {
 	
-	@Autowired
-	@Qualifier("clientServiceImpl")
+	
+	@ManagedProperty(value="#{clientServiceImpl}")
 	IClientService clientService;
+	
 	private Conseiller conseillerLogged;
 	private List<Client> listeClients;
 	
@@ -46,7 +45,7 @@ public class ConseillerManagedBean {
 	}
 	
 	public String navigationAjoutClient(){
-		return null;
+		return "ajoutClient.xhtml";
 	}
 
 	

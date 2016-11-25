@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="UTF-8">
+	<title>Infos client</title>
+</h:head>
+<h:body>
+	<div align="center">
+		<h:panelGrid columns="2" style="width:100%"
+			columnClasses="logo,detail">
+			<f:facet name="header">Informations du client</f:facet>
+			<p:outputPanel>
+				<p:graphicImage name="images/connaissance-client.jpg" />
+			</p:outputPanel>
+
+			<p:outputPanel>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText value="Nom : " />
+					<h:outputText value="#{client.nom}" style="font-weight: bold" />
+
+					<h:outputText value="Prénom : " />
+					<h:outputText value="#{client.prenom}" style="font-weight: bold" />
+
+					<h:outputText value="Né le :" />
+					<h:outputText value="#{client.dateDeNaissance}"
+						style="font-weight: bold" />
+
+					<h:outputText value="Adresse :" />
+					<h:outputText value="#{client.adresse}" style="font-weight: bold" />
+
+					<h:outputText value="Téléphone :" />
+					<h:outputText value="#{client.telephone}" style="font-weight: bold" />
+
+					<h:outputText value="Numéro client :" />
+					<h:outputText value="#{client.numeroClient}"
+						style="font-weight: bold" />
+
+				</h:panelGrid>
+			</p:outputPanel>
+		</h:panelGrid>
+	</div>
+	<div align="center">
+		<h:panelGrid columns="2" style="width:100%">
+			<f:facet name="header">Comptes</f:facet>
+			<h:panelGrid columns="2" style="width:50%">
+				<f:facet name="header">Compte Courant</f:facet>
+				<h:outputText value="Numéro du compte : " />
+				<h:outputText value="#{client.compteCourant.numeroCompte}"
+					style="font-weight: bold" />
+				<h:outputText value="Date de création : " />
+				<h:outputText value="#{client.compteCourant.dateCreation}"
+					style="font-weight: bold" />
+				<h:outputText value="Solde : " />
+				<h:outputText value="#{client.compteCourant.sodle}"
+					style="font-weight: bold" />
+				<h:outputText value="Découvert : " />
+				<h:outputText value="#{client.compteCourant.decouvert}"
+					style="font-weight: bold" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2" style="width:50%">
+				<f:facet name="header">Compte Epargne</f:facet>
+				<h:outputText value="Numéro du compte : " />
+				<h:outputText value="#{client.compteEpargne.numeroCompte}"
+					style="font-weight: bold" />
+				<h:outputText value="Date de création : " />
+				<h:outputText value="#{client.compteEpargne.dateCreation}"
+					style="font-weight: bold" />
+				<h:outputText value="Solde : " />
+				<h:outputText value="#{client.compteEpargne.sodle}"
+					style="font-weight: bold" />
+				<h:outputText value="Découvert : " />
+				<h:outputText value="#{client.compteEpargne.tauxRenumeration}"
+					style="font-weight: bold" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</div>
+
+</h:body>
+</h:html>
+
+
+
+
+
