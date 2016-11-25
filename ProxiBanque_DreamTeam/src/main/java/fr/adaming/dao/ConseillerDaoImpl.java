@@ -54,7 +54,9 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	@Override
 	public void deleteConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
 		em.remove(conseiller);
+		em.getTransaction().commit();
 	}
 
 	@Override

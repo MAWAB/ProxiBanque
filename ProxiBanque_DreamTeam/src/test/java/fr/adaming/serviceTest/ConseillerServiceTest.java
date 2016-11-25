@@ -2,6 +2,7 @@
 //
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertNotNull;
+//import static org.junit.Assert.assertNull;
 //
 //import java.util.Date;
 //import java.util.List;
@@ -90,19 +91,31 @@
 ////		
 ////	}
 //	
+////	@Test
+////	public void updateConseiller() {
+////		
+////		Conseiller c = conseillerService.getConseillerByIdService(1);
+////		System.out.println("---------------------------Prenom avant update---------------------------");
+////		System.out.println(c.getPrenom());
+////		c.setPrenom("titi");
+////		
+////		conseillerService.updateConseillerService(c);
+////		System.out.println("-------------------------Prenom après update-------------------------");
+////		System.out.println(conseillerService.getConseillerByIdService(1).getPrenom());
+////		
+////		assertEquals(c.getPrenom(), "titi");
+////		
+////	}
+//	
 //	@Test
-//	public void updateConseiller() {
+//	public void deleteConseiller() {
 //		
 //		Conseiller c = conseillerService.getConseillerByIdService(1);
-//		System.out.println("---------------------------Prenom avant update---------------------------");
-//		System.out.println(c.getPrenom());
-//		c.setPrenom("titi");
+//		conseillerService.deleteConseillerService(c);
 //		
-//		conseillerService.updateConseillerService(c);
-//		System.out.println("-------------------------Prenom après update-------------------------");
-//		System.out.println(conseillerService.getConseillerByIdService(1).getPrenom());
-//		
-//		assertEquals(c.getPrenom(), "titi");
+//		Conseiller c2 = conseillerService.getConseillerByIdService(1);
+//		System.out.println(c2.getNom());
+//		assertNull(c2);
 //		
 //	}
 //	
