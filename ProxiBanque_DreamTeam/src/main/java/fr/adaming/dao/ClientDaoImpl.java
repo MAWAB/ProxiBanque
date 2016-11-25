@@ -39,8 +39,11 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public void addClient(Client client) {
+		System.out.println("OK1");
 		EntityManager em = emf.createEntityManager();
+		System.out.println("OK2");
 		em.persist(client);
+		System.out.println("OK3");
 	}
 
 	/*

@@ -98,50 +98,49 @@
 //	// clientDao.addClient(cl);
 //	// }
 //
-//	@Test
-//	public void testGetAllClient(){
+//	public void testGetAllClient() {
 //		List<Client> listeCl = clientService.getAllClientsService();
-//		
-//		for (Client cl : listeCl){
+//
+//		for (Client cl : listeCl) {
 //			System.out.println(cl.getNom());
 //		}
 //	}
-//	
-////	@Test
-////	public void testAjouterClientService() {
-////
-////		Date date = new Date(1988 + 1900, 11, 7);
-////		Date dateCons = new Date(1970 + 1900, 02, 11);
-////		Date dateGer = new Date(1970 + 1900, 11, 23);
-////		Date dateAg = new Date(2016 + 1900, 11, 22);
-////		Adresse adresse = new Adresse("Scorff", 44000, "Orvault");
-////		Adresse adresseCons = new Adresse(1, "Remy", 33000, "Bordeaux");
-////		Adresse adresseGer = new Adresse(2, "Fleurus", 47000, "Agen");
-////		List<Client> listeCl = null;
-////		List<Conseiller> listeCons = new ArrayList<Conseiller>();
-////
-////		Agence agence = null;
-////		Gerant gerant = null;
-////		gerant = new Gerant("Gerant", "gerant", dateGer, adresseGer, 2, "direction", "111111", "ger", gerant, listeCl,
-////				"1", listeCons, agence);
-////		agence = new Agence(1, "Nantes", dateAg, gerant, "1");
-////
-////		gerant.setGerant(gerant);
-////		gerant.setAgence(agence);
-////
-////		Conseiller conseiller = new Conseiller("Toto", "toto", dateCons, adresseCons, 1, "compta", "123456", "toto",
-////				gerant, listeCl);
-////		listeCons.add(conseiller);
-////
-////		gerant.setListeConseillers(listeCons);
-////
-////		CompteCourant cptC = null;
-////		CompteEpargne cptE = null;
-////
-////		Client cl = new Client("Soule", "Benjamin", date, adresse, 123, "0553474147", conseiller, cptE, cptC);
-////
-////		// assertEquals(1, clientService.addClientService(cl));
-////		clientService.addClientService(cl);
-////	}
+//
+//	@Test
+//	public void testAjouterClientService() {
+//
+//		Date date = new Date(1988 + 1900, 11, 7);
+//		Date dateCons = new Date(1970 + 1900, 02, 11);
+//		Date dateGer = new Date(1970 + 1900, 11, 23);
+//		Date dateAg = new Date(2016 + 1900, 11, 22);
+//		Adresse adresse = new Adresse("Scorff", 44000, "Orvault");
+//		Adresse adresseCons = new Adresse(1, "Remy", 33000, "Bordeaux");
+//		Adresse adresseGer = new Adresse(2, "Fleurus", 47000, "Agen");
+//		List<Client> listeCl = null;
+//		List<Conseiller> listeCons = new ArrayList<Conseiller>();
+//
+//		Agence agence = null;
+//		Gerant gerant = null;
+//		gerant = new Gerant("Gerant", "gerant", dateGer, adresseGer, 2, "direction", "111111", "ger", gerant, listeCl,
+//				"1", listeCons, agence);
+//		agence = new Agence(1, "Nantes", dateAg, gerant, "1");
+//
+//		gerant.setGerant(gerant);
+//		gerant.setAgence(agence);
+//
+//		Conseiller conseiller = new Conseiller("Toto", "toto", dateCons, adresseCons, 1, "compta", "123456", "toto",
+//				gerant, listeCl);
+//		listeCons.add(conseiller);
+//
+//		gerant.setListeConseillers(listeCons);
+//
+//		CompteCourant cptC = null;
+//		CompteEpargne cptE = null;
+//
+//		Client cl = new Client("Soule", "Toto", date, adresse, 123, "0553474147", conseiller, cptE, cptC);
+//
+//		// assertEquals(1, clientService.addClientService(cl));
+//		clientService.addClientService(cl);
+//	}
 //
 //}
