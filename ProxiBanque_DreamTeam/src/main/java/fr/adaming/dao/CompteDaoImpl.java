@@ -28,46 +28,6 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 	}
 	
 	
-/*
-	@Override
-	public List<C> getAllCompteCourantDao() {
-		
-		EntityManager em = emf.createEntityManager();
-		
-		try {
-			String req = "SELECT * FROM CompteCourant cmpC";
-			Query query = em.createQuery(req);
-
-			@SuppressWarnings("unchecked")
-			List<CompteCourant> listeCompteC = query.getResultList();
-			return (List<C>) listeCompteC;
-			
-		} catch (NullPointerException | IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	@Override
-	public List<C> getAllCompteEpargneDao() {
-		
-		EntityManager em = emf.createEntityManager();
-		
-		try {
-			String req = "SELECT * FROM CompteEpargne cmpC";
-			Query query = em.createQuery(req);
-
-			@SuppressWarnings("unchecked")
-			List<CompteEpargne> listeCompteE = query.getResultList();
-			return (List<C>) listeCompteE;
-			
-		} catch (NullPointerException | IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	*/
-
 	@Override
 	public C getCompteByIdDao(C compte) {
 		EntityManager em = emf.createEntityManager();
@@ -104,7 +64,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 	}
 
 	@Override
-	public List<C> getComptesCourantByIdClientDao(int id) {
+	public C getComptesCourantByIdClientDao(int id) {
 		EntityManager em = emf.createEntityManager();
 						
 		try {
@@ -112,7 +72,43 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 			Query query = em.createQuery(req);
 			query.setParameter("cl_id", id);
 	
-			@SuppressWarnings("unchecked")
+			CompteCourant cmp = (CompteCourant) query.getSingleResult();
+			return (C) cmp;
+		} catch (NullPointerException | IllegalArgumentException e) {
+			e.printStackTrace();
+		}		
+		return null;
+	}
+	
+	@Override
+	public C getComptesEpargneByIdClientDao(int id) {
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			String req = "SELECT * FROM CompteEpargne cmp WHERE cmp.client.idClient=:cl_id";
+			Query query = em.createQuery(req);
+			query.setParameter("cl_id", id);
+	
+			CompteCourant cmp = (CompteCourant) query.getSingleResult();
+			return (C) cmp;
+		} catch (NullPointerException | IllegalArgumentException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<C> getComptesCourantByIdAgenceDao(int id) {
+		EntityManager em = emf.createEntityManager();
+						
+		try {
+			String req = "SELECT * FROM CompteCourant cmp WHERE cmp.client.conseiller.gerant.agence.idAgence.=:ag_id";
+			Query query = em.createQuery(req);
+			query.setParameter("ag_id", id);
+	
 			List<CompteCourant> listeCompteC = query.getResultList();
 			return (List<C>) listeCompteC;
 		} catch (NullPointerException | IllegalArgumentException e) {
@@ -121,16 +117,16 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<C> getComptesEpargneByIdClientDao(int id) {
+	public List<C> getComptesEpargneByIdAgenceDao(int id) {
 		EntityManager em = emf.createEntityManager();
 		
 		try {
-			String req = "SELECT * FROM CompteEpargne cmp WHERE cmp.client.idClient=:cl_id";
+			String req = "SELECT * FROM CompteCourant cmp WHERE cmp.client.conseiller.gerant.agence.idAgence.=:ag_id";
 			Query query = em.createQuery(req);
 			query.setParameter("cl_id", id);
-	
-			@SuppressWarnings("unchecked")
+				
 			List<CompteEpargne> listeCompteE = query.getResultList();
 			return (List<C>) listeCompteE;
 		} catch (NullPointerException | IllegalArgumentException e) {

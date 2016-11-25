@@ -6,13 +6,15 @@ import fr.adaming.model.Compte;
 
 public interface ICompteService <C extends Compte> {
 	
-	public List<C> getAllCompteCourantService();
+	public C getCompteByIdService(C compte);
 	
-	public List<C> getAllCompteEpargneService();
+	public C getComptesCourantByIdClientService(int id);
 	
-	public C getCompteByIdService(int id_cn);
-
-	public List<C> getComptesByIdClientService(int id_client);
+	public C getComptesEpargneByIdClientService(int id);
+	
+	public List<C> getComptesCourantByIdAgenceService(int id);
+	
+	public List<C> getComptesEpargneByIdAgenceService(int id);
 	
 	
 	public void ajouterCompteService(C  compte);

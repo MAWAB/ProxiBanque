@@ -6,13 +6,15 @@ import fr.adaming.model.Compte;
 
 public interface ICompteDao <C extends Compte> {
 	
-	public List<C> getAllCompteCourantDao();
+	public C getCompteByIdDao(C compte);
 	
-	public List<C> getAllCompteEpargneDao();
+	public C getComptesCourantByIdClientDao(int id);
 	
-	public C getCompteByIdDao(int id_cn);
-
-	public List<C> getComptesByIdClientDao(int id_client);
+	public C getComptesEpargneByIdClientDao(int id);
+	
+	public List<C> getComptesCourantByIdAgenceDao(int id);
+	
+	public List<C> getComptesEpargneByIdAgenceDao(int id);
 	
 	
 	public void ajouterCompteDao(C  compte);

@@ -22,27 +22,39 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 		this.compteDao = compteDao;
 	}
 
-	
-	
-	@Override
-	public List<C> getAllCompteCourantService() {
-		return compteDao.getAllCompteCourantDao();
-	}
-	
-	@Override
-	public List<C> getAllCompteEpargneService() {
-		return compteDao.getAllCompteEpargneDao();
-	}
+		
+
 
 	@Override
-	public C getCompteByIdService(int id_cn) {
-		return (C) compteDao.getCompteByIdDao(id_cn);
+	public C getCompteByIdService(C compte) {		
+		return (C) compteDao.getCompteByIdDao(compte);
 	}
 
+
 	@Override
-	public List<C> getComptesByIdClientService(int id_client) {
-		return compteDao.getComptesByIdClientDao(id_client);
+	public C getComptesCourantByIdClientService(int id) {
+		return (C) compteDao.getComptesCourantByIdClientDao(id);
 	}
+
+
+	@Override
+	public C getComptesEpargneByIdClientService(int id) {
+		return (C) compteDao.getComptesEpargneByIdClientDao(id);
+	}
+
+
+	@Override
+	public List<C> getComptesCourantByIdAgenceService(int id) {
+		return compteDao.getComptesCourantByIdAgenceDao(id);
+	}
+
+
+	@Override
+	public List<C> getComptesEpargneByIdAgenceService(int id) {
+		return compteDao.getComptesEpargneByIdAgenceDao(id);
+	}
+	
+	
 
 	@Override
 	public void ajouterCompteService(C compte) {
@@ -81,6 +93,5 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 		compteDao.depotDao(compte, somme);
 		
 	}
-
 
 }
