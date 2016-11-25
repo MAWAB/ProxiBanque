@@ -6,7 +6,9 @@
 //import java.util.Date;
 //import java.util.List;
 //
-//import org.junit.*;
+//import org.junit.AfterClass;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.test.context.ContextConfiguration;
@@ -62,7 +64,9 @@
 //		Conseiller cons = conseillerService.addConseillerService(conseiller);
 //		
 //		assertEquals(conseiller.getNom(), cons.getNom());
+//
 //	}
+//
 //	
 //	@Test
 //	public void getAllConseiller() {

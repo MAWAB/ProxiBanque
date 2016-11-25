@@ -35,7 +35,7 @@ public class ConseillerServiceImpl implements IConseillerService {
 
 	@Override
 	public Conseiller addConseillerService(Conseiller conseiller) {
-
+		System.out.println("-----------------Add ConseillerServiceImpl------------------");
 		return conseillerDao.addConseillerDao(conseiller);
 	}
 
