@@ -55,10 +55,10 @@
 //		List<Client> clientList = null;
 //		List<Conseiller> conseillerList = null;
 //		
-//		Adresse adresse1 = new Adresse(1, "rue", 44, "Nantes");
+//		Adresse adresse1 = new Adresse(1, "rue", 44, "nantes");
 //		Adresse adresse2 = new Adresse(2, "rue", 53, "evron");
 //		agence = new Agence(1, "agence", dateAgence, gerant, "123");
-//		gerant = new Gerant("toto", "titi", dNGerant, adresse1, 1, "service", "immat", "password", gerant, clientList, "bureau", conseillerList, agence);
+//		gerant = new Gerant("toto", "toto", dNGerant, adresse1, 1, "service", "immat", "password", gerant, clientList, "bureau", conseillerList, agence);
 //		Conseiller conseiller = new Conseiller("tutu", "tata", dNConseiller, adresse2, "service", "immat", "mdp", gerant, clientList);
 //		
 //		Conseiller cons = conseillerService.addConseillerService(conseiller);
@@ -68,13 +68,13 @@
 //	}
 //
 //	
-//	@Test
-//	public void getAllConseiller() {
-//		System.out.println("----------------------Méthode allConseillers---------------------");
-//		List<Conseiller> liste = conseillerService.getAllConseillerService();
-//		
-//		assertNotNull(liste.size());
-//		
-//	}
+////	@Test
+////	public void getAllConseiller() {
+////		System.out.println("----------------------Méthode allConseillers---------------------");
+////		List<Conseiller> liste = conseillerService.getAllConseillerService();
+////		
+////		assertNotNull(liste.size());
+////		
+////	}
 //	
 //}

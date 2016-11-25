@@ -43,8 +43,15 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	@Override
 	public Conseiller addConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		System.out.println("-------------------Conseiller avant persist--------------------------");
+		System.out.println(conseiller);
 		em.persist(conseiller);
-
+		
+		
+		System.out.println("------------------Conseiller après persist--------------------------");
+		System.out.println(conseiller);
+		em.getTransaction().commit();
 		return conseiller;
 	}
 
