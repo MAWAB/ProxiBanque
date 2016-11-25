@@ -97,7 +97,7 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> getAllClients() {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl";
+			String req = "SELECT cl FROM Client cl";
 			Query query = em.createQuery(req);
 
 			@SuppressWarnings("unchecked")
@@ -118,7 +118,7 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> getAllClientsByIdConseiller(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl WHERE cl.conseiller.idConseiller=:aId";
+			String req = "SELECT cl FROM Client cl WHERE cl.conseiller.idConseiller=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
@@ -140,7 +140,7 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> getAllClientsByIdAgence(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl WHERE cl.conseiller.gerant.agence.idAgence=:aId";
+			String req = "SELECT cl FROM Client cl WHERE cl.conseiller.gerant.agence.idAgence=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
@@ -162,7 +162,7 @@ public class ClientDaoImpl implements IClientDao {
 	public Client getClientById(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT * FROM Client cl WHERE cl.idClient=:aId";
+			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
