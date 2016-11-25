@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+
+	<h1>Accueil Gerant</h1>
+
+	<h:form>
+		<p:breadCrumb>
+			<p:menuitem value="accueilGerant" action="#" />
+			<p:menuitem value="#{gerantMB.getConseillerById()}"
+				url="getConseiller.xhtml" />
+			<p:menuitem value="#{gerantMB.ajouterConseiller()}"
+				url="ajouterConseiller.xhtml" />
+			<p:menuitem value="#{gerantMB.modifierConseiller()}"
+				url="modifierConseiller.xhtml" />
+			<p:menuitem value="#{gerantMB.supprimerConseiller()}"
+				url="supprimerConseiller.xhtml" />
+			<p:menuitem value="#{gerantMB.getClientById()}" url="getClient.xhtml" />
+			<p:menuitem value="#{gerantMB.ajouterClient()}"
+				url="ajouterClient.xhtml" />
+			<p:menuitem value="#{gerantMB.modifierClient()}"
+				url="modifierClient.xhtml" />
+			<p:menuitem value="#{gerantMB.supprimerClient()}"
+				url="supprimerClient.xhtml" />
+		</p:breadCrumb>
+	</h:form>
+
+
+
+	<h:form id="EditConseiller">
+		<p:spacer height="10" />
+
+		<p:separator />
+		<h2 style="color: red">ConseillerList</h2>
+		<p:dataTable id="DTP" var="conseiller"
+			value="#{gerantMB.listeConseiller}" style="text-align:center"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+			paginator="true" rows="5">
+
+			<p:column headerText="id">
+				<h:outputText value="#{conseiller.idConseiller}" />
+			</p:column>
+
+			<p:column headerText="nom">
+				<h:outputText value="" />
+				<p:inplace id="nomConseiller" editor="true">
+					<p:inputText id="nomDT" value="#{conseiller.nom}" required="true"
+						label="Nom" />
+				</p:inplace>
+				<p:message for="nomDT" style="color:red" />
+			</p:column>
+
+			<p:column headerText="prenom">
+				<h:outputText value="" />
+				<p:inplace id="prenomConseiller" editor="true">
+					<p:inputText id="prenomDT" value="#{conseiller.prenom}"
+						required="true" label="Prenom">
+						<p:message for="prenomDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+			
+			<p:column headerText="adresse">
+				<h:outputText value="" />
+				<p:inplace id="adresseConseiller" editor="true">
+					<p:inputText id="adresseDT" value="#{conseiller.adresse}"
+						required="true" label="Adresse">
+						<p:message for="adresseDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+			
+			<p:column headerText="dateDeNaissance">
+				<h:outputText value="" />
+				<p:inplace id="dnConseiller" editor="true">
+					<p:inputText id="dnDT" value="#{conseiller.dateDeNaissance}"
+						required="true" label="dateDeNaissance">
+						<f:convertDateTime pattern="MM/dd/yyyy" />
+						<p:message for="prenomDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+			
+			<p:column headerText="Immatriculation">
+				<h:outputText value="" />
+				<p:inplace id="immatriculationConseiller" editor="true">
+					<p:inputText id="immatriculationDT" value="#{conseiller.Immatriculation}"
+						required="true" label="Immatriculation">
+						<p:message for="immatriculationDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+
+			<p:column headerText="Edition">
+
+				<p:commandButton update="DT"
+					action="#{gerantMB.supprimerConseiller()}" icon="ui-icon-close">
+					<f:setPropertyActionListener target="#{gerantMB.conseiller}"
+						value="#{cons}" />
+				</p:commandButton>
+				<p:commandButton update="DT"
+					action="#{gerantMB.modifierConseiller()}" icon="ui-icon-disk">
+					<f:setPropertyActionListener target="#{gerantMB.conseiller}"
+						value="#{cons}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<br />
+	<br />
+	<h:form>
+		<h:commandButton value="deconnexion"
+			action="#{gestioMB.seDeconnecter}"></h:commandButton>
+	</h:form>
+
+</h:body>
+
+</html>

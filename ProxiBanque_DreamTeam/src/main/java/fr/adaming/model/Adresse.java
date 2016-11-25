@@ -29,8 +29,6 @@ public class Adresse implements Serializable {
 	private int codePostal;
 	private String ville;
 
-	@OneToOne(mappedBy="adresse", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	private Personne personne;
 
 	/* constructeurs -------------------------------------------------------------------------------------------- */
 
