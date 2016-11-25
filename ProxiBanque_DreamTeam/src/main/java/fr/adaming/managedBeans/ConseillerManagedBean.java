@@ -39,7 +39,10 @@ public class ConseillerManagedBean {
 	{
 		
 	}
-	
+	public void methodeTemporaire()
+	{
+		
+	}
 	
 	
 	
