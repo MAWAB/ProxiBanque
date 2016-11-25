@@ -36,19 +36,27 @@ public class ConseillerManagedBean {
 	{
 		conseillerLogged = new Conseiller();
 		conseillerLogged.setIdConseiller(1);
+		conseillerLogged.setPrenom(" Mr. Picsou");
 		listeClients = clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
 	}
-	
 	
 	public ConseillerManagedBean()
 	{
 		
 	}
-	public void methodeTemporaire()
-	{
-		
-	}
 	
+	public String navigationAjoutClient(){
+		return null;
+	}
+
+	
+	public String navigationModificationClient(){
+		return null;
+	}
+
+	public String navigationSuppressionClient(){
+		return null;
+	}
 	
 	
 	
