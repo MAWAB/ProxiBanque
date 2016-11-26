@@ -65,8 +65,7 @@ public class ConseillerManagedBean {
 	public void creationMenuSelectionClientAModifier() {
 		System.out.println("creation menu liste");
 		menulisteClientAModifier = new DefaultMenuModel();
-		DefaultSubMenu submenu = new DefaultSubMenu(
-				"Sélection du compte source");
+		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du client");
 		DefaultMenuItem item;
 
 		for (int i = 0; i < listeClients.size(); i++) {
@@ -117,6 +116,7 @@ public class ConseillerManagedBean {
 	public String supprimerClient()
 	{
 		clientService.deleteClientService(clientAManipuler.getIdClient());
+		listeClients=clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
 		return "accueilConseiller";
 	}
 	
@@ -153,11 +153,14 @@ public class ConseillerManagedBean {
 	}
 
 	public String navigationModificationClient() {
+		clientAManipuler = new Client();
 		creationMenuSelectionClientAModifier();
 		return "modifClient";
 	}
 
 	public String navigationSuppressionClient() {
+		clientAManipuler = new Client();
+		creationMenuSelectionClientAModifier();
 		return "suppClient";
 	}
 

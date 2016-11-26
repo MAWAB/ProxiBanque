@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Ajout client</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<h:commandButton value="retour à l'accueil"
+			action="#{conseillerMB.navigationVersAccueil}" />
+	</h:form>
+	<h:form id="id_selectionClientAModifier">
+		<p:growl id="id_selectionClientAModifier" />
+		<p:menubar model="#{conseillerMB.menulisteClientAModifier}" />
+	</h:form>
+	
+	<div align="center">
+		<p:panel id="panel" header="Supprimmer client"
+			style="margin-bottom:10px;">
+			<h:panelGrid columns="2">
+				<h:form>
+					<h:outputText value="client à supprimer :" >  </h:outputText>
+					<h:outputText value="#{conseillerMB.clientAManipuler.nom}">
+					</h:outputText>
+					<h:outputText value="#{conseillerMB.clientAManipuler.prenom}">
+					</h:outputText>
+					<h:commandButton value="Supprimer"
+						action="#{conseillerMB.supprimerClient}"></h:commandButton>
+				</h:form>
+			</h:panelGrid>
+
+			<br></br>
+
+
+		</p:panel>
+	</div>
+</h:body>
+</h:html>
+
+
+
+
+
