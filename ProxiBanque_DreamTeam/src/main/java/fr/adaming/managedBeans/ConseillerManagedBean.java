@@ -58,11 +58,13 @@ public class ConseillerManagedBean {
 	
 	public void ajouterClient()
 	{
+		clientAManipuler.setConseiller(conseillerLogged);
 		clientService.addClientService(clientAManipuler);
 	}
 	
 	public void modifierClient()
 	{
+		clientAManipuler.setConseiller(conseillerLogged);
 		clientService.updateClientService(clientAManipuler);
 	}
 	
@@ -85,7 +87,8 @@ public class ConseillerManagedBean {
 	}
 	
 	public String navigationVersAjoutClient() {
-		System.out.println("navigation vers la page ajout");
+		clientAManipuler = new Client();
+		
 		if (listeClients.size() < 10)
 			return "ajoutClient";
 		else
@@ -98,12 +101,13 @@ public class ConseillerManagedBean {
 
 	public String navigationVersAccueil() {
 		
+		clientAManipuler = new Client();
 			return "accueilConseiller";
 		
 	}
 
 	public String navigationModificationClient() {
-		return null;
+		return "suppClient";
 	}
 
 	public String navigationSuppressionClient() {
