@@ -13,22 +13,13 @@
 </h:head>
 <h:body>
 	<h:form>
-		<p:growl id="messages" showDetail="true" />
+		<h:commandButton value="nouveau client"
+			action="#{conseillerMB.navigationVersAjoutClient}" />
+		<h:commandButton value="modifier client" action="modifClient" />
+		<h:commandButton value="supprimer client" action="suppClient" />
 
-		<p:toolbar>
-			<f:facet name="left">
-				<h:commandButton type="button" value="nouveau client" 
-					icon="ui-icon-document" />
-				<h:commandButton type="button" value="modifier client"
-					icon="ui-icon-folder-open" />
-				<span class="ui-separator"> <span
-					class="ui-icon ui-icon-grip-dotted-vertical" />
-				</span>
-				<p:commandButton type="button" title="supprimer client"
-					icon="ui-icon-disk" />
-			</f:facet>
-		</p:toolbar>
 	</h:form>
+
 
 	<div align="center">
 		<h1>Liste des clients traités par
@@ -52,13 +43,26 @@
 				<h:outputText value="#{client.dateDeNaissance}" />
 			</p:column>
 			<p:column headerText="Informations bancaires">
-				<h:commandButton value="informations bancaires" action="#{conseillerMB.nav}">
+				<h:commandButton value="informations bancaires"
+					action="#{conseillerMB.navigationInformationclient}">
 					<f:param name="id_client" value="#{client.idClient}" />
 				</h:commandButton>
 			</p:column>
+
 		</p:dataTable>
 
 	</div>
+	<p:dialog header="Impossible d'ajouter un client"
+		widgetVar="dialEchecAjoutClient" minHeight="40">
+		<h:form>
+			<h:outputText value="Vous suivez d'ores et déjà 10 clients" />
+			<br />
+
+			<h:commandButton type="submit" value="Ok"
+				oncomplete="PF('dialEchecAjoutClientS').hide();">
+			</h:commandButton>
+		</h:form>
+	</p:dialog>
 </h:body>
 </h:html>
 

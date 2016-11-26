@@ -105,6 +105,7 @@ public class Client extends Personne implements Serializable {
 	 */
 	public Client() {
 		super();
+		adresse=new Adresse();
 	}
 
 	/**
