@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Ajout client</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<h:commandButton value="retour à l'accueil"
+			action="#{conseillerMB.navigationVersAccueil}" />
+	</h:form>
+	<h:form id="id_selectionClientAModifier">
+		<p:growl id="id_selectionClientAModifier" />
+		<p:menubar model="#{conseillerMB.menulisteClientAModifier}" />
+	</h:form>
+	
+	<div align="center">
+		<p:panel id="panel" header="Modifier client"
+			style="margin-bottom:10px;">
+
+
+			<h:panelGrid columns="2">
+
+
+				<h:form>
+					<p:outputLabel for="nom" value="Nom : " />
+					<p:inputText id="nom" value="#{conseillerMB.clientAManipuler.nom}"
+						required="true" />
+
+					<p:outputLabel for="prenom" value="Prenom : " />
+					<p:inputText id="prenom"
+						value="#{conseillerMB.clientAManipuler.prenom}" required="true" />
+
+
+					<p:outputLabel for="dateDeNaissance" value="Date de naissance : " />
+					<p:inputText id="dateDeNaissance" type="date"
+						value="#{conseillerMB.clientAManipuler.dateDeNaissance}"
+						required="true">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</p:inputText>
+
+					<p:outputLabel for="telephone" value="Téléphone  : " />
+					<p:inputText id="telephone"
+						value="#{conseillerMB.clientAManipuler.telephone}" required="true" />
+
+					<p:outputLabel for="rue" value="Rue : " />
+					<p:inputText id="rue"
+						value="#{conseillerMB.clientAManipuler.adresse.rue}"
+						required="true" />
+
+					<p:outputLabel for="ville" value="Ville : " />
+					<p:inputText id="ville"
+						value="#{conseillerMB.clientAManipuler.adresse.ville}"
+						required="true" />
+
+
+					<p:outputLabel for="codePostale" value="CodePostale : " />
+					<p:inputText id="codePostale"
+						value="#{conseillerMB.clientAManipuler.adresse.codePostal}"
+						required="true" />
+
+
+					<h:commandButton value="Valider"
+						action="#{conseillerMB.modifierClient}"></h:commandButton>
+				</h:form>
+			</h:panelGrid>
+
+			<br></br>
+
+
+		</p:panel>
+	</div>
+</h:body>
+</h:html>
+
+
+
+
+

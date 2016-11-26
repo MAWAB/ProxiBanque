@@ -15,8 +15,8 @@
 	<h:form>
 		<h:commandButton value="nouveau client"
 			action="#{conseillerMB.navigationVersAjoutClient}" />
-		<h:commandButton value="modifier client" action="modifClient" />
-		<h:commandButton value="supprimer client" action="suppClient" />
+		<h:commandButton value="modifier client" action="#{conseillerMB.navigationModificationClient}" />
+		<h:commandButton value="supprimer client" action="#{conseillerMB.navigationSuppressionClient}" />
 
 	</h:form>
 
