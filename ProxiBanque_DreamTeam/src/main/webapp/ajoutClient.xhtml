@@ -12,20 +12,52 @@
 	<title>Ajout client</title>
 </h:head>
 <h:body>
-	<h:form>
-		<p:growl id="messages" showDetail="true" />
 
-		<p:toolbar>
-			<f:facet name="left">
-				<p:commandButton type="button" value="retour liste utilisateur"
-					icon="ui-icon-document" />
-				
-			</f:facet>
-		</p:toolbar>
+	<h:form>
+		<h:commandButton value="retour à l'accueil" action="#{conseillerMB.navigationVersAccueil}"/>	
 	</h:form>
 
 	<div align="center">
+		<h:form>
+			<h:panelGrid columns="2">
 
+				<p:outputLabel for="nom" value="Nom : " />
+				<p:inputText id="nom"
+					value="#{conseillerMB.clientAManipuler.nom}" required="true" />
+
+				<p:outputLabel for="prenom" value="Prenom : " />
+				<p:inputText id="prenom" value="#{conseillerMB.clientAManipuler.prenom}"
+					required="true" />
+					
+					
+					<p:outputLabel for="dateDeNaissance" value="Date de naissance : " />
+				<p:inputText id="dateDeNaissance"
+					value="#{conseillerMB.clientAManipuler.dateDeNaissance}" required="true" />
+
+				<p:outputLabel for="telephone" value="Téléphone  : " />
+				<p:inputText id="telephone" value="#{conseillerMB.clientAManipuler.telephone}"
+					required="true" />
+					
+					<p:outputLabel for="rue" value="Rue : " />
+				<p:inputText id="rue" value="#{conseillerMB.clientAManipuler.adresse.rue}"
+					required="true" />
+					
+					<p:outputLabel for="ville" value="Ville : " />
+				<p:inputText id="ville"
+					value="#{conseillerMB.clientAManipuler.adresse.ville}" required="true" />
+					
+					
+					<p:outputLabel for="codePostale" value="CodePostale : " />
+				<p:inputText id="codePostale"
+					value="#{conseillerMB.clientAManipuler.adresse.codePostal}" required="true" />
+
+			
+			</h:panelGrid>
+
+			<br></br>
+			<h:commandButton value="Valider"
+				action="#{conseillerMB.ajouterClient}"></h:commandButton>
+		</h:form>
 
 	</div>
 </h:body>
