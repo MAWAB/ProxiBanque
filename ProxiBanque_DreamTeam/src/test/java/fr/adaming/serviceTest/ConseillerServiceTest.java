@@ -91,32 +91,45 @@
 ////		
 ////	}
 //	
+//	@Test
+//	public void updateConseiller() {
+//		
+//		Conseiller c = conseillerService.getConseillerByIdService(1);
+//		System.out.println("---------------------------Prenom avant update---------------------------");
+//		System.out.println(c.getPrenom());
+//		c.setPrenom("titi");
+//		
+//		conseillerService.updateConseillerService(c);
+//		System.out.println("-------------------------Prenom après update-------------------------");
+//		System.out.println(conseillerService.getConseillerByIdService(1).getPrenom());
+//		
+//		assertEquals(c.getPrenom(), "titi");
+//		
+//	}
+//	
 ////	@Test
-////	public void updateConseiller() {
+////	public void deleteConseiller() {
 ////		
-////		Conseiller c = conseillerService.getConseillerByIdService(1);
-////		System.out.println("---------------------------Prenom avant update---------------------------");
-////		System.out.println(c.getPrenom());
-////		c.setPrenom("titi");
+////		Conseiller c = conseillerService.getConseillerByIdService(2);
+////		conseillerService.deleteConseillerService(c);
 ////		
-////		conseillerService.updateConseillerService(c);
-////		System.out.println("-------------------------Prenom après update-------------------------");
-////		System.out.println(conseillerService.getConseillerByIdService(1).getPrenom());
-////		
-////		assertEquals(c.getPrenom(), "titi");
+////		Conseiller c2 = conseillerService.getConseillerByIdService(2);
+////		System.out.println(c2.getNom());
+////		assertNull(c2);
 ////		
 ////	}
 //	
-//	@Test
-//	public void deleteConseiller() {
-//		
-//		Conseiller c = conseillerService.getConseillerByIdService(1);
-//		conseillerService.deleteConseillerService(c);
-//		
-//		Conseiller c2 = conseillerService.getConseillerByIdService(1);
-//		System.out.println(c2.getNom());
-//		assertNull(c2);
-//		
-//	}
+////	@Test
+////	public void getConseillersByAgence() {
+////		
+////		List<Conseiller> liste = conseillerService.getConseillerByAgenceService(1);
+////		
+////		for (Conseiller c:liste) {
+////			System.out.println(c.getNom());
+////		}
+////		
+////		assertEquals(liste.size(), 2);
+////		
+////	}
 //	
 //}

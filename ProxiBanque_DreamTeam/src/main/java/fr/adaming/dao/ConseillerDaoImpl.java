@@ -55,7 +55,7 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	public void deleteConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		em.remove(conseiller);
+		em.remove(em.getReference(Conseiller.class, conseiller.getIdConseiller()));
 		em.getTransaction().commit();
 	}
 
@@ -70,7 +70,7 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		query.setParameter("id", conseiller.getIdConseiller());
 		
 		Conseiller c = (Conseiller) query.getSingleResult();
-		System.out.println(c.getPrenom());
+		System.out.println("--------------Avant set-----------------"+c.getPrenom());
 		
 		c.setNom(conseiller.getNom());
 		c.setPrenom(conseiller.getPrenom());
@@ -82,8 +82,9 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		c.setGerant(conseiller.getGerant());
 		c.setListeClients(conseiller.getListeClients());
 		
-		System.out.println(c.getPrenom());
+		System.out.println("------------Après set--------------"+c.getPrenom());
 		em.detach(c);
+		System.out.println("------------Detach-------------");
 		em.merge(c);
 		System.out.println("-----------------merge----------------");
 		em.getTransaction().commit();
@@ -97,7 +98,7 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	public List<Conseiller> getConseillerByAgenceDao(int id) {
 
 		EntityManager em = emf.createEntityManager();
-		String req = "SELECT c FROM Conseiller WHERE c.gerant.agence.idAgence=:id";
+		String req = "SELECT c FROM Conseiller c WHERE c.gerant.agence.idAgence=:id";
 		Query query = em.createQuery(req);
 		query.setParameter("id", id);
 		
