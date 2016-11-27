@@ -83,7 +83,7 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		c.setMotDePasse(conseiller.getMotDePasse());
 		//c.setGerant(conseiller.getGerant());
 		//c.setListeClients(conseiller.getListeClients());
-		
+		 
 		em.detach(c);
 		em.merge(c);
 		em.getTransaction().commit();
