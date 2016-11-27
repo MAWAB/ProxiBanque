@@ -38,7 +38,7 @@ public class ConseillerServiceImpl implements IConseillerService {
 
 	@Override
 	public Conseiller addConseillerService(Conseiller conseiller) {
-		System.out.println("-----------------Add ConseillerServiceImpl------------------");
+		
 		return conseillerDao.addConseillerDao(conseiller);
 	}
 
@@ -51,6 +51,7 @@ public class ConseillerServiceImpl implements IConseillerService {
 
 		if (nb == 0) { // S'il n'y a pas de client, pas de soucis pour supprimer
 
+			conseillerDao.deleteConseillerDao(conseiller);
 			return 0;
 
 		} else { // Si il a des clients
@@ -91,6 +92,7 @@ public class ConseillerServiceImpl implements IConseillerService {
 					}
 				}
 
+				conseillerDao.deleteConseillerDao(conseiller);
 				return 0; // La méthode se termine correctement
 			}
 

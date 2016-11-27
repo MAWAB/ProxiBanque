@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fr.adaming.model.Adresse;
 import fr.adaming.model.Conseiller;
 
 @Repository("conseillerDaoImpl")
@@ -54,29 +55,36 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	@Override
 	public void deleteConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
-		em.remove(conseiller);
+		em.getTransaction().begin();
+		em.remove(em.getReference(Conseiller.class, conseiller.getIdConseiller()));
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public Conseiller updateConseillerDao(Conseiller conseiller) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
+		
 		String req = "SELECT c FROM Conseiller c WHERE c.idConseiller=:id";
 		Query query = em.createQuery(req);
 		query.setParameter("id", conseiller.getIdConseiller());
 		
 		Conseiller c = (Conseiller) query.getSingleResult();
 		
+		Adresse adresse = conseiller.getAdresse();
+		em.merge(adresse);
+		
 		c.setNom(conseiller.getNom());
 		c.setPrenom(conseiller.getPrenom());
 		c.setDateDeNaissance(conseiller.getDateDeNaissance());
-		c.setAdresse(conseiller.getAdresse());
+		//c.setAdresse(conseiller.getAdresse());
 		c.setNomDuService(conseiller.getNomDuService());
 		c.setNumeroImmatriculation(conseiller.getNumeroImmatriculation());
 		c.setMotDePasse(conseiller.getMotDePasse());
-		c.setGerant(conseiller.getGerant());
-		
-		
+		//c.setGerant(conseiller.getGerant());
+		//c.setListeClients(conseiller.getListeClients());
+		 
+		em.detach(c);
 		em.merge(c);
 		em.getTransaction().commit();
 		
@@ -89,7 +97,7 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	public List<Conseiller> getConseillerByAgenceDao(int id) {
 
 		EntityManager em = emf.createEntityManager();
-		String req = "SELECT c FROM Conseiller WHERE c.gerant.agence.idAgence=:id";
+		String req = "SELECT c FROM Conseiller c WHERE c.gerant.agence.idAgence=:id";
 		Query query = em.createQuery(req);
 		query.setParameter("id", id);
 		

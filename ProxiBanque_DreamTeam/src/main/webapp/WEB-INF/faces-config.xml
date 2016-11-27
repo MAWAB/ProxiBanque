@@ -9,6 +9,8 @@
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
 
+
+<!-- page login -->
 	<navigation-rule>
 		<from-view-id>index.xhtml</from-view-id>
 		<navigation-case>
@@ -16,11 +18,36 @@
 			<to-view-id>accueilConseiller.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<!-- ManagedBean conseiller -->
+	
+	<!-- page login -->
 	<navigation-rule>
 		<from-view-id>accueilConseiller.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>accueilConseiller</from-outcome>
+			<to-view-id>accueilConseiller.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>ajoutClient</from-outcome>
 			<to-view-id>ajoutClient.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>modifClient</from-outcome>
+			<to-view-id>modifClient.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>suppClient</from-outcome>
+			<to-view-id>suppClient.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
+	
+	
+		<navigation-rule>
+		<from-view-id>ajoutClient.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>accueilConseiller</from-outcome>
+			<to-view-id>accueilConseiller.xhtml</to-view-id>
+		</navigation-case>
+		</navigation-rule>
 </faces-config>

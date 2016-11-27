@@ -139,16 +139,19 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 	@Override
 	public void ajouterCompteDao(C compte) {
 		EntityManager em = emf.createEntityManager();
-		
+		System.out.println("----------------------------ajouterCompteDao----------------------------");
 		if(compte instanceof CompteCourant ){
 			em.getTransaction().begin();
 			em.persist(compte);
 			em.getTransaction().commit();
 			
+			System.out.println("----------------------------CompteCourant----------------------------");
+			
 		}else if(compte instanceof CompteEpargne ){
 			em.getTransaction().begin();
 			em.persist(compte);
 			em.getTransaction().commit();
+			System.out.println("----------------------------CompteEpargne----------------------------");
 		}
 		
 		
