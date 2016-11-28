@@ -67,14 +67,13 @@ public class ConseillerManagedBean implements Serializable {
 	}
 
 	public void creationMenuSelectionClientAModifier() {
-		System.out.println("creation menu liste");
 		menulisteClientAModifier = new DefaultMenuModel();
 		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du client");
 		DefaultMenuItem item;
 
 		for (int i = 0; i < listeClients.size(); i++) {
-			item = new DefaultMenuItem(
-					"nom : " + listeClients.get(i).getNom() + " prenom : " + listeClients.get(i).getPrenom());
+			item = new DefaultMenuItem("Id : " + listeClients.get(i).getIdClient() + ", Nom : "
+					+ listeClients.get(i).getNom() + ", Prénom : " + listeClients.get(i).getPrenom());
 			item.setParam("id_client", listeClients.get(i).getIdClient());
 			item.setCommand("#{conseillerMB.selectionClientAModifier}");
 			submenu.addElement(item);

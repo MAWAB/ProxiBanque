@@ -31,8 +31,9 @@
 
 					<h:outputText value="Né le :" />
 					<h:outputText value="#{clientMB.client.dateDeNaissance}"
-						style="font-weight: bold" />
-
+						style="font-weight: bold">
+						<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+					</h:outputText>
 					<h:outputText value="Adresse :" />
 					<h:outputText value="#{clientMB.adresse}" style="font-weight: bold" />
 
