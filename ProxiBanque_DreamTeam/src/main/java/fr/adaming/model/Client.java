@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="clients")
+@Table(name = "clients")
 public class Client extends Personne implements Serializable {
 
 	/**
@@ -24,20 +24,24 @@ public class Client extends Personne implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idClient;
 	private int numeroClient;
 	private String telephone;
-	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
-	@JoinColumn(name="id_conseiller",referencedColumnName="idConseiller")
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "id_conseiller", referencedColumnName = "idConseiller")
 	private Conseiller conseiller;
-	
-	@OneToOne(mappedBy="client", cascade=CascadeType.ALL)
+
+	@OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
 	private CompteEpargne compteEpargne;
-	
-	@OneToOne(mappedBy="client", cascade=CascadeType.ALL)
+
+	@OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
 	private CompteCourant compteCourant;
+
+	@ManyToOne
+	@JoinColumn(name = "place_id", referencedColumnName = "idPlace")
+	private Place place;
 
 	/**
 	 * @param nom
@@ -82,7 +86,7 @@ public class Client extends Personne implements Serializable {
 		this.compteEpargne = compteEpargne;
 		this.compteCourant = compteCourant;
 	}
-	
+
 	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, int idClient, int numeroClient,
 			String telephone, Conseiller conseiller) {
 		super(nom, prenom, dateDeNaissance, adresse);
@@ -91,7 +95,7 @@ public class Client extends Personne implements Serializable {
 		this.telephone = telephone;
 		this.conseiller = conseiller;
 	}
-	
+
 	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, int numeroClient, String telephone,
 			Conseiller conseiller) {
 		super(nom, prenom, dateDeNaissance, adresse);
@@ -105,7 +109,22 @@ public class Client extends Personne implements Serializable {
 	 */
 	public Client() {
 		super();
-		adresse=new Adresse();
+		adresse = new Adresse();
+	}
+
+	/**
+	 * @return the place
+	 */
+	public Place getPlace() {
+		return place;
+	}
+
+	/**
+	 * @param place
+	 *            the place to set
+	 */
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 
 	/**
