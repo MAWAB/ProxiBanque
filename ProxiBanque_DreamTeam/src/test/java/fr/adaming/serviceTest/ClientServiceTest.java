@@ -15,7 +15,6 @@
 //import org.springframework.test.context.ContextConfiguration;
 //import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //
-//import fr.adaming.dao.IClientDao;
 //import fr.adaming.model.Adresse;
 //import fr.adaming.model.Agence;
 //import fr.adaming.model.Client;
@@ -44,14 +43,11 @@
 //		System.out.println("-----------------------Après le test du Service Client------------------");
 //	}
 //
-
-//	
-//	public void testGetClientById()
-//	{
+//	public void testGetClientById() {
 //		Client cl = clientService.getClientByIdService(9);
 //		System.out.println(cl);
 //	}
-//	
+//
 //	public void testGetAllClient() {
 //		List<Client> listeCl = clientService.getAllClientsService();
 //
@@ -60,7 +56,6 @@
 //		}
 //	}
 //
-//	
 //	public void testGetAllClientsByIdCons() {
 //		List<Client> listeCl = clientService.getAllClientsByIdConseillerService(1);
 //
@@ -68,17 +63,9 @@
 //			System.out.println(cl.getNom());
 //		}
 //	}
-//	
-//	@Test
+//
 //	public void testGetAllClientsByIdAgence() {
 //		List<Client> listeCl = clientService.getAllClientsByIdAgenceService(1);
-
-//	public void testGetAllClient() {
-//		List<Client> listeCl = clientService.getAllClientsService();
-//
-//		for (Client cl : listeCl) {
-//			System.out.println(cl.getNom());
-//		}
 //	}
 //
 //	public void testAjouterClientService() {
@@ -115,19 +102,18 @@
 //		// assertEquals(1, clientService.addClientService(cl));
 //		clientService.addClientService(cl);
 //	}
-//	
-//	
-//	public void testSupprimerClient(){
+//
+//	public void testSupprimerClient() {
 //		clientService.deleteClientService(10);
 //	}
-//	
-//	public void testModifierClient(){
+//
+//	public void testModifierClient() {
 //		Date date = new Date(1988 + 1900, 11, 7);
 //		Date dateCons = new Date(1970 + 1900, 02, 11);
 //		Date dateGer = new Date(1970 + 1900, 11, 23);
 //		Date dateAg = new Date(2016 + 1900, 11, 22);
 //
-//		Adresse adresse = new Adresse(5,"Sco", 44000, "Orvault");
+//		Adresse adresse = new Adresse(5, "Sco", 44000, "Orvault");
 //		Adresse adresseCons = new Adresse(1, "Remy", 33000, "Bordeaux");
 //		Adresse adresseGer = new Adresse(2, "Fleurus", 47000, "Agen");
 //

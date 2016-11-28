@@ -15,8 +15,10 @@
 	<h:form>
 		<h:commandButton value="nouveau client"
 			action="#{conseillerMB.navigationVersAjoutClient}" />
-		<h:commandButton value="modifier client" action="#{conseillerMB.navigationModificationClient}" />
-		<h:commandButton value="supprimer client" action="#{conseillerMB.navigationSuppressionClient}" />
+		<h:commandButton value="modifier client"
+			action="#{conseillerMB.navigationModificationClient}" />
+		<h:commandButton value="supprimer client"
+			action="#{conseillerMB.navigationSuppressionClient}" />
 
 	</h:form>
 
@@ -24,33 +26,34 @@
 	<div align="center">
 		<h1>Liste des clients traités par
 			#{conseillerMB.conseillerLogged.prenom}</h1>
+		<h:form>
+			<p:dataTable var="client" value="#{conseillerMB.listeClients}">
 
-		<p:dataTable var="client" value="#{conseillerMB.listeClients}">
+				<p:column headerText="numéro du client">
+					<h:outputText value="#{client.numeroClient}" />
+				</p:column>
 
-			<p:column headerText="numéro du client">
-				<h:outputText value="#{client.numeroClient}" />
-			</p:column>
+				<p:column headerText="Nom du client">
+					<h:outputText value="#{client.nom}" />
+				</p:column>
 
-			<p:column headerText="Nom du client">
-				<h:outputText value="#{client.nom}" />
-			</p:column>
+				<p:column headerText="Prénom du client">
+					<h:outputText value="#{client.prenom}" />
+				</p:column>
 
-			<p:column headerText="Prénom du client">
-				<h:outputText value="#{client.prenom}" />
-			</p:column>
+				<p:column headerText="Date de naissance du client">
+					<h:outputText value="#{client.dateDeNaissance}" />
+				</p:column>
+				<p:column headerText="Informations bancaires">
+					<h:commandButton value="informations bancaires"
+						action="#{conseillerMB.navigationInformationclient}">
+						<f:setPropertyActionListener
+							target="#{conseillerMB.clientAManipuler}" value="#{client}" />
+					</h:commandButton>
+				</p:column>
 
-			<p:column headerText="Date de naissance du client">
-				<h:outputText value="#{client.dateDeNaissance}" />
-			</p:column>
-			<p:column headerText="Informations bancaires">
-				<h:commandButton value="informations bancaires"
-					action="#{conseillerMB.navigationInformationclient}">
-					<f:param name="id_client" value="#{client.idClient}" />
-				</h:commandButton>
-			</p:column>
-
-		</p:dataTable>
-
+			</p:dataTable>
+		</h:form>
 	</div>
 	<p:dialog header="Impossible d'ajouter un client"
 		widgetVar="dialEchecAjoutClient" minHeight="40">

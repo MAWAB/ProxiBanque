@@ -19,7 +19,7 @@ import fr.adaming.service.IClientService;
  * @author inti0302
  *
  */
-@ManagedBean(name="clientMB")
+@ManagedBean(name = "clientMB")
 @SessionScoped
 public class ClientManagedBean implements Serializable {
 
@@ -27,13 +27,13 @@ public class ClientManagedBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@ManagedProperty(value="#{clientServiceImpl}")
+
+	@ManagedProperty(value = "#{clientServiceImpl}")
 	IClientService clientService;
-	
-	private	Client client;
+
+	private Client client;
 	private String adresse;
-	
+
 	HttpSession session;
 
 	/**
@@ -51,27 +51,44 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	/**
-	 * @param client the client to set
+	 * @param client
+	 *            the client to set
 	 */
 	public void setClient(Client client) {
 		this.client = client;
 	}
 
 	/**
-	 * @param clientService the clientService to set
+	 * @param clientService
+	 *            the clientService to set
 	 */
 	public void setClientService(IClientService clientService) {
 		this.clientService = clientService;
 	}
-	
+
+	/**
+	 * @return the adresse
+	 */
+	public String getAdresse() {
+		return adresse;
+	}
+
+	/**
+	 * @param adresse
+	 *            the adresse to set
+	 */
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		session = (HttpSession) facesContext.getExternalContext().getSession(false);
-		
+
 		this.client = (Client) session.getAttribute("client");
-		this.adresse = "Rue" + this.client.getAdresse().getRue() + ", " + this.client.getAdresse().getCodePostal() + " " + this.client.getAdresse().getVille(); 
+		this.adresse = "Rue " + this.client.getAdresse().getRue() + ", " + this.client.getAdresse().getCodePostal() + " "
+				+ this.client.getAdresse().getVille();
 	}
-	
 
 }

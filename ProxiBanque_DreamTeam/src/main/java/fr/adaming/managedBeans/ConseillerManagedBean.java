@@ -4,6 +4,7 @@
 package fr.adaming.managedBeans;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -32,7 +33,12 @@ import fr.adaming.service.IClientService;
  */
 @ManagedBean(name = "conseillerMB")
 @SessionScoped
-public class ConseillerManagedBean {
+public class ConseillerManagedBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@ManagedProperty(value = "#{clientServiceImpl}")
 	IClientService clientService;
@@ -43,8 +49,6 @@ public class ConseillerManagedBean {
 	private Client clientAManipuler;
 	MenuModel menulisteClientAModifier;
 
-	
-	
 	/* initialisation du bean */
 	@PostConstruct
 	public void init() {
@@ -69,87 +73,79 @@ public class ConseillerManagedBean {
 		DefaultMenuItem item;
 
 		for (int i = 0; i < listeClients.size(); i++) {
-			item = new DefaultMenuItem("nom : "
-					+ listeClients.get(i).getNom() + " prenom : "
-					+ listeClients.get(i).getPrenom());
+			item = new DefaultMenuItem(
+					"nom : " + listeClients.get(i).getNom() + " prenom : " + listeClients.get(i).getPrenom());
 			item.setParam("id_client", listeClients.get(i).getIdClient());
 			item.setCommand("#{conseillerMB.selectionClientAModifier}");
 			submenu.addElement(item);
 		}
 		menulisteClientAModifier.addElement(submenu);
 	}
-	
+
 	public void selectionClientAModifier(ActionEvent event) throws IOException {
 
 		DefaultMenuItem menuItem = (DefaultMenuItem) ((MenuActionEvent) event).getMenuItem();
 		int id = Integer.parseInt(menuItem.getParams().get("id_client").get(0));
-		clientAManipuler= clientService.getClientByIdService(id);
+		clientAManipuler = clientService.getClientByIdService(id);
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
-	
-	/* méthodes sur la manipulation des clients (ajouter, modifier et supprimer) */
-	
-	public String ajouterClient()
-	{
+
+	/*
+	 * méthodes sur la manipulation des clients (ajouter, modifier et supprimer)
+	 */
+
+	public String ajouterClient() {
 		clientAManipuler.setConseiller(conseillerLogged);
-		if(clientService.addClientService(clientAManipuler)==1){
-			listeClients=clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
+		if (clientService.addClientService(clientAManipuler) == 1) {
+			listeClients = clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
 			return "accueilConseiller";
-		}else
-		{
+		} else {
 			RequestContext context = RequestContext.getCurrentInstance();
 			context.execute("PF('dialEchecAjoutClient').show(); return false;");
-			return "accueilConseiller"; 
+			return "accueilConseiller";
 		}
-		
-	}
-	
-	public String modifierClient()
-	{
-		
-		clientService.updateClientService(clientAManipuler);
-		listeClients=clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
-		return "accueilConseiller";
-	}
-	
-	public String supprimerClient()
-	{
-		clientService.deleteClientService(clientAManipuler.getIdClient());
-		listeClients=clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
-		return "accueilConseiller";
-	}
-	
-	
-	/* méthodes de navigation */
-	
-	public String navigationInformationclient() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-		int id = Integer.parseInt(params.get("id_client"));
-		session.setAttribute("client", clientService.getClientByIdService(id));
 
+	}
+
+	public String modifierClient() {
+
+		clientService.updateClientService(clientAManipuler);
+		listeClients = clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
+		return "accueilConseiller";
+	}
+
+	public String supprimerClient() {
+		clientService.deleteClientService(clientAManipuler.getIdClient());
+		listeClients = clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
+		return "accueilConseiller";
+	}
+
+	/* méthodes de navigation */
+
+	public String navigationInformationclient() {
+		System.out.println(this.clientAManipuler.getIdClient());
+		session.setAttribute("client", clientService.getClientByIdService(this.clientAManipuler.getIdClient()));
 		return "infosClient.xhtml";
 	}
-	
+
 	public String navigationVersAjoutClient() {
 		clientAManipuler = new Client();
-		
+
 		if (listeClients.size() < 10)
 			return "ajoutClient";
-		else
-		{
+		else {
 			RequestContext context = RequestContext.getCurrentInstance();
-		context.execute("PF('dialEchecAjoutClient').show(); return false;");
+			context.execute("PF('dialEchecAjoutClient').show(); return false;");
 			return "accueilConseiller";
 		}
 	}
 
 	public String navigationVersAccueil() {
-		
+
 		clientAManipuler = new Client();
-			return "accueilConseiller";
-		
+		return "accueilConseiller";
+
 	}
 
 	public String navigationModificationClient() {
@@ -217,7 +213,8 @@ public class ConseillerManagedBean {
 	}
 
 	/**
-	 * @param session the session to set
+	 * @param session
+	 *            the session to set
 	 */
 	public void setSession(HttpSession session) {
 		this.session = session;
@@ -231,7 +228,8 @@ public class ConseillerManagedBean {
 	}
 
 	/**
-	 * @param clientAManipuler the clientAManipuler to set
+	 * @param clientAManipuler
+	 *            the clientAManipuler to set
 	 */
 	public void setClientAManipuler(Client clientAManipuler) {
 		this.clientAManipuler = clientAManipuler;
@@ -245,7 +243,8 @@ public class ConseillerManagedBean {
 	}
 
 	/**
-	 * @param menulisteClientAModifier the menulisteClientAModifier to set
+	 * @param menulisteClientAModifier
+	 *            the menulisteClientAModifier to set
 	 */
 	public void setMenulisteClientAModifier(MenuModel menulisteClientAModifier) {
 		this.menulisteClientAModifier = menulisteClientAModifier;

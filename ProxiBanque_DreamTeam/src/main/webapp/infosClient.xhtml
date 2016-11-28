@@ -8,18 +8,12 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<meta charset="UTF-8"/>
 	<title>Infos client</title>
 </h:head>
 <h:body>
 	<div align="center">
-		<h:panelGrid columns="2" style="width:100%"
-			columnClasses="logo,detail">
+		<h:panelGrid columns="1" style="width:100%">
 			<f:facet name="header">Informations du client</f:facet>
-			<p:outputPanel>
-				<p:graphicImage name="images/connaissance-client.jpg" />
-			</p:outputPanel>
-
 			<p:outputPanel>
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputText value="Nom : " />
@@ -33,7 +27,7 @@
 						style="font-weight: bold" />
 
 					<h:outputText value="Adresse :" />
-					<h:outputText value="#{client.adresse}" style="font-weight: bold" />
+					<h:outputText value="#{adresse}" style="font-weight: bold" />
 
 					<h:outputText value="Téléphone :" />
 					<h:outputText value="#{client.telephone}" style="font-weight: bold" />
@@ -58,7 +52,7 @@
 				<h:outputText value="#{client.compteCourant.dateCreation}"
 					style="font-weight: bold" />
 				<h:outputText value="Solde : " />
-				<h:outputText value="#{client.compteCourant.solde}"
+				<h:outputText value="#{client.compteCourant.sodle}"
 					style="font-weight: bold" />
 				<h:outputText value="Découvert : " />
 				<h:outputText value="#{client.compteCourant.decouvert}"
@@ -74,9 +68,9 @@
 				<h:outputText value="#{client.compteEpargne.dateCreation}"
 					style="font-weight: bold" />
 				<h:outputText value="Solde : " />
-				<h:outputText value="#{client.compteEpargne.solde}"
+				<h:outputText value="#{client.compteEpargne.sodle}"
 					style="font-weight: bold" />
-				<h:outputText value="Découvert : " />
+				<h:outputText value="Taux de rémunération : " />
 				<h:outputText value="#{client.compteEpargne.tauxRenumeration}"
 					style="font-weight: bold" />
 			</h:panelGrid>
