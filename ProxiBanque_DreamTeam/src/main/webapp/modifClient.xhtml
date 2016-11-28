@@ -8,8 +8,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<title>Modification client</title>
 
-	<title>Ajout client</title>
+<style>
+	ul.ui-menu-child {
+		white-space: nowrap;
+		width: auto !important;
+	}
+</style>
 </h:head>
 <h:body>
 
@@ -57,7 +63,7 @@
 						value="#{conseillerMB.clientAManipuler.adresse.ville}"
 						required="true" />
 
-					<p:outputLabel for="codePostale" value="CodePostale : " />
+					<p:outputLabel for="codePostale" value="Code Postal : " />
 					<p:inputText id="codePostale"
 						value="#{conseillerMB.clientAManipuler.adresse.codePostal}"
 						required="true" />

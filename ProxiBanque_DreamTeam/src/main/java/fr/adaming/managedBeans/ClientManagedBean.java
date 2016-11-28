@@ -8,7 +8,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +20,7 @@ import fr.adaming.service.IClientService;
  *
  */
 @ManagedBean(name = "clientMB")
-@SessionScoped
+@ViewScoped
 public class ClientManagedBean implements Serializable {
 
 	/**
