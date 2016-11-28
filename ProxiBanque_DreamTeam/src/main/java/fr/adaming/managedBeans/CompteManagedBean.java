@@ -64,6 +64,22 @@ public class CompteManagedBean implements Serializable {
 
 
 	/**
+	 * @return the carteService
+	 */
+	public ICarteService<Carte> getCarteService() {
+		return carteService;
+	}
+
+
+	/**
+	 * @param carteService the carteService to set
+	 */
+	public void setCarteService(ICarteService<Carte> carteService) {
+		this.carteService = carteService;
+	}
+
+
+	/**
 	 * @return the client
 	 */
 	public Client getClient() {
