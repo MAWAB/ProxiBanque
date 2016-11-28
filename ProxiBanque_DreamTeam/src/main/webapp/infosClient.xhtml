@@ -117,9 +117,11 @@
 						<p:row>
 							<p:column colspan="2">
 								<div align="center">
-									<p:commandButton value="Ajouter un compte courant"
-										action="#{clientMB.navigationAjoutCompteC}">
-									</p:commandButton>
+									<h:form rendered="#{clientMB.client.compteCourant == null}">
+										<p:commandButton value="Ajouter un compte courant"
+											action="#{clientMB.navigationAjoutCompteC}">
+										</p:commandButton>
+									</h:form>
 								</div>
 							</p:column>
 						</p:row>
@@ -184,9 +186,11 @@
 						<p:row>
 							<p:column colspan="2">
 								<div align="center">
-									<p:commandButton value="Ajouter un compte épargne"
-										action="#{clientMB.navigationAjoutCompteEp}">
-									</p:commandButton>
+									<h:form rendered="#{clientMB.client.compteEpargne == null}">
+										<p:commandButton value="Ajouter un compte épargne"
+											action="#{clientMB.navigationAjoutCompteEp}">
+										</p:commandButton>
+									</h:form>
 								</div>
 							</p:column>
 						</p:row>
