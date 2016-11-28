@@ -87,8 +87,8 @@ public class ClientManagedBean implements Serializable {
 		session = (HttpSession) facesContext.getExternalContext().getSession(false);
 
 		this.client = (Client) session.getAttribute("client");
-		this.adresse = "Rue " + this.client.getAdresse().getRue() + ", " + this.client.getAdresse().getCodePostal() + " "
-				+ this.client.getAdresse().getVille();
+		this.adresse = "Rue " + this.client.getAdresse().getRue() + ", " + this.client.getAdresse().getCodePostal()
+				+ " " + this.client.getAdresse().getVille();
 	}
 
 }
