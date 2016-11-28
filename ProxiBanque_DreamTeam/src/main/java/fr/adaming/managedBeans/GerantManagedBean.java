@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import fr.adaming.model.Adresse;
 import fr.adaming.model.Client;
 import fr.adaming.model.Conseiller;
 import fr.adaming.model.Gerant;
@@ -35,16 +37,21 @@ public class GerantManagedBean implements Serializable {
 	
 	/** attributs gerant*/
 	private Gerant gerant;
+	private String nom;
+	private String password;
 	
 	/** attributs conseiller*/
 	@ManagedProperty(value="#{conseillerService}")
 	IConseillerService conseillerService;
+	
 	private Conseiller conseiller;
+	private Adresse adresse;
 	private List<Conseiller> listeConseiller;
 	
 	/** attributs clients*/
 	@ManagedProperty(value="#{clientServiceImpl}")
 	IClientService clientService;
+	
 	private Client client;
 	private List<Client> listeClient;
 	
@@ -59,6 +66,7 @@ public class GerantManagedBean implements Serializable {
 		this.conseiller = new Conseiller();
 		this.client = new Client();
 		this.gerant = new Gerant();
+		this.adresse = new Adresse();
 	}
 
 	
@@ -122,18 +130,52 @@ public class GerantManagedBean implements Serializable {
 		this.listeClient = listeClient;
 	}
 	
-	/** autres méthodes*/
 	
-	/** init: chargement de toutes les listes*/
+	public Gerant getGerant() {
+		return gerant;
+	}
+
+
+	public void setGerant(Gerant gerant) {
+		this.gerant = gerant;
+	}
+
+
+	public String getNom() {
+		return nom;
+	}
+
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
+	/** autres méthodes*/
+
+	
+	
+	/** init: chargement de toutes les listes : il faudra utiliser les méthodes en commentaires une fois la fonction login réalisée*/
 	@PostConstruct
 	public void init(){
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		
-		gerant= (Gerant) session.getAttribute("gerant");
-		listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
-		listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("gerant", gerant);
+		//listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		//listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		listeConseiller = conseillerService.getAllConseillerService();
+		listeClient = clientService.getAllClientsService();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		session = (HttpSession) fc.getExternalContext().getSession(false);
+		
 	}
 	
 	
@@ -148,26 +190,31 @@ public class GerantManagedBean implements Serializable {
 	
 	public String getConseillerById(){
 		conseillerService.getConseillerByIdService(conseiller.getIdConseiller());
-		listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		//listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		listeConseiller = conseillerService.getAllConseillerService();
 		return "accueilGerant.xhtml";
 	}
 	
 	public String ajouterConseiller(){
 		conseillerService.addConseillerService(conseiller);
-		listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		//listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		listeConseiller = conseillerService.getAllConseillerService();
 		return "accueilGerant.xhtml";
 		
 	}
 	
 	public String modifierConseiller(){
+		conseiller = conseillerService.getConseillerByIdService(conseiller.getIdConseiller());
 		conseillerService.updateConseillerService(conseiller);
-		listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		//listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		listeConseiller = conseillerService.getAllConseillerService();
 		return "accueilGerant.xhtml";
 	}
 	
 	public String supprimerConseiller(){
 		conseillerService.deleteConseillerService(conseiller);
-		listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		//listeConseiller = conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
+		listeConseiller = conseillerService.getAllConseillerService();
 		return "accueilGerant.xhtml";
 	}
 	
@@ -175,25 +222,29 @@ public class GerantManagedBean implements Serializable {
 	
 	public String getClientById(){
 		clientService.getClientByIdService(client.getIdClient());
-		listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		//listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		listeClient = clientService.getAllClientsService();
 		return "accueilGerant.xhtml";
 	}
 	
 	public String ajouterClient(){
 		clientService.addClientService(client);
-		listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		//listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		listeClient = clientService.getAllClientsService();
 		return "accueilGerant.xhtml";
 	}
 	
 	public String modifierClient(){
 		clientService.updateClientService(client);
-		listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		//listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		listeClient = clientService.getAllClientsService();
 		return "accueilGerant.xhtml";
 	}
 	
 	public String supprimerClient(){
 		clientService.deleteClientService(client.getIdClient());
-		listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		//listeClient = clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		listeClient = clientService.getAllClientsService();
 		return "accueilGerant.xhtml";
 	}
 	
