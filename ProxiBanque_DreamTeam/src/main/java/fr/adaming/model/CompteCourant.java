@@ -180,6 +180,18 @@ public class CompteCourant extends Compte implements Serializable{
 		this.visaPremium = visaPremium;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CompteCourant [idCompte=" + idCompte + ", decouvert="
+				+ decouvert + ", dateCreation=" + dateCreation + ", client="
+				+ client + ", visaElectron=" + visaElectron + ", visaPremium="
+				+ visaPremium + ", numeroCompte=" + numeroCompte + ", solde="
+				+ solde + "]";
+	}
+
 
 		
 	

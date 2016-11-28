@@ -75,8 +75,8 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 	}
 
 	@Override
-	public void virementService(C compe1, C compte1, double somme) {
-		compteDao.virementDao(compe1, compte1, somme);
+	public void virementService(C compte1, C compte2, double somme) {
+		compteDao.virementDao(compte1, compte2, somme);
 		
 	}
 
