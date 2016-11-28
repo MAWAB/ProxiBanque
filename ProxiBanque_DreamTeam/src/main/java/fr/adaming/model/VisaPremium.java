@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "visapremiums")
 public class VisaPremium extends Carte implements Serializable {
@@ -28,7 +30,7 @@ public class VisaPremium extends Carte implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	protected Date dateExpiration;
-
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "compte_id", referencedColumnName = "id_compteC")
 	private CompteCourant compteCourant;

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "clients")
 public class Client extends Personne implements Serializable {
@@ -28,7 +30,7 @@ public class Client extends Personne implements Serializable {
 	private int idClient;
 	private int numeroClient;
 	private String telephone;
-
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "id_conseiller", referencedColumnName = "idConseiller")
 	private Conseiller conseiller;
@@ -38,7 +40,7 @@ public class Client extends Personne implements Serializable {
 
 	@OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
 	private CompteCourant compteCourant;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "place_id", referencedColumnName = "idPlace")
 	private Place place;
@@ -190,6 +192,7 @@ public class Client extends Personne implements Serializable {
 	/**
 	 * @return the compteEpargne
 	 */
+	@JsonIgnore
 	public CompteEpargne getCompteEpargne() {
 		return compteEpargne;
 	}
@@ -205,6 +208,7 @@ public class Client extends Personne implements Serializable {
 	/**
 	 * @return the compteCourant
 	 */
+	@JsonIgnore
 	public CompteCourant getCompteCourant() {
 		return compteCourant;
 	}

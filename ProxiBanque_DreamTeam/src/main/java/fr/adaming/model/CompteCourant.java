@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "cCourant")
 public class CompteCourant extends Compte implements Serializable{
@@ -35,15 +37,18 @@ public class CompteCourant extends Compte implements Serializable{
 	protected Date dateCreation;
 	
 	//transormer la compotision entre le client et le compteCourant
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="client_id", referencedColumnName="idClient")
 	private Client client;
 
 	//transormer la composition entre le compteCourant et la VisaElectron
+	@JsonIgnore
 	@OneToOne(mappedBy="compteCourant", cascade=CascadeType.ALL)
 	private VisaElectron visaElectron;
 	
 	//transormer la composition entre le compteCourant et la VisaPremium
+	@JsonIgnore
 	@OneToOne(mappedBy="compteCourant", cascade=CascadeType.ALL)
 	private VisaPremium visaPremium;
 
