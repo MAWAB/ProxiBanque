@@ -33,10 +33,10 @@ public class Client extends Personne implements Serializable {
 	@JoinColumn(name="id_conseiller",referencedColumnName="idConseiller")
 	private Conseiller conseiller;
 	
-	@OneToOne(mappedBy="client")
+	@OneToOne(mappedBy="client", cascade=CascadeType.ALL)
 	private CompteEpargne compteEpargne;
 	
-	@OneToOne(mappedBy="client")
+	@OneToOne(mappedBy="client", cascade=CascadeType.ALL)
 	private CompteCourant compteCourant;
 
 	/**
