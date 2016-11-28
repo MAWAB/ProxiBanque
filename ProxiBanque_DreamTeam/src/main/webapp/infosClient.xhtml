@@ -59,9 +59,11 @@
 					style="font-weight: bold" />
 				<h:outputText value="Date de création : " />
 				<h:outputText value="#{client.compteCourant.dateCreation}"
-					style="font-weight: bold" />
+					style="font-weight: bold">
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+				</h:outputText>
 				<h:outputText value="Solde : " />
-				<h:outputText value="#{client.compteCourant.sodle}"
+				<h:outputText value="#{client.compteCourant.solde}"
 					style="font-weight: bold" />
 				<h:outputText value="Découvert : " />
 				<h:outputText value="#{client.compteCourant.decouvert}"
@@ -75,9 +77,11 @@
 					style="font-weight: bold" />
 				<h:outputText value="Date de création : " />
 				<h:outputText value="#{client.compteEpargne.dateCreation}"
-					style="font-weight: bold" />
+					style="font-weight: bold">
+					<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+				</h:outputText>
 				<h:outputText value="Solde : " />
-				<h:outputText value="#{client.compteEpargne.sodle}"
+				<h:outputText value="#{client.compteEpargne.solde}"
 					style="font-weight: bold" />
 				<h:outputText value="Taux de rémunération : " />
 				<h:outputText value="#{client.compteEpargne.tauxRenumeration}"

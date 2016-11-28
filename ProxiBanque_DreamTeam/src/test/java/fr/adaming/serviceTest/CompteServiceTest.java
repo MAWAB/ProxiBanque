@@ -40,22 +40,22 @@
 //	@Autowired
 //	private IClientService clientService;
 //	
-//	
 //	public void testAjouterCompteService() {
 //
 //		Client cl = clientService.getClientByIdService(1);
 //		
 //		Date date = new Date(1988 + 1900, 11, 7);
 //		
-//		CompteCourant cptC = new CompteCourant("0123", 1000, 300, date, cl);
+//		CompteEpargne cptC = new CompteEpargne("0345", 10000, 0.5, date, cl);
 //		
 //		compteService.ajouterCompteService(cptC);
 //	}
-//	
+//
 //	@Test
 //	public void testSupprimerCompteService() {
 //
 //		CompteCourant cptC = (CompteCourant) compteService.getComptesCourantByIdClientService(1);
+//		System.out.println(cptC);
 //		compteService.supprimerCompteService(cptC);
 //	}
 //	
