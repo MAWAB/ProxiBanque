@@ -31,7 +31,7 @@ public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 		if(carte instanceof VisaElectron){
 			
 			try{
-				String req = "SELECT * FROM VisaElectron vE WHERE vE.idVisaElectron =: vE_id";
+				String req = "SELECT vE FROM VisaElectron vE WHERE vE.idVisaElectron=:vE_id";
 				Query query = em.createQuery(req);
 				query.setParameter("vE_id", ((VisaElectron) carte).getIdVisaElectron());
 				
@@ -45,9 +45,9 @@ public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 		}else if(carte instanceof VisaPremium){
 		
 			try{
-				String req = "SELECT * FROM VisaPremium vE WHERE vE.idVisaPremium=:vE_id";
+				String req = "SELECT vP FROM VisaPremium vP WHERE vP.idVisaPremium=:vP_id";
 				Query query = em.createQuery(req);
-				query.setParameter("vE_id", ((VisaPremium) carte).getIdVisaPremium());
+				query.setParameter("vP_id", ((VisaPremium) carte).getIdVisaPremium());
 				
 				return (T) query.getSingleResult();
 				
@@ -60,26 +60,63 @@ public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 	}
 
 	@Override
-	public T getVisaElectronByIdCompteDao(int id) {
-		// TODO Auto-generated method stub
+	public T getCarteByIdCompteDao(int id, T carte) {
+	EntityManager em = emf.createEntityManager();
+		
+		if(carte instanceof VisaElectron){
+			
+			try{
+				String req = "SELECT vE FROM VisaElectron vE WHERE vE.compteCourant.idCompte=:c_id";
+				Query query = em.createQuery(req);
+				query.setParameter("c_id", ((VisaElectron) carte).getCompteCourant().getIdCompte());
+				
+				return (T) query.getSingleResult();
+				
+			}catch (NullPointerException | IllegalArgumentException e){
+				e.printStackTrace();
+				
+			}
+			
+		}else if(carte instanceof VisaPremium){
+		
+			try{
+				String req = "SELECT vP FROM VisaPremium vP WHERE vP.compteCourant.idCompte=:c_id";
+				Query query = em.createQuery(req);
+				query.setParameter("c_id", ((VisaPremium) carte).getCompteCourant().getIdCompte());
+				
+				return (T) query.getSingleResult();
+				
+			}catch (NullPointerException | IllegalArgumentException e){
+				e.printStackTrace();
+			}
+		}
 		return null;
+		
 	}
+	
 
-	@Override
-	public T getVisaPremiumByIdCompteDao(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public void ajouterCarteDao(T carte) {
-		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		if(carte instanceof VisaElectron){
+			em.getTransaction().begin();
+			em.persist(carte);
+			em.getTransaction().commit();
+			
+		}else if (carte instanceof VisaElectron) {
+			em.getTransaction().begin();
+			em.persist(carte);
+			em.getTransaction().commit();
+		}
 		
 	}
 
 	@Override
 	public void modifierCarteDao(T carte) {
-		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		
 		
 	}
 
