@@ -222,8 +222,24 @@ public class CompteManagedBean implements Serializable {
 		
 		return "infoClient.xhtml";
 	}
+
 	
+	public String deleteCompte() {
+		
+		
+		
+		return "infosClient.xhtl";
+	}
 	
+	public String retirer() {
+		
+		return "infosClient.xhtl";
+	}
+	
+	public String deposer() {
+		
+		return "infosClient.xhtl";
+	}
 	
 	
 	
