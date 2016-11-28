@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name="agences")
 public class Agence implements Serializable {
@@ -29,6 +31,7 @@ public class Agence implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dateCreation;
 	
+
 	@OneToOne(mappedBy="agence")
 	private Gerant gerant;
 	
@@ -113,6 +116,7 @@ public class Agence implements Serializable {
 	/**
 	 * @return the gerant
 	 */
+	@JsonIgnore
 	public Gerant getGerant() {
 		return gerant;
 	}

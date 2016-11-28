@@ -20,14 +20,14 @@ public class AgenceServiceImpl implements IAgenceService {
 	IAgenceDao agenceDao;
 	@Override
 	public List<Agence> getAllAgences() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return agenceDao.getAllAgences();
 	}
 
 	@Override
 	public Agence getAgenceById(int id_agence) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return agenceDao.getAgenceById(id_agence);
 	}
 
 }

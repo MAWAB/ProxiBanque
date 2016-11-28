@@ -21,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 @Entity
 @Table(name="conseillers")
@@ -42,11 +44,11 @@ public class Conseiller extends Personne implements Serializable {
 	private String numeroImmatriculation;
 	private String motDePasse;
 	// transormer l'agregation entre le conseiller et le gerant
+	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
 	@JoinColumn(name="idGerant")
 	private Gerant gerant;
 
-	// transormer l'agregation entre le conseiller et le gerant
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="conseiller", cascade=CascadeType.MERGE)
 	private List<Client> listeClients = new ArrayList<Client>();
 
@@ -166,6 +168,7 @@ public class Conseiller extends Personne implements Serializable {
 	/**
 	 * @return the gerant
 	 */
+	@JsonIgnore
 	public Gerant getGerant() {
 		return gerant;
 	}
@@ -180,6 +183,7 @@ public class Conseiller extends Personne implements Serializable {
 	/**
 	 * @return the listeClients
 	 */
+	@JsonIgnore
 	public List<Client> getListeClients() {
 		return listeClients;
 	}

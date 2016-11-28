@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name="gerants")
 @DiscriminatorValue(value="G")
@@ -31,9 +33,12 @@ public class Gerant extends Conseiller implements Serializable {
 	private String numeroBureau;
 	
 	//transormer l'agregation entre le conseiller et le gerant
+
 	@OneToMany(mappedBy="gerant", fetch=FetchType.EAGER)
 	private List<Conseiller> listeConseillers=new ArrayList<Conseiller>();
 	//transormer l'agregation entre l'agence et le gerant
+
+	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idAgence", referencedColumnName="idAgence")
 	private Agence agence;
@@ -106,6 +111,7 @@ public class Gerant extends Conseiller implements Serializable {
 	/**
 	 * @return the listeConseillers
 	 */
+	@JsonIgnore
 	public List<Conseiller> getListeConseillers() {
 		return listeConseillers;
 	}
@@ -118,6 +124,7 @@ public class Gerant extends Conseiller implements Serializable {
 	/**
 	 * @return the agence
 	 */
+	@JsonIgnore
 	public Agence getAgence() {
 		return agence;
 	}
