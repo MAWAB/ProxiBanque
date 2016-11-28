@@ -61,7 +61,7 @@
 	<div align="center">
 		<p:panelGrid columns="2" style="width:80% ; margin-top:20px">
 			<f:facet name="header">Comptes</f:facet>
-			<h:form>
+			<h:form id="compteCourant">
 				<div align="center">
 					<p:panelGrid style="width:80%">
 						<f:facet name="header">
@@ -96,7 +96,8 @@
 								<h:outputText value="Solde : " />
 							</p:column>
 							<p:column>
-								<h:outputText value="#{clientMB.client.compteCourant.solde}"
+								<h:outputText id="soldeCC"
+									value="#{clientMB.client.compteCourant.solde}"
 									style="font-weight: bold" />
 							</p:column>
 						</p:row>
@@ -122,6 +123,23 @@
 											action="#{clientMB.navigationAjoutCompteC}">
 										</p:commandButton>
 									</h:form>
+								</div>
+							</p:column>
+						</p:row>
+						<p:row rendered="#{clientMB.client.compteCourant != null}">
+							<p:column colspan="2">
+								<div align="center">
+
+									<h:outputLabel value="Montant : " />
+									<h:inputText value="#{clientMB.somme}" />
+									<br />
+									<p:commandButton value="Retrait" action="#{clientMB.retirer()}"
+										update="soldeCC">
+									</p:commandButton>
+									|
+									<p:commandButton value="Versement"
+										action="#{clientMB.deposer()}" update="soldeCC"></p:commandButton>
+
 								</div>
 							</p:column>
 						</p:row>
