@@ -8,35 +8,48 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<title>Supprimer client</title>
 
-	<title>Ajout client</title>
+	<style>
+ul.ui-menu-child {
+	white-space: nowrap;
+	width: auto !important;
+}
+</style>
 </h:head>
 <h:body>
 
-	<h:form>
-		<h:commandButton value="retour à l'accueil"
-			action="#{conseillerMB.navigationVersAccueil}" />
-	</h:form>
-	<h:form id="id_selectionClientAModifier">
-		<p:growl id="id_selectionClientAModifier" />
+	<ui:insert name="header">
+		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
+	</ui:insert>
+
+	<h:form id="id_selectionClientASupprimer">
+		<p:growl id="id_selectionClientASupprimer" />
 		<p:menubar model="#{conseillerMB.menulisteClientAModifier}" />
 	</h:form>
-	
+
 	<div align="center">
 		<p:panel id="panel" header="Supprimmer client"
 			style="margin-bottom:10px;">
-			<h:panelGrid columns="2">
-				<h:form>
-					<h:outputText value="client à supprimer :" >  </h:outputText>
+			<h:form>
+				<br />
+				<h:panelGrid columns="2">
+
+					<h:outputText value="Nom :">
+					</h:outputText>
 					<h:outputText value="#{conseillerMB.clientAManipuler.nom}">
+					</h:outputText>
+					<h:outputText value="Prénom :">
 					</h:outputText>
 					<h:outputText value="#{conseillerMB.clientAManipuler.prenom}">
 					</h:outputText>
-					<h:commandButton value="Supprimer"
-						action="#{conseillerMB.supprimerClient}"></h:commandButton>
-				</h:form>
-			</h:panelGrid>
 
+
+				</h:panelGrid>
+				<br />
+				<h:commandButton value="Supprimer"
+					action="#{conseillerMB.supprimerClient}"></h:commandButton>
+			</h:form>
 			<br></br>
 
 
