@@ -66,6 +66,7 @@ public class ClientDaoImpl implements IClientDao {
 			cl.setNumeroClient(client.getNumeroClient());
 			cl.setPrenom(client.getPrenom());
 			cl.setTelephone(client.getTelephone());
+			cl.setAdresse(client.getAdresse());
 			em.merge(cl);
 			em.getTransaction().commit();
 		} catch (NullPointerException | IllegalArgumentException e) {

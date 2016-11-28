@@ -12,15 +12,9 @@
 	<title>Accueil conseiller</title>
 </h:head>
 <h:body>
-	<h:form>
-		<h:commandButton value="nouveau client"
-			action="#{conseillerMB.navigationVersAjoutClient}" />
-		<h:commandButton value="modifier client"
-			action="#{conseillerMB.navigationModificationClient}" />
-		<h:commandButton value="supprimer client"
-			action="#{conseillerMB.navigationSuppressionClient}" />
-
-	</h:form>
+	<ui:insert name="header">
+		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
+	</ui:insert>
 
 
 	<div align="center">
@@ -47,13 +41,14 @@
 				<p:column headerText="Informations bancaires">
 					<h:commandButton value="informations bancaires"
 						action="#{conseillerMB.navigationInformationclient}">
-						<f:setPropertyActionListener
-							target="#{conseillerMB.clientAManipuler}" value="#{client}" />
+						<!-- 					<f:setPropertyActionListener target="#{conseillerMB.clientAManipuler}" -->
+						<!-- 						value="#{client}" /> -->
 					</h:commandButton>
 				</p:column>
 
 			</p:dataTable>
 		</h:form>
+
 	</div>
 	<p:dialog header="Impossible d'ajouter un client"
 		widgetVar="dialEchecAjoutClient" minHeight="40">

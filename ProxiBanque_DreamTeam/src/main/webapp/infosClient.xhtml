@@ -11,14 +11,10 @@
 	<title>Infos client</title>
 </h:head>
 <h:body>
-	<h:form>
-		<h:commandButton value="nouveau client"
-			action="#{conseillerMB.navigationVersAjoutClient}" />
-		<h:commandButton value="modifier client"
-			action="#{conseillerMB.navigationModificationClient}" />
-		<h:commandButton value="supprimer client"
-			action="#{conseillerMB.navigationSuppressionClient}" />
-	</h:form>
+
+	<ui:insert name="header">
+		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
+	</ui:insert>
 
 	<div align="center">
 		<p:panelGrid columns="1" style="width:100%">
