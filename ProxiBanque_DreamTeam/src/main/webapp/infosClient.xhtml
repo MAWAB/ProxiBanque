@@ -11,39 +11,48 @@
 	<title>Infos client</title>
 </h:head>
 <h:body>
+
+	<ui:insert name="header">
+		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
+	</ui:insert>
+
 	<div align="center">
-		<h:panelGrid columns="1" style="width:100%">
+		<p:panelGrid columns="1" style="width:100%">
 			<f:facet name="header">Informations du client</f:facet>
 			<p:outputPanel>
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputText value="Nom : " />
-					<h:outputText value="#{client.nom}" style="font-weight: bold" />
-
-					<h:outputText value="Prénom : " />
-					<h:outputText value="#{client.prenom}" style="font-weight: bold" />
-
-					<h:outputText value="Né le :" />
-					<h:outputText value="#{client.dateDeNaissance}"
+					<h:outputText value="#{clientMB.client.nom}"
 						style="font-weight: bold" />
 
+					<h:outputText value="Prénom : " />
+					<h:outputText value="#{clientMB.client.prenom}"
+						style="font-weight: bold" />
+
+					<h:outputText value="Né le :" />
+					<h:outputText value="#{clientMB.client.dateDeNaissance}"
+						style="font-weight: bold">
+						<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+					</h:outputText>
 					<h:outputText value="Adresse :" />
-					<h:outputText value="#{adresse}" style="font-weight: bold" />
+					<h:outputText value="#{clientMB.adresse}" style="font-weight: bold" />
 
 					<h:outputText value="Téléphone :" />
-					<h:outputText value="#{client.telephone}" style="font-weight: bold" />
+					<h:outputText value="#{clientMB.client.telephone}"
+						style="font-weight: bold" />
 
 					<h:outputText value="Numéro client :" />
-					<h:outputText value="#{client.numeroClient}"
+					<h:outputText value="#{clientMB.client.numeroClient}"
 						style="font-weight: bold" />
 
 				</h:panelGrid>
 			</p:outputPanel>
-		</h:panelGrid>
+		</p:panelGrid>
 	</div>
 	<div align="center">
-		<h:panelGrid columns="2" style="width:100%">
+		<p:panelGrid columns="2" style="width:100%">
 			<f:facet name="header">Comptes</f:facet>
-			<h:panelGrid columns="2" style="width:50%">
+			<p:panelGrid columns="2" style="width:50%">
 				<f:facet name="header">Compte Courant</f:facet>
 				<h:outputText value="Numéro du compte : " />
 				<h:outputText value="#{client.compteCourant.numeroCompte}"
@@ -57,9 +66,9 @@
 				<h:outputText value="Découvert : " />
 				<h:outputText value="#{client.compteCourant.decouvert}"
 					style="font-weight: bold" />
-			</h:panelGrid>
+			</p:panelGrid>
 
-			<h:panelGrid columns="2" style="width:50%">
+			<p:panelGrid columns="2" style="width:50%">
 				<f:facet name="header">Compte Epargne</f:facet>
 				<h:outputText value="Numéro du compte : " />
 				<h:outputText value="#{client.compteEpargne.numeroCompte}"
@@ -73,8 +82,8 @@
 				<h:outputText value="Taux de rémunération : " />
 				<h:outputText value="#{client.compteEpargne.tauxRenumeration}"
 					style="font-weight: bold" />
-			</h:panelGrid>
-		</h:panelGrid>
+			</p:panelGrid>
+		</p:panelGrid>
 	</div>
 
 </h:body>

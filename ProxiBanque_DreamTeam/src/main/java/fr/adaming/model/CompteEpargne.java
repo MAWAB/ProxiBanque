@@ -134,6 +134,17 @@ public class CompteEpargne extends Compte implements Serializable{
 		this.client = client;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "CompteEpargne [idCompte=" + idCompte + ", tauxRenumeration="
+				+ tauxRenumeration + ", dateCreation=" + dateCreation
+				+ ", client=" + client + ", numeroCompte=" + numeroCompte
+				+ ", solde=" + solde + "]";
+	}
+
 
 	
 	

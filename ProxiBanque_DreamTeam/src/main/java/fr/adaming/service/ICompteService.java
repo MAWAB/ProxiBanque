@@ -25,7 +25,7 @@ public interface ICompteService <C extends Compte> {
 	
 
 	
-	public void virementService(C compe1,C compte1, double somme);
+	public void virementService(C compte1,C compte2, double somme);
 	
 	public void retraitService(C compte,double somme);
 	

@@ -8,29 +8,32 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<title>Modification client</title>
 
-	<title>Ajout client</title>
+<style>
+	ul.ui-menu-child {
+		white-space: nowrap;
+		width: auto !important;
+	}
+</style>
 </h:head>
 <h:body>
 
-	<h:form>
-		<h:commandButton value="retour à l'accueil"
-			action="#{conseillerMB.navigationVersAccueil}" />
-	</h:form>
+	<ui:insert name="header">
+		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
+	</ui:insert>
+
 	<h:form id="id_selectionClientAModifier">
 		<p:growl id="id_selectionClientAModifier" />
 		<p:menubar model="#{conseillerMB.menulisteClientAModifier}" />
 	</h:form>
-	
+
 	<div align="center">
 		<p:panel id="panel" header="Modifier client"
 			style="margin-bottom:10px;">
+			<h:form>
+				<h:panelGrid columns="2">
 
-
-			<h:panelGrid columns="2">
-
-
-				<h:form>
 					<p:outputLabel for="nom" value="Nom : " />
 					<p:inputText id="nom" value="#{conseillerMB.clientAManipuler.nom}"
 						required="true" />
@@ -38,7 +41,6 @@
 					<p:outputLabel for="prenom" value="Prenom : " />
 					<p:inputText id="prenom"
 						value="#{conseillerMB.clientAManipuler.prenom}" required="true" />
-
 
 					<p:outputLabel for="dateDeNaissance" value="Date de naissance : " />
 					<p:inputText id="dateDeNaissance" type="date"
@@ -61,21 +63,16 @@
 						value="#{conseillerMB.clientAManipuler.adresse.ville}"
 						required="true" />
 
-
-					<p:outputLabel for="codePostale" value="CodePostale : " />
+					<p:outputLabel for="codePostale" value="Code Postal : " />
 					<p:inputText id="codePostale"
 						value="#{conseillerMB.clientAManipuler.adresse.codePostal}"
 						required="true" />
 
-
-					<h:commandButton value="Valider"
-						action="#{conseillerMB.modifierClient}"></h:commandButton>
-				</h:form>
-			</h:panelGrid>
-
-			<br></br>
-
-
+				</h:panelGrid>
+				<br></br>
+				<h:commandButton value="Valider"
+					action="#{conseillerMB.modifierClient}"></h:commandButton>
+			</h:form>
 		</p:panel>
 	</div>
 </h:body>

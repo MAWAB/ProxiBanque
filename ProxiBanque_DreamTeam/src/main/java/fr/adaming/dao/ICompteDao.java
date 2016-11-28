@@ -25,7 +25,7 @@ public interface ICompteDao <C extends Compte> {
 	
 
 	
-	public void virementDao(C compe1,C compte1, double somme);
+	public void virementDao(C compte1,C compte2, double somme);
 	
 	public void retraitDao(C compte,double somme);
 	

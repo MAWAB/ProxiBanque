@@ -35,7 +35,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		if(compte instanceof CompteCourant ){
 			
 			try {
-				String req = "SELECT * FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
+				String req = "FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
 
@@ -49,7 +49,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 						
 		}else if(compte instanceof CompteEpargne ){
 			try {
-				String req = "SELECT * FROM CompteEpargne cmpE WHERE cmpC.idCompte=:cmp_id";
+				String req = "FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
 				query.setParameter("cmp_id", ((CompteEpargne) compte).getIdCompte());
 
@@ -68,7 +68,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		EntityManager em = emf.createEntityManager();
 						
 		try {
-			String req = "SELECT * FROM CompteCourant cmp WHERE cmp.client.idClient=:cl_id";
+			String req = "FROM CompteCourant cmp WHERE cmp.client.idClient=:cl_id";
 			Query query = em.createQuery(req);
 			query.setParameter("cl_id", id);
 	
@@ -85,11 +85,11 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		EntityManager em = emf.createEntityManager();
 		
 		try {
-			String req = "SELECT * FROM CompteEpargne cmp WHERE cmp.client.idClient=:cl_id";
+			String req = "FROM CompteEpargne cmp WHERE cmp.client.idClient=:cl_id";
 			Query query = em.createQuery(req);
 			query.setParameter("cl_id", id);
 	
-			CompteCourant cmp = (CompteCourant) query.getSingleResult();
+			CompteEpargne cmp = (CompteEpargne) query.getSingleResult();
 			return (C) cmp;
 		} catch (NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
@@ -105,7 +105,7 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		EntityManager em = emf.createEntityManager();
 						
 		try {
-			String req = "SELECT * FROM CompteCourant cmp WHERE cmp.client.conseiller.gerant.agence.idAgence.=:ag_id";
+			String req = "FROM CompteCourant cmp WHERE cmp.client.conseiller.gerant.agence.idAgence=:ag_id";
 			Query query = em.createQuery(req);
 			query.setParameter("ag_id", id);
 	
@@ -123,9 +123,9 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		EntityManager em = emf.createEntityManager();
 		
 		try {
-			String req = "SELECT * FROM CompteCourant cmp WHERE cmp.client.conseiller.gerant.agence.idAgence.=:ag_id";
+			String req = "FROM CompteEpargne cmp WHERE cmp.client.conseiller.gerant.agence.idAgence=:ag_id";
 			Query query = em.createQuery(req);
-			query.setParameter("cl_id", id);
+			query.setParameter("ag_id", id);
 				
 			List<CompteEpargne> listeCompteE = query.getResultList();
 			return (List<C>) listeCompteE;
@@ -289,11 +289,11 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 				em.merge(cmpC1);
 				
 				
-				String req2 = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id2";
+				String req2 = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id2";
 				Query query2 = em.createQuery(req2);
-				query2.setParameter("cmp_id2", ((CompteCourant) compte2).getIdCompte());
+				query2.setParameter("cmp_id2", ((CompteEpargne) compte2).getIdCompte());
 		
-				CompteCourant cmpC2 = (CompteCourant) query2.getSingleResult();
+				CompteEpargne cmpC2 = (CompteEpargne) query2.getSingleResult();
 								
 				cmpC2.setSolde(compte2.getSolde()+somme);
 				em.merge(cmpC2);
@@ -308,11 +308,11 @@ public class CompteDaoImpl <C extends Compte> implements ICompteDao<C>{
 		}else if(compte1 instanceof CompteEpargne && compte2 instanceof CompteCourant){
 			try {
 				em.getTransaction().begin();
-				String req1 = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id1";
+				String req1 = "SELECT cmpE FROM CompteEpargne cmpE WHERE cmpE.idCompte=:cmp_id1";
 				Query query1 = em.createQuery(req1);
-				query1.setParameter("cmp_id1", ((CompteCourant) compte1).getIdCompte());
+				query1.setParameter("cmp_id1", ((CompteEpargne) compte1).getIdCompte());
 		
-				CompteCourant cmpC1 = (CompteCourant) query1.getSingleResult();
+				CompteEpargne cmpC1 = (CompteEpargne) query1.getSingleResult();
 								
 				cmpC1.setSolde(compte1.getSolde()-somme);
 				em.merge(cmpC1);
