@@ -1,6 +1,7 @@
 package fr.adaming.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import fr.adaming.model.Carte;
 public class CarteServiceImpl <T extends Carte> implements ICarteService<T> {
 	
 	@Autowired
+	@Qualifier("carteDao")
 	private ICarteDao<Carte> carteDao;
 	
 	

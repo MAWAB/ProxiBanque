@@ -11,7 +11,7 @@ import fr.adaming.model.Carte;
 import fr.adaming.model.VisaElectron;
 import fr.adaming.model.VisaPremium;
 
-@Repository
+@Repository("carteDao")
 public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 	
 	@Autowired
