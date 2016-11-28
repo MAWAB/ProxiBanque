@@ -42,6 +42,7 @@ public class CompteManagedBean implements Serializable {
 	private int carte=0;
 	private VisaElectron visaElectron;
 	private VisaPremium visaPremium;
+	private double somme=0;
 	
 	HttpSession session;
 
@@ -174,6 +175,23 @@ public class CompteManagedBean implements Serializable {
 	public void setVisaPremium(VisaPremium visaPremium) {
 		this.visaPremium = visaPremium;
 	}
+	
+
+
+	/**
+	 * @return the somme
+	 */
+	public double getSomme() {
+		return somme;
+	}
+
+
+	/**
+	 * @param somme the somme to set
+	 */
+	public void setSomme(double somme) {
+		this.somme = somme;
+	}
 
 
 	// Init ------------------------------------------------------------------------------------------------------------
@@ -201,12 +219,14 @@ public class CompteManagedBean implements Serializable {
 	public String addCompteEpargne() {
 		
 		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, 1);
 		Date date = c.getTime();
 		compteEpargne.setDateCreation(date);
 		compteEpargne.setSolde(0);
 		compteEpargne.setClient(client);
 		
 		compteService.ajouterCompteService(compteEpargne);
+		client.setCompteEpargne(compteEpargne);
 		
 		return "infosClient.xhtml";
 	}
@@ -215,6 +235,7 @@ public class CompteManagedBean implements Serializable {
 	public String addCompteCourant() {
 		
 		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, 1);
 		Date dateJour = c.getTime();
 		
 		compteCourant.setDateCreation(dateJour);
@@ -235,8 +256,9 @@ public class CompteManagedBean implements Serializable {
 		}
 		
 		compteService.ajouterCompteService(compteCourant);
+		client.setCompteCourant(compteCourant);
 		
-		return "infoClient.xhtml";
+		return "infosClient.xhtml";
 	}
 
 	
@@ -244,17 +266,19 @@ public class CompteManagedBean implements Serializable {
 		
 		
 		
-		return "infosClient.xhtl";
+		return "infosClient.xhtml";
 	}
 	
 	public String retirer() {
 		
-		return "infosClient.xhtl";
+		compteService.retraitService(client.getCompteCourant(), somme);
+		return "infosClient.xhtml";
 	}
 	
 	public String deposer() {
 		
-		return "infosClient.xhtl";
+		compteService.depotService(client.getCompteCourant(), somme);
+		return "infosClient.xhtml";
 	}
 	
 	

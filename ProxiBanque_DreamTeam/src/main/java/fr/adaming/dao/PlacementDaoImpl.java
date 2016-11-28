@@ -12,14 +12,14 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import fr.adaming.model.Client;
+import fr.adaming.model.Placement;
 
 /**
  * @author inti0302
  *
  */
-@Repository("clientDaoImpl")
-public class ClientDaoImpl implements IClientDao {
+@Repository("placementDaoImpl")
+public class PlacementDaoImpl implements IPlacementDao {
 
 	@Autowired
 	private EntityManagerFactory emf;
@@ -35,84 +35,82 @@ public class ClientDaoImpl implements IClientDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.adaming.dao.IClientDao#addClient(fr.adaming.model.Client)
+	 * @see
+	 * fr.adaming.dao.IPlacementDao#addPlacement(fr.adaming.model.Placement)
 	 */
 	@Override
-	public void addClient(Client client) {
-
+	public void addPlacement(Placement placement) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		em.persist(client);
+		em.persist(placement);
 		em.getTransaction().commit();
+
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.adaming.dao.IClientDao#updateClient(fr.adaming.model.Client)
+	 * @see
+	 * fr.adaming.dao.IPlacementDao#updatePlacement(fr.adaming.model.Placement)
 	 */
 	@Override
-	public void updateClient(Client client) {
+	public void updatePlacement(Placement placement) {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
+			String req = "SELECT pl FROM Placement pl WHERE pl.idPlacement=:aId";
 			Query query = em.createQuery(req);
-			query.setParameter("aId", client.getIdClient());
+			query.setParameter("aId", placement.getIdPlacement());
 
-			Client cl = (Client) query.getSingleResult();
-			cl.setDateDeNaissance(client.getDateDeNaissance());
-			cl.setNom(client.getNom());
-			cl.setNumeroClient(client.getNumeroClient());
-			cl.setPrenom(client.getPrenom());
-			cl.setTelephone(client.getTelephone());
-			cl.setAdresse(client.getAdresse());
-			cl.setPlace(client.getPlace());
-			em.merge(cl);
+			Placement pl = (Placement) query.getSingleResult();
+			pl.setSomme(placement.getSomme());
+			em.merge(pl);
 			em.getTransaction().commit();
 		} catch (NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.adaming.dao.IClientDao#deleteClient(int)
+	 * @see fr.adaming.dao.IPlacementDao#deletePlacement(int)
 	 */
 	@Override
-	public void deleteClient(int id) {
+	public void deletePlacement(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
+			String req = "SELECT pl FROM Placement pl WHERE pl.idPlacement=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
-			Client cl = (Client) query.getSingleResult();
-			
-			em.remove(cl);
+			Placement pl = (Placement) query.getSingleResult();
+
+			em.remove(pl);
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.adaming.dao.IClientDao#getAllClients()
+	 * @see fr.adaming.dao.IPlacementDao#getAllPlacements()
 	 */
 	@Override
-	public List<Client> getAllClients() {
+	public List<Placement> getAllPlacements() {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT cl FROM Client cl";
+			String req = "SELECT pl FROM Placement pl";
 			Query query = em.createQuery(req);
 
 			@SuppressWarnings("unchecked")
-			List<Client> listeClient = query.getResultList();
-			return listeClient;
+			List<Placement> listePlacement = query.getResultList();
+			return listePlacement;
 		} catch (NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
@@ -122,19 +120,19 @@ public class ClientDaoImpl implements IClientDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.adaming.dao.IClientDao#getAllClientsByIdConseiller()
+	 * @see fr.adaming.dao.IPlacementDao#getAllPlacementsByIdPlace(int)
 	 */
 	@Override
-	public List<Client> getAllClientsByIdConseiller(int id) {
+	public List<Placement> getAllPlacementsByIdPlace(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT cl FROM Client cl WHERE cl.conseiller.idConseiller=:aId";
+			String req = "SELECT pl FROM Placement pl WHERE pl.place.idPlace=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
 			@SuppressWarnings("unchecked")
-			List<Client> listeClient = query.getResultList();
-			return listeClient;
+			List<Placement> listePlacement = query.getResultList();
+			return listePlacement;
 		} catch (NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
@@ -144,19 +142,19 @@ public class ClientDaoImpl implements IClientDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.adaming.dao.IClientDao#getAllClientsByIdConseiller()
+	 * @see fr.adaming.dao.IPlacementDao#getAllPlacementByIdClient(int)
 	 */
 	@Override
-	public List<Client> getAllClientsByIdAgence(int id) {
+	public List<Placement> getAllPlacementByIdClient(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT cl FROM Client cl WHERE cl.conseiller.gerant.agence.idAgence=:aId";
+			String req = "SELECT pl FROM Placement pl WHERE pl.client.idClient=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
 			@SuppressWarnings("unchecked")
-			List<Client> listeClient = query.getResultList();
-			return listeClient;
+			List<Placement> listePlacement = query.getResultList();
+			return listePlacement;
 		} catch (NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
@@ -166,18 +164,19 @@ public class ClientDaoImpl implements IClientDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fr.adaming.dao.IClientDao#getClientById(int)
+	 * @see fr.adaming.dao.IPlacementDao#getPlacementById(int)
 	 */
 	@Override
-	public Client getClientById(int id) {
+	public Placement getPlacementById(int id) {
 		EntityManager em = emf.createEntityManager();
 		try {
-			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
+			String req = "SELECT pl FROM Placement pl WHERE pl.idPlacement=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);
 
-			Client cl = (Client) query.getSingleResult();
-			return cl;
+			Placement pl = (Placement) query.getSingleResult();
+
+			return pl;
 		} catch (NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
