@@ -35,7 +35,7 @@ public class CompteEpargne extends Compte implements Serializable{
 	@Temporal(TemporalType.DATE)
 	protected Date dateCreation;
 	
-	@OneToOne(cascade=CascadeType.REMOVE)
+	@OneToOne
 	@JoinColumn(name="client_id", referencedColumnName="idClient")
 	private Client client;
 
