@@ -35,7 +35,7 @@ public class CompteCourant extends Compte implements Serializable{
 	protected Date dateCreation;
 	
 	//transormer la compotision entre le client et le compteCourant
-	@OneToOne(cascade=CascadeType.REMOVE)
+	@OneToOne
 	@JoinColumn(name="client_id", referencedColumnName="idClient")
 	private Client client;
 
@@ -68,6 +68,15 @@ public class CompteCourant extends Compte implements Serializable{
 		this.visaElectron = visaElectron;
 		this.visaPremium = visaPremium;
 	}
+	
+	public CompteCourant(String numeroCompte, double solde, int idCompte,
+			double decouvert, Date dateCreation, Client client) {
+		super(numeroCompte, solde);
+		this.idCompte = idCompte;
+		this.decouvert = decouvert;
+		this.dateCreation = dateCreation;
+		this.client = client;
+	}
 
 	/**
 	 * @param numeroCompte
@@ -87,6 +96,14 @@ public class CompteCourant extends Compte implements Serializable{
 		this.client = client;
 		this.visaElectron = visaElectron;
 		this.visaPremium = visaPremium;
+	}
+	
+	public CompteCourant(String numeroCompte, double solde, double decouvert,
+			Date dateCreation, Client client) {
+		super(numeroCompte, solde);
+		this.decouvert = decouvert;
+		this.dateCreation = dateCreation;
+		this.client = client;
 	}
 
 	/**

@@ -30,15 +30,40 @@ import fr.adaming.service.ClientServiceImpl;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.ICompteService;
 
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/application-context.xml")
 public class CompteServiceTest {
 
-//	@Autowired
-//	private ICompteService<Compte> compteService;
-//	
-//	@Autowired
-//	private IClientService clientService;
-//	
+	@Autowired
+	private ICompteService<Compte> compteService;
+	
+	@Autowired
+	private IClientService clientService;
+	
+	
+	public void testAjouterCompteService() {
+
+		Client cl = clientService.getClientByIdService(1);
+		
+		Date date = new Date(1988 + 1900, 11, 7);
+		
+		CompteCourant cptC = new CompteCourant("0123", 1000, 300, date, cl);
+		
+		compteService.ajouterCompteService(cptC);
+	}
+	
+	@Test
+	public void testSupprimerCompteService() {
+
+		Client cl = clientService.getClientByIdService(1);
+		
+		Date date = new Date(1988 + 1900, 11, 7);
+		
+		CompteCourant cptC = new CompteCourant("0123", 1000, 300, date, cl);
+		
+		compteService.ajouterCompteService(cptC);
+	}
+	
 //			
 //	public static void main(String[] args) {
 //		
@@ -192,10 +217,10 @@ public class CompteServiceTest {
 //		CompteEpargne compte2=(CompteEpargne) compteService.getCompteByIdService(compteEpargne2);
 //				
 //		compteService.virementService(compte1, compte2, somme);
-		
-
-		
-	}
+//		
+//
+//		
+//	}
 	
 	
 }
