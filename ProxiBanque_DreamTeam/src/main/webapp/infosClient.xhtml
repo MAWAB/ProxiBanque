@@ -9,6 +9,8 @@
 
 <h:head>
 	<title>Infos client</title>
+	<style>
+</style>
 </h:head>
 <h:body>
 
@@ -17,76 +19,172 @@
 	</ui:insert>
 
 	<div align="center">
-		<p:panelGrid columns="1" style="width:100%">
+		<p:panelGrid columns="1" style="width:50%">
 			<f:facet name="header">Informations du client</f:facet>
 			<p:outputPanel>
-				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputText value="Nom : " />
-					<h:outputText value="#{clientMB.client.nom}"
-						style="font-weight: bold" />
+				<div align="center">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputText value="Nom : " />
+						<h:outputText value="#{clientMB.client.nom}"
+							style="font-weight: bold" />
 
-					<h:outputText value="Prénom : " />
-					<h:outputText value="#{clientMB.client.prenom}"
-						style="font-weight: bold" />
+						<h:outputText value="Prénom : " />
+						<h:outputText value="#{clientMB.client.prenom}"
+							style="font-weight: bold" />
 
-					<h:outputText value="Né le :" />
-					<h:outputText value="#{clientMB.client.dateDeNaissance}"
-						style="font-weight: bold">
-						<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
-					</h:outputText>
-					<h:outputText value="Adresse :" />
-					<h:outputText value="#{clientMB.adresse}" style="font-weight: bold" />
+						<h:outputText value="Né le :" />
+						<h:outputText value="#{clientMB.client.dateDeNaissance}"
+							style="font-weight: bold">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+						</h:outputText>
+						<h:outputText value="Adresse :" />
+						<h:outputText value="#{clientMB.adresse}"
+							style="font-weight: bold" />
 
-					<h:outputText value="Téléphone :" />
-					<h:outputText value="#{clientMB.client.telephone}"
-						style="font-weight: bold" />
+						<h:outputText value="Téléphone :" />
+						<h:outputText value="#{clientMB.client.telephone}"
+							style="font-weight: bold" />
 
-					<h:outputText value="Numéro client :" />
-					<h:outputText value="#{clientMB.client.idClient}"
-						style="font-weight: bold" />
+						<h:outputText value="Numéro client :" />
+						<h:outputText value="#{clientMB.client.idClient}"
+							style="font-weight: bold" />
 
-				</h:panelGrid>
+					</h:panelGrid>
+				</div>
 			</p:outputPanel>
 		</p:panelGrid>
 	</div>
 	<div align="center">
 		<p:panelGrid columns="2" style="width:100%">
 			<f:facet name="header">Comptes</f:facet>
-			<p:panelGrid columns="2" style="width:50%">
-				<f:facet name="header">Compte Courant</f:facet>
-				<h:outputText value="Numéro du compte : " />
-				<h:outputText value="#{client.compteCourant.numeroCompte}"
-					style="font-weight: bold" />
-				<h:outputText value="Date de création : " />
-				<h:outputText value="#{client.compteCourant.dateCreation}"
-					style="font-weight: bold">
-					<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
-				</h:outputText>
-				<h:outputText value="Solde : " />
-				<h:outputText value="#{client.compteCourant.solde}"
-					style="font-weight: bold" />
-				<h:outputText value="Découvert : " />
-				<h:outputText value="#{client.compteCourant.decouvert}"
-					style="font-weight: bold" />
-			</p:panelGrid>
+			<h:form>
+				<p:panelGrid style="width:50%">
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="2">Compte Courant</p:column>
+						</p:row>
+					</f:facet>
 
-			<p:panelGrid columns="2" style="width:50%">
-				<f:facet name="header">Compte Epargne</f:facet>
-				<h:outputText value="Numéro du compte : " />
-				<h:outputText value="#{client.compteEpargne.numeroCompte}"
-					style="font-weight: bold" />
-				<h:outputText value="Date de création : " />
-				<h:outputText value="#{client.compteEpargne.dateCreation}"
-					style="font-weight: bold">
-					<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
-				</h:outputText>
-				<h:outputText value="Solde : " />
-				<h:outputText value="#{client.compteEpargne.solde}"
-					style="font-weight: bold" />
-				<h:outputText value="Taux de rémunération : " />
-				<h:outputText value="#{client.compteEpargne.tauxRenumeration}"
-					style="font-weight: bold" />
-			</p:panelGrid>
+					<p:row>
+						<p:column>
+							<h:outputText value="Numéro du compte : " />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{clientMB.client.compteCourant.idCompte}"
+								style="font-weight: bold" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputText value="Date de création : " />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{clientMB.client.compteCourant.dateCreation}"
+								style="font-weight: bold">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputText value="Solde : " />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{clientMB.client.compteCourant.solde}"
+								style="font-weight: bold" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputText value="Découvert : " />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{clientMB.client.compteCourant.decouvert}"
+								style="font-weight: bold" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2" styleClass="ui-widget-header">
+							<p:spacer height="0" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+
+							<p:commandButton value="Ajouter un compte courant"
+								action="#{clientMB.navigationAjoutCompteC}">
+							</p:commandButton>
+
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
+
+			<h:form>
+				<p:panelGrid style="width:50%">
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="2">Compte Epargne</p:column>
+						</p:row>
+					</f:facet>
+
+					<p:row>
+						<p:column>
+							<h:outputText value="Numéro du compte : " />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{clientMB.client.compteEpargne.idCompte}"
+								style="font-weight: bold" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputText value="Date de création : " />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{clientMB.client.compteEpargne.dateCreation}"
+								style="font-weight: bold">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputText value="Solde : " />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{clientMB.client.compteEpargne.solde}"
+								style="font-weight: bold" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputText value="Taux de rémunération : " />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{clientMB.client.compteEpargne.tauxRenumeration}"
+								style="font-weight: bold" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2" styleClass="ui-widget-header">
+							<p:spacer height="0" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+
+							<p:commandButton value="Ajouter un compte épargne"
+								action="#{clientMB.navigationAjoutCompteEp}">
+							</p:commandButton>
+
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
 		</p:panelGrid>
 	</div>
 

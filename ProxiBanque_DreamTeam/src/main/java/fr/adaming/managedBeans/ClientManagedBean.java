@@ -91,4 +91,14 @@ public class ClientManagedBean implements Serializable {
 				+ " " + this.client.getAdresse().getVille();
 	}
 
+	public String navigationAjoutCompteC() {
+		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
+		return "ajoutCC.xhtml";
+	}
+	
+	public String navigationAjoutCompteEp() {
+		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
+		return "ajoutCE.xhtml";
+	}
+
 }

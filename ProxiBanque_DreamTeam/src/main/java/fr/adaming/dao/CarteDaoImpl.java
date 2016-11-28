@@ -5,11 +5,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Carte;
 import fr.adaming.model.VisaElectron;
 import fr.adaming.model.VisaPremium;
 
+@Repository
 public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 	
 	@Autowired
