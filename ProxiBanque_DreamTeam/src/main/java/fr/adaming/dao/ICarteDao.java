@@ -6,9 +6,7 @@ public interface ICarteDao <T extends Carte> {
 	
 	public T getCarteByIdDao(T carte);
 	
-	public T getVisaElectronByIdCompteDao(int id);
-	
-	public T getVisaPremiumByIdCompteDao(int id);
+	public T getCarteByIdCompteDao(int id, T carte);
 	
 	public void ajouterCarteDao(T carte);
 	
