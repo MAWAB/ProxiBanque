@@ -220,7 +220,6 @@ public class CompteDaoImpl<C extends Compte> implements ICompteDao<C> {
 				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
 
 				CompteCourant cmpC = (CompteCourant) query.getSingleResult();
-				
 				System.out.println("OK4");
 				em.remove(cmpC);
 				System.out.println("OK5");
