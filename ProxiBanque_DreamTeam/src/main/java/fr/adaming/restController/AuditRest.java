@@ -2,6 +2,7 @@ package fr.adaming.restController;
 
 import java.util.List;
 
+import javax.faces.bean.ManagedProperty;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,7 +29,9 @@ public class AuditRest {
 	@Autowired
 	@Qualifier("clientServiceImpl")
 	private IClientService clientService;
-
+	@Autowired
+	@Qualifier("conseillerService")
+	private IConseillerService conseillerService;
 
 	@GET
 	@Path("/getAllClients")
@@ -38,6 +41,35 @@ public class AuditRest {
 		return clientService.getAllClientsService();
 	}
 
+	@GET
+	@Path("/getAllConseillers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Conseiller> getAllConseillers() {
+		return conseillerService.getAllConseillerService();
+	}
+	
+//	@GET
+//	@Path("/getAllAgence")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public List<Conseiller> getAllAgence() {
+//		return conseillerService.();
+//	}
+////
+//	@RequestMapping(value = "/getAllComptesCourant/{id_agence}", method = RequestMethod.GET, produces = "application/json", consumes= "application/json")	
+//	public List<CompteCourant> getAllCompteCourant(@PathVariable int id_agence)
+//	{
+//		return compteService.getComptesCourantByIdAgenceService(id_agence);	
+//				
+//	}
+//	@RequestMapping(value = "/getAllComptesCourant/{id_agence}", method = RequestMethod.GET, produces = "application/json", consumes= "application/json")
+//	public List<CompteCourant> getAllCompteEpargne(@PathVariable int id_agence)
+//	{
+//		return compteService.getComptesEpargneByIdAgenceService(id_agence);
+//				
+//	}
+	
+	
+	
 
 	/**
 	 * @return the clientService
@@ -55,22 +87,23 @@ public class AuditRest {
 		this.clientService = clientService;
 	}
 
-//	@RequestMapping(value = "/getAllConseillers", method = RequestMethod.GET, produces = "application/json")
-//	public List<Conseiller> getAllConseillers() {
-//		return conseillerService.getAllConseillerService();
-//	}
-//
-//	@RequestMapping(value = "/getAllComptesCourant/{id_agence}", method = RequestMethod.GET, produces = "application/json", consumes= "application/json")	
-//	public List<CompteCourant> getAllCompteCourant(@PathVariable int id_agence)
-//	{
-//		return compteService.getComptesCourantByIdAgenceService(id_agence);	
-//				
-//	}
-//	@RequestMapping(value = "/getAllComptesCourant/{id_agence}", method = RequestMethod.GET, produces = "application/json", consumes= "application/json")
-//	public List<CompteCourant> getAllCompteEpargne(@PathVariable int id_agence)
-//	{
-//		return compteService.getComptesEpargneByIdAgenceService(id_agence);
-//				
-//	}
+
+
+	/**
+	 * @return the conseillerService
+	 */
+	public IConseillerService getConseillerService() {
+		return conseillerService;
+	}
+
+
+
+	/**
+	 * @param conseillerService the conseillerService to set
+	 */
+	public void setConseillerService(IConseillerService conseillerService) {
+		this.conseillerService = conseillerService;
+	}
+	
 	
 }
