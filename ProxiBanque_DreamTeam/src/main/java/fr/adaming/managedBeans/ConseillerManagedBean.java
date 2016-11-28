@@ -124,7 +124,6 @@ public class ConseillerManagedBean implements Serializable {
 	/* méthodes de navigation */
 
 	public String navigationInformationclient() {
-		System.out.println(this.clientAManipuler.getIdClient());
 		session.setAttribute("client", clientService.getClientByIdService(this.clientAManipuler.getIdClient()));
 		return "infosClient.xhtml";
 	}
