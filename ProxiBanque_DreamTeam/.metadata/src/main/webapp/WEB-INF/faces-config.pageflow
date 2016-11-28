@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14800007931040" configfile="/ProxiBanque_DreamTeam/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf148007433683116" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf148007433683117" path="index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="accueilConseiller.xhtml" id="pf148007433683118" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf148009124256124 pf148014674109226 pf148014674109227 pf148015441648430" inlinks="pf148007433683117 pf148015441648430 pf148015462768131" path="accueilConseiller.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf148007433683116" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf148007433683117 pf14803451999831" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="accueilConseiller.xhtml" id="pf148007433683118" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" outlinks="pf148009124256124 pf148014674109226 pf148014674109227 pf148015441648430" inlinks="pf148007433683117 pf148015441648430 pf148015462768131" path="accueilConseiller.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="ajoutClient.xhtml" id="pf148009124256125" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf148015462768131" inlinks="pf148009124256124" path="ajoutClient.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="suppClient.xhtml" id="pf148014674109228" referenceLink="//@navigationRule.1/@navigationCase.2/@toViewId|" inlinks="pf148014674109226" path="suppClient.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="modifClient.xhtml" id="pf148014674109229" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" inlinks="pf148014674109227" path="modifClient.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="suppClient.xhtml" id="pf148014674109228" referenceLink="//@navigationRule.1/@navigationCase.3/@toViewId|" inlinks="pf148014674109226" path="suppClient.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="modifClient.xhtml" id="pf148014674109229" referenceLink="//@navigationRule.1/@navigationCase.2/@toViewId|" inlinks="pf148014674109227" path="modifClient.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="auditAccueil.xhtml" id="pf14803451999832" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14803451999831" path="auditAccueil.xhtml"/>
   <links id="pf148007433683117" target="pf148007433683118" source="pf148007433683116" outcome="accueilConseiller"/>
   <links id="pf148009124256124" target="pf148009124256125" source="pf148007433683118" outcome="ajoutClient"/>
   <links id="pf148014674109226" target="pf148014674109228" source="pf148007433683118" outcome="suppClient"/>
   <links id="pf148014674109227" target="pf148014674109229" source="pf148007433683118" outcome="modifClient"/>
   <links id="pf148015441648430" target="pf148007433683118" source="pf148007433683118" outcome="accueilConseiller"/>
   <links id="pf148015462768131" target="pf148007433683118" source="pf148009124256125" outcome="accueilConseiller"/>
+  <links id="pf14803451999831" target="pf14803451999832" source="pf148007433683116" outcome="accueilAuditeur"/>
 </pageflow:Pageflow>
