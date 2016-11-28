@@ -40,11 +40,11 @@ public class CompteCourant extends Compte implements Serializable{
 	private Client client;
 
 	//transormer la composition entre le compteCourant et la VisaElectron
-	@OneToOne(mappedBy="compteCourant")
+	@OneToOne(mappedBy="compteCourant", cascade=CascadeType.ALL)
 	private VisaElectron visaElectron;
 	
 	//transormer la composition entre le compteCourant et la VisaPremium
-	@OneToOne(mappedBy="compteCourant")
+	@OneToOne(mappedBy="compteCourant", cascade=CascadeType.ALL)
 	private VisaPremium visaPremium;
 
 	/**
