@@ -64,6 +64,8 @@ public class PlacementDaoImpl implements IPlacementDao {
 
 			Placement pl = (Placement) query.getSingleResult();
 			pl.setSomme(placement.getSomme());
+			pl.setClient(placement.getClient());
+			pl.setPlace(placement.getPlace());
 			em.merge(pl);
 			em.getTransaction().commit();
 		} catch (NullPointerException | IllegalArgumentException e) {

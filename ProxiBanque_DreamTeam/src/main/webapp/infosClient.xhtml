@@ -218,8 +218,9 @@
 		</p:panelGrid>
 	</div>
 
-	<div align="center">
-		<h:form>
+	<div align="center" style="margin-top: 20px">
+		<h:form
+			rendered="#{(clientMB.client.compteEpargne != null and clientMB.client.compteEpargne.solde >= 500000) or (clientMB.client.place != null)}">
 			<p:commandButton value="Gestion du patrimoine"
 				action="#{clientMB.navigationPatrimoine}">
 			</p:commandButton>

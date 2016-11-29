@@ -19,7 +19,6 @@ public class AuditRestService implements IAuditRestService {
 
 	@Override
 	public List<Agence> getAllAgences() {
-		System.out.println("Je suis dans la méthode web service");
 		ClientConfig clientConfig = new DefaultClientConfig();
 		// pour faire le mapping objet java et objet json
 		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
@@ -28,10 +27,8 @@ public class AuditRestService implements IAuditRestService {
 		Client cl = Client.create(clientConfig);
 		// etape 3 : creer une web ressource
 		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getAllAgences";
-		System.out.println("empUrl");
 		WebResource webResource = cl.resource(empURL);
 		// invoquer le web service et recuperer le résultat
-		System.out.println("webresource");
 		ClientResponse response = webResource.get(ClientResponse.class);
 		List<Agence> listeAgence = response
 				.getEntity(new GenericType<List<Agence>>() {
@@ -41,8 +38,19 @@ public class AuditRestService implements IAuditRestService {
 
 	@Override
 	public Agence getAgenceById(int id_agence) {
-		// TODO Auto-generated method stub
-		return null;
+
+		// étape 1 : instancier un objet ClientConfig pour configurer le client Rest ful
+		ClientConfig clientConfig=new DefaultClientConfig();
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// étape 2 : instancier un client rest
+		Client client=Client.create(clientConfig);
+		// étape 3 : créer une web ressource
+		WebResource webResource=client.resource("http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getAgenceById/"); // resource base de wadl
+		Agence agenceRecuperer=webResource.path(Integer.toString(id_agence))
+				.accept(MediaType.APPLICATION_JSON)
+				.get(Agence.class);	
+		return agenceRecuperer;
 	}
 
 }

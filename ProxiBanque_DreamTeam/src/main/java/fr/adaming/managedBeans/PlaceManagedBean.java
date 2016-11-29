@@ -5,6 +5,7 @@ package fr.adaming.managedBeans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -47,6 +48,8 @@ public class PlaceManagedBean implements Serializable {
 	private int place = 0;
 	private int somme = 0;
 	private Client client;
+	private List<Placement> listePlacements;
+	private Placement placementTmp;
 
 	HttpSession session;
 
@@ -147,12 +150,46 @@ public class PlaceManagedBean implements Serializable {
 		this.placementService = placementService;
 	}
 
+	/**
+	 * @return the listePlacements
+	 */
+	public List<Placement> getListePlacements() {
+		return listePlacements;
+	}
+
+	/**
+	 * @param listePlacements
+	 *            the listePlacements to set
+	 */
+	public void setListePlacements(List<Placement> listePlacements) {
+		this.listePlacements = listePlacements;
+	}
+
+	/**
+	 * @return the placementTmp
+	 */
+	public Placement getPlacementTmp() {
+		return placementTmp;
+	}
+
+	/**
+	 * @param placementTmp
+	 *            the placementTmp to set
+	 */
+	public void setPlacementTmp(Placement placementTmp) {
+		this.placementTmp = placementTmp;
+	}
+
 	@PostConstruct
 	public void init() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		session = (HttpSession) facesContext.getExternalContext().getSession(false);
 
 		this.client = (Client) session.getAttribute("client");
+
+		if (this.client.getPlace() != null) {
+			this.listePlacements = placementService.getAllPlacementByIdClientService(this.client.getIdClient());
+		}
 	}
 
 	public void placer() throws IOException {
@@ -173,6 +210,7 @@ public class PlaceManagedBean implements Serializable {
 		}
 
 		cl.setPlace(placeTmp);
+		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()-this.somme);
 		clientService.updateClientService(cl);
 
 		placement.setSomme(this.somme);
@@ -182,6 +220,47 @@ public class PlaceManagedBean implements Serializable {
 		placementService.addPlacementService(placement);
 
 		this.client = clientService.getClientByIdService(cl.getIdClient());
+		session.setAttribute("client", this.client);
+
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+	}
+
+	public void nouveauPlacement() throws IOException {
+
+		Client cl = clientService.getClientByIdService(this.client.getIdClient());
+
+		Place place = this.client.getPlace();
+
+		Placement placement = new Placement();
+		
+		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()-this.somme);
+		clientService.updateClientService(cl);
+
+		placement.setSomme(this.somme);
+		placement.setClient(cl);
+		placement.setPlace(place);
+
+		placementService.addPlacementService(placement);
+
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+	}
+
+	public void supprimerPlacement() throws IOException {
+		
+		Client cl = clientService.getClientByIdService(this.client.getIdClient());
+		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()+this.placementTmp.getSomme());
+		clientService.updateClientService(cl);
+		
+		placementService.deletePlacementService(this.placementTmp.getIdPlacement());
+		
+		
+		if (placementService.getAllPlacementByIdClientService(this.client.getIdClient()).size() == 0){
+			this.client.setPlace(null);
+			clientService.updateClientService(this.client);
+		}
+		
 		session.setAttribute("client", this.client);
 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

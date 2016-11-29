@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +23,15 @@ import fr.adaming.model.Client;
 @Repository("clientDaoImpl")
 public class ClientDaoImpl implements IClientDao {
 
-	@Autowired
-	private EntityManagerFactory emf;
+	@PersistenceContext
+	private EntityManager em;
 
 	/**
 	 * @param emf
 	 *            the emf to set
 	 */
-	public void setEmf(EntityManagerFactory emf) {
-		this.emf = emf;
+	public void setEm(EntityManager em) {
+		this.em = em;
 	}
 
 	/*
@@ -40,10 +42,8 @@ public class ClientDaoImpl implements IClientDao {
 	@Override
 	public void addClient(Client client) {
 
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		em.persist(client);
-		em.getTransaction().commit();
+		em.merge(client);
+	
 	}
 
 	/*
@@ -53,9 +53,9 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public void updateClient(Client client) {
-		EntityManager em = emf.createEntityManager();
+		
 		try {
-			em.getTransaction().begin();
+			
 			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", client.getIdClient());
@@ -69,7 +69,7 @@ public class ClientDaoImpl implements IClientDao {
 			cl.setAdresse(client.getAdresse());
 			cl.setPlace(client.getPlace());
 			em.merge(cl);
-			em.getTransaction().commit();
+		
 		} catch (NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
@@ -82,7 +82,7 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public void deleteClient(int id) {
-		EntityManager em = emf.createEntityManager();
+
 		try {
 			em.getTransaction().begin();
 			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
@@ -92,7 +92,7 @@ public class ClientDaoImpl implements IClientDao {
 			Client cl = (Client) query.getSingleResult();
 			
 			em.remove(cl);
-			em.getTransaction().commit();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -105,7 +105,7 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public List<Client> getAllClients() {
-		EntityManager em = emf.createEntityManager();
+	
 		try {
 			String req = "SELECT cl FROM Client cl";
 			Query query = em.createQuery(req);
@@ -126,7 +126,7 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public List<Client> getAllClientsByIdConseiller(int id) {
-		EntityManager em = emf.createEntityManager();
+	
 		try {
 			String req = "SELECT cl FROM Client cl WHERE cl.conseiller.idConseiller=:aId";
 			Query query = em.createQuery(req);
@@ -148,7 +148,7 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public List<Client> getAllClientsByIdAgence(int id) {
-		EntityManager em = emf.createEntityManager();
+	
 		try {
 			String req = "SELECT cl FROM Client cl WHERE cl.conseiller.gerant.agence.idAgence=:aId";
 			Query query = em.createQuery(req);
@@ -170,7 +170,7 @@ public class ClientDaoImpl implements IClientDao {
 	 */
 	@Override
 	public Client getClientById(int id) {
-		EntityManager em = emf.createEntityManager();
+	
 		try {
 			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);

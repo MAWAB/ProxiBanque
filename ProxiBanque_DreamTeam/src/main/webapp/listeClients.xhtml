@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Clients de l'agence</title>
+</h:head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/templates/headerGerant.xhtml"></ui:include>
+	</ui:insert>
+
+
+	<div align="center">
+		<h1>Liste des clients de l'agence</h1>
+		<h:form>
+			<p:dataTable var="client" value="#{gerantMB.listeClient}">
+
+				<p:column headerText="numéro du client">
+					<h:outputText value="#{client.idClient}" />
+				</p:column>
+
+				<p:column headerText="Nom du client">
+					<h:outputText value="#{client.nom}" />
+				</p:column>
+
+				<p:column headerText="Prénom du client">
+					<h:outputText value="#{client.prenom}" />
+				</p:column>
+
+				<p:column headerText="Date de naissance du client">
+					<h:outputText value="#{client.dateDeNaissance}" />
+				</p:column>
+				<p:column headerText="Informations bancaires">
+					<h:commandButton value="informations bancaires"
+						action="#{gerantMB.navigationInformationclient()}">
+						<f:setPropertyActionListener
+							target="#{gerantMB.client}" value="#{client}" />
+					</h:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</div>
+</h:body>
+</h:html>

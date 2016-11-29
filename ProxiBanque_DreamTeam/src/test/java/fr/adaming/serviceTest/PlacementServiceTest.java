@@ -27,7 +27,6 @@
 //	@Autowired
 //	private IPlaceService placeService;
 //	
-//	@Test
 //	public void testNouveauPlacement(){
 //		
 //		Client cl = clientService.getClientByIdService(1);
@@ -43,4 +42,11 @@
 //		
 //		placementService.addPlacementService(placement);
 //	}
+//	
+//	public void testSupprimerPlacement(){
+//		
+//		Placement pl = placementService.getPlacementByIdService(2);
+//		placementService.deletePlacementService(pl.getIdPlacement());
+//	}
+//	
 //}
