@@ -1,7 +1,10 @@
 package fr.adaming.managedBeans;
 
 import java.io.IOException;
+import java.net.URL;
+import java.rmi.Remote;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -41,6 +44,7 @@ public class AuditeurManagedBean {
 		menuListeDesOptionsAudit = new DefaultMenuModel();
 		creationMenuSelectionClientAModifier();
 		creationMenuSelectionOptionAudit();
+
 	}
 
 	public AuditeurManagedBean() {

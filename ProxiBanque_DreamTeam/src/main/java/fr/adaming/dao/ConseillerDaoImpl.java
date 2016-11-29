@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Adresse;
 import fr.adaming.model.Conseiller;
+import fr.adaming.model.Gerant;
 
 @Repository("conseillerDaoImpl")
 public class ConseillerDaoImpl implements IConseillerDao {
@@ -24,6 +25,38 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	 */
 	public void setEm(EntityManager em) {
 		this.em = em;
+	}
+	
+	/** Authentification Gérant: requête sql car le discriminant n'est pas dans le modèle */
+	
+	@Override
+	public Gerant isExistGerantDao(String numeroImmatriculation, String motDePasse){
+		try{
+			String sqlReq="SELECT count(idConseiller) FROM conseillers WHERE numeroImmatriculation=? AND motDePasse=? AND discrim='G'";
+			Query query = em.createNativeQuery(sqlReq);
+			Gerant gege = (Gerant) query.getSingleResult();
+			return gege;
+		}catch(NullPointerException | IllegalArgumentException e){
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	/** Authentification Conseiller: requête sql car le discriminant n'est pas dans le modèle */
+	
+	@Override
+	public Conseiller isExistConseillerDao(String numeroImmatriculation, String motDePasse){
+		try{
+			String sqlReq="SELECT count(idConseiller) FROM conseillers WHERE numeroImmatriculation=? AND motDePasse=? AND discrim='C'";
+			Query query = em.createNativeQuery(sqlReq);
+			Conseiller coco = (Conseiller) query.getSingleResult();
+			return coco;
+		}catch(NullPointerException | IllegalArgumentException e){
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 	@Override
