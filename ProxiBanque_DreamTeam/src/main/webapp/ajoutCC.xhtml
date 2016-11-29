@@ -23,7 +23,8 @@
 	</h:form>
 
 	<div align="center">
-		<p:panel id="panel" header="Ajout d'un compte courant" style="margin-bottom:10px;">
+		<p:panel id="panel" header="Ajout d'un compte courant"
+			style="margin-bottom:10px;">
 			<h:form>
 				<h:panelGrid columns="2">
 
@@ -46,38 +47,39 @@
 				<br />
 
 				<h:panelGroup id="carteChoisie">
-					<h:form rendered="#{compteMB.carte == 1}">
-						<h:panelGrid columns="2">
-							<p:outputLabel for="dateExp" value="Date d'expiration : " />
-							<p:calendar id="dateExp"
-								value="#{compteMB.visaElectron.dateExpiration}" required="true"></p:calendar>
 
-							<p:outputLabel for="plafond" value="Plafond de crédit: " />
-							<p:inputText id="plafond" type="number"
-								value="#{compteMB.visaElectron.plafondCredit}" required="true" />
 
-							<p:outputLabel for="pin" value="Code Pin : " />
-							<p:inputText id="pin" value="#{compteMB.visaElectron.codePin}"
-								required="true" />
-						</h:panelGrid>
-					</h:form>
+					<h:panelGrid columns="2" rendered="#{compteMB.carte == 1}">
+						<p:outputLabel for="dateExpC" value="Date d'expiration : " />
+						<p:calendar id="dateExpC"
+							value="#{compteMB.visaElectron.dateExpiration}" required="true"></p:calendar>
 
-					<h:form rendered="#{compteMB.carte == 2}">
-						<h:panelGrid columns="2">
-							<p:outputLabel for="dateExp" value="Date d'expiration : " />
-							<p:calendar id="dateExp"
-								value="#{compteMB.visaPremium.dateExpiration}" required="true"></p:calendar>
+						<p:outputLabel for="plafondC" value="Plafond de crédit: " />
+						<p:inputText id="plafondC" type="number"
+							value="#{compteMB.visaElectron.plafondCredit}" required="true" />
 
-							<p:outputLabel for="plafond" value="Plafond de retrait : " />
-							<p:inputText id="plafond" type="number"
-								value="#{compteMB.visaPremium.plafondRetrait}" required="true" />
+						<p:outputLabel for="pinC" value="Code Pin : " />
+						<p:inputText id="pinC" value="#{compteMB.visaElectron.codePin}"
+							required="true" />
+					</h:panelGrid>
 
-							<p:outputLabel for="pin" value="Code Pin : " />
-							<p:inputText id="pin" value="#{compteMB.visaPremium.codePin}"
-								required="true" />
 
-						</h:panelGrid>
-					</h:form>
+
+					<h:panelGrid columns="2" rendered="#{compteMB.carte == 2}">
+						<p:outputLabel for="dateExpE" value="Date d'expiration : " />
+						<p:calendar id="dateExpE"
+							value="#{compteMB.visaPremium.dateExpiration}" required="true"></p:calendar>
+
+						<p:outputLabel for="plafondE" value="Plafond de retrait : " />
+						<p:inputText id="plafondE" type="number"
+							value="#{compteMB.visaPremium.plafondRetrait}" required="true" />
+
+						<p:outputLabel for="pinE" value="Code Pin : " />
+						<p:inputText id="pinE" value="#{compteMB.visaPremium.codePin}"
+							required="true" />
+
+					</h:panelGrid>
+
 				</h:panelGroup>
 
 
