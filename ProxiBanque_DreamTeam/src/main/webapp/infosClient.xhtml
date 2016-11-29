@@ -146,7 +146,7 @@
 							rendered="#{clientMB.client.compteCourant != null and clientMB.client.compteCourant.visaElectron != null}">
 							<f:facet name="header">
 								<p:row>
-									<p:column colspan="2">Carte Electron</p:column>
+									<p:column colspan="2">Carte Visa Electron</p:column>
 								</p:row>
 							</f:facet>
 							<p:row>
@@ -188,6 +188,56 @@
 								<p:column>
 									<h:outputText
 										value="#{clientMB.client.compteCourant.visaElectron.codePin}"
+										style="font-weight: bold" />
+								</p:column>
+							</p:row>
+						</h:form>
+						<h:form
+							rendered="#{clientMB.client.compteCourant != null and clientMB.client.compteCourant.visaPremium != null}">
+							<f:facet name="header">
+								<p:row>
+									<p:column colspan="2">Carte Visa Premium</p:column>
+								</p:row>
+							</f:facet>
+							<p:row>
+								<p:column>
+									<h:outputText value="Numéro de la carte : " />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{clientMB.client.compteCourant.visaPremium.idVisaPremium}"
+										style="font-weight: bold" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText value="Date d'expiration : " />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{clientMB.client.compteCourant.visaPremium.dateExpiration}"
+										style="font-weight: bold">
+										<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+									</h:outputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText value="Plafond de retrait : " />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{clientMB.client.compteCourant.visaPremium.plafondRetrait}"
+										style="font-weight: bold" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText value="Code PIN : " />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{clientMB.client.compteCourant.visaPremium.codePin}"
 										style="font-weight: bold" />
 								</p:column>
 							</p:row>
