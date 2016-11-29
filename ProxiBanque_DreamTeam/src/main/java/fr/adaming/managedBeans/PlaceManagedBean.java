@@ -20,6 +20,7 @@ import fr.adaming.model.Place;
 import fr.adaming.model.Placement;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.IPlaceService;
+import fr.adaming.service.IPlacementService;
 
 /**
  * @author inti0302
@@ -39,6 +40,9 @@ public class PlaceManagedBean implements Serializable {
 
 	@ManagedProperty(value = "#{placeServiceImpl}")
 	IPlaceService placeService;
+
+	@ManagedProperty(value = "#{placementServiceImpl}")
+	IPlacementService placementService;
 
 	private int place = 0;
 	private int somme = 0;
@@ -113,6 +117,36 @@ public class PlaceManagedBean implements Serializable {
 		this.somme = somme;
 	}
 
+	/**
+	 * @return the clientService
+	 */
+	public IClientService getClientService() {
+		return clientService;
+	}
+
+	/**
+	 * @param clientService
+	 *            the clientService to set
+	 */
+	public void setClientService(IClientService clientService) {
+		this.clientService = clientService;
+	}
+
+	/**
+	 * @return the placementService
+	 */
+	public IPlacementService getPlacementService() {
+		return placementService;
+	}
+
+	/**
+	 * @param placementService
+	 *            the placementService to set
+	 */
+	public void setPlacementService(IPlacementService placementService) {
+		this.placementService = placementService;
+	}
+
 	@PostConstruct
 	public void init() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -126,27 +160,27 @@ public class PlaceManagedBean implements Serializable {
 		Client cl = clientService.getClientByIdService(this.client.getIdClient());
 		Place placeTmp = new Place();
 		Placement placement = new Placement();
-		
+
 		if (this.place == 0) {
 			// Id pour Paris dans la DB = 1
 			placeTmp = placeService.getPlaceByIdService(1);
-		}
-		else if (this.place == 1) {
+		} else if (this.place == 1) {
 			// Id pour New-York dans la DB = 2
 			placeTmp = placeService.getPlaceByIdService(2);
-		}
-		else if (this.place == 2) {
+		} else if (this.place == 2) {
 			// Id pour Tokyo dans la DB = 3
 			placeTmp = placeService.getPlaceByIdService(3);
 		}
-		
+
 		cl.setPlace(placeTmp);
 		clientService.updateClientService(cl);
-		
+
 		placement.setSomme(this.somme);
 		placement.setClient(cl);
 		placement.setPlace(placeTmp);
-		
+
+		placementService.addPlacementService(placement);
+
 		this.client = clientService.getClientByIdService(cl.getIdClient());
 		session.setAttribute("client", this.client);
 

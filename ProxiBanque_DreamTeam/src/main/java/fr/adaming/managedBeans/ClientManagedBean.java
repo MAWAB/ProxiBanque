@@ -185,5 +185,10 @@ public class ClientManagedBean implements Serializable {
 		
 		return "infosClient.xhtml";
 	}
+	
+	public String navigationPatrimoine(){
+		session.setAttribute("client", this.client);
+		return "patrimoine.xhtml";
+	}
 
 }
