@@ -35,7 +35,6 @@ public class AuditRest {
 	@Path("/getAllClients")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Client> getAllClients() {
-		System.out.println("web service");
 		return clientService.getAllClientsService();
 	}
 

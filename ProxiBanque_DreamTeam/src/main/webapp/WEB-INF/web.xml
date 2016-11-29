@@ -34,7 +34,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+		<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>WEB-INF/application-context.xml</param-value>
+	</context-param>
 	<!-- Pour chaque requete il va regarder le context de spring -->
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>

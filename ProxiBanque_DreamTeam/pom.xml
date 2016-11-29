@@ -11,6 +11,35 @@
 
 	<dependencies>
 
+<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-client -->
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.18.3</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-json -->
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.18.3</version>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-bundle -->
+<dependency>
+    <groupId>com.sun.jersey</groupId>
+    <artifactId>jersey-bundle</artifactId>
+    <version>1.8</version>
+</dependency>
+
+
+		<!-- servlet-api Library -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+		
 		<!-- Jersey -->
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -18,11 +47,7 @@
 			<version>1.8</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
-			<version>1.8</version>
-		</dependency>
+
 	<!--Jersey + Spring -->
 		<dependency>
 			<groupId>com.sun.jersey.contribs</groupId>
@@ -56,17 +81,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- servlet-api Library -->
 
-		<dependency>
-
-			<groupId>javax.servlet</groupId>
-
-			<artifactId>servlet-api</artifactId>
-
-			<version>2.5</version>
-
-		</dependency>
 
 		<!-- JSP Library -->
 
@@ -80,17 +95,7 @@
 
 		</dependency>
 
-		<!-- jstl Library -->
 
-		<dependency>
-
-			<groupId>javax.servlet</groupId>
-
-			<artifactId>jstl</artifactId>
-
-			<version>1.1.2</version>
-
-		</dependency>
 
 		<!-- jsf-api Library -->
 
@@ -152,17 +157,7 @@
 
 		</dependency>
 
-		<!-- javassist Library -->
-
-		<dependency>
-
-			<groupId>org.javassist</groupId>
-
-			<artifactId>javassist</artifactId>
-
-			<version>3.18.2-GA</version>
-
-		</dependency>
+	
 
 		<!-- mysql-connector-java Library -->
 
@@ -381,29 +376,8 @@
 
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 
-		<dependency>
 
-			<groupId>mysql</groupId>
-
-			<artifactId>mysql-connector-java</artifactId>
-
-			<version>5.1.36</version>
-
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-
-		<dependency>
-
-			<groupId>mysql</groupId>
-
-			<artifactId>mysql-connector-java</artifactId>
-
-			<version>5.1.38</version>
-
-		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
 

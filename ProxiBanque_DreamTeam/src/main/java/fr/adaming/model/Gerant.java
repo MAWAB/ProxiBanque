@@ -38,7 +38,7 @@ public class Gerant extends Conseiller implements Serializable {
 	private List<Conseiller> listeConseillers=new ArrayList<Conseiller>();
 	//transormer l'agregation entre l'agence et le gerant
 
-	
+	 
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idAgence", referencedColumnName="idAgence")
 	private Agence agence;
