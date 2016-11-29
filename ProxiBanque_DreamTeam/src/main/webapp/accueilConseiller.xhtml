@@ -39,11 +39,13 @@
 					<h:outputText value="#{client.dateDeNaissance}" />
 				</p:column>
 				<p:column headerText="Informations bancaires">
-					<h:commandButton value="informations bancaires"
-						action="#{conseillerMB.navigationInformationclient}">
-						<f:setPropertyActionListener
-							target="#{conseillerMB.clientAManipuler}" value="#{client}" />
-					</h:commandButton>
+					<div align="center">
+						<p:commandButton value="Informations bancaires"
+							action="#{conseillerMB.navigationInformationclient}">
+							<f:setPropertyActionListener
+								target="#{conseillerMB.clientAManipuler}" value="#{client}" />
+						</p:commandButton>
+					</div>
 				</p:column>
 
 			</p:dataTable>
@@ -57,7 +59,7 @@
 			<br />
 
 			<h:commandButton type="submit" value="Ok"
-				oncomplete="PF('dialEchecAjoutClientS').hide();">
+				oncomplete="PF('dialEchecAjoutClient').hide();">
 			</h:commandButton>
 		</h:form>
 	</p:dialog>

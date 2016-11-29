@@ -17,9 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Client;
+import fr.adaming.model.Compte;
 import fr.adaming.model.Place;
 import fr.adaming.model.Placement;
 import fr.adaming.service.IClientService;
+import fr.adaming.service.ICompteService;
 import fr.adaming.service.IPlaceService;
 import fr.adaming.service.IPlacementService;
 
@@ -45,6 +47,10 @@ public class PlaceManagedBean implements Serializable {
 	@ManagedProperty(value = "#{placementServiceImpl}")
 	IPlacementService placementService;
 
+	@ManagedProperty(value = "#{cmpServiceBean}")
+	ICompteService<Compte> compteService;
+
+	private Boolean fondInsuff;
 	private int place = 0;
 	private int somme = 0;
 	private Client client;
@@ -58,6 +64,36 @@ public class PlaceManagedBean implements Serializable {
 	 */
 	public PlaceManagedBean() {
 		super();
+	}
+
+	/**
+	 * @return the fondInsuff
+	 */
+	public Boolean getFondInsuff() {
+		return fondInsuff;
+	}
+
+	/**
+	 * @param fondInsuff
+	 *            the fondInsuff to set
+	 */
+	public void setFondInsuff(Boolean fondInsuff) {
+		this.fondInsuff = fondInsuff;
+	}
+
+	/**
+	 * @return the compteService
+	 */
+	public ICompteService<Compte> getCompteService() {
+		return compteService;
+	}
+
+	/**
+	 * @param compteService
+	 *            the compteService to set
+	 */
+	public void setCompteService(ICompteService<Compte> compteService) {
+		this.compteService = compteService;
 	}
 
 	/**
@@ -186,6 +222,7 @@ public class PlaceManagedBean implements Serializable {
 		session = (HttpSession) facesContext.getExternalContext().getSession(false);
 
 		this.client = (Client) session.getAttribute("client");
+		this.fondInsuff = (Boolean) session.getAttribute("fondInsuff");
 
 		if (this.client.getPlace() != null) {
 			this.listePlacements = placementService.getAllPlacementByIdClientService(this.client.getIdClient());
@@ -209,21 +246,29 @@ public class PlaceManagedBean implements Serializable {
 			placeTmp = placeService.getPlaceByIdService(3);
 		}
 
-		cl.setPlace(placeTmp);
-		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()-this.somme);
-		clientService.updateClientService(cl);
+		if (this.somme <= cl.getCompteEpargne().getSolde()) {
+			this.fondInsuff = false;
+			cl.setPlace(placeTmp);
+			compteService.retraitService(cl.getCompteEpargne(), this.somme);
+			clientService.updateClientService(cl);
 
-		placement.setSomme(this.somme);
-		placement.setClient(cl);
-		placement.setPlace(placeTmp);
+			placement.setSomme(this.somme);
+			placement.setClient(cl);
+			placement.setPlace(placeTmp);
 
-		placementService.addPlacementService(placement);
+			placementService.addPlacementService(placement);
 
-		this.client = clientService.getClientByIdService(cl.getIdClient());
+			this.client = clientService.getClientByIdService(cl.getIdClient());
+
+		} else {
+			this.fondInsuff = true;
+		}
 		session.setAttribute("client", this.client);
+		session.setAttribute("fondInsuff", this.fondInsuff);
 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+
 	}
 
 	public void nouveauPlacement() throws IOException {
@@ -233,37 +278,49 @@ public class PlaceManagedBean implements Serializable {
 		Place place = this.client.getPlace();
 
 		Placement placement = new Placement();
-		
-		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()-this.somme);
-		clientService.updateClientService(cl);
+		if (this.somme <= cl.getCompteEpargne().getSolde()) {
+			this.fondInsuff = false;
+			compteService.retraitService(cl.getCompteEpargne(), this.somme);
 
-		placement.setSomme(this.somme);
-		placement.setClient(cl);
-		placement.setPlace(place);
+			placement.setSomme(this.somme);
+			placement.setClient(cl);
+			placement.setPlace(place);
+			placementService.addPlacementService(placement);
 
-		placementService.addPlacementService(placement);
+			this.client = clientService.getClientByIdService(cl.getIdClient());
+		} else {
+
+			this.fondInsuff = true;
+		}
+		session.setAttribute("client", this.client);
+		session.setAttribute("fondInsuff", this.fondInsuff);
 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
 
 	public void supprimerPlacement() throws IOException {
-		
+
 		Client cl = clientService.getClientByIdService(this.client.getIdClient());
-		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()+this.placementTmp.getSomme());
-		clientService.updateClientService(cl);
-		
+		compteService.depotService(cl.getCompteEpargne(), this.placementTmp.getSomme());
+
 		placementService.deletePlacementService(this.placementTmp.getIdPlacement());
-		
-		
-		if (placementService.getAllPlacementByIdClientService(this.client.getIdClient()).size() == 0){
+
+		if (placementService.getAllPlacementByIdClientService(this.client.getIdClient()).size() == 0) {
 			this.client.setPlace(null);
 			clientService.updateClientService(this.client);
 		}
-		
+
+		this.client = clientService.getClientByIdService(cl.getIdClient());
 		session.setAttribute("client", this.client);
+		session.setAttribute("fondInsuff", false);
 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+	}
+
+	public String retourClient() {
+		session.setAttribute("client", this.client);
+		return "infosClient.xhtml";
 	}
 }

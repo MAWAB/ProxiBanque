@@ -53,27 +53,29 @@
 			<h:form>
 				<p:dataTable var="placement" value="#{placeMB.listePlacements}">
 
-				<p:column headerText="Place">
-					<h:outputText value="#{placement.place.nom}" />
-				</p:column>
+					<p:column headerText="Place">
+						<h:outputText value="#{placement.place.nom}" />
+					</p:column>
 
-				<p:column headerText="Taux">
-					<h:outputText value="#{placement.place.taux}" />
-				</p:column>
+					<p:column headerText="Taux">
+						<h:outputText value="#{placement.place.taux}" />
+					</p:column>
 
-				<p:column headerText="Somme placée">
-					<h:outputText value="#{placement.somme}" />
-				</p:column>
+					<p:column headerText="Somme placée">
+						<h:outputText value="#{placement.somme}" />
+					</p:column>
 
-				<p:column headerText="Récupérer son placement">
-					<p:commandButton icon="ui-icon-close"
-						action="#{placeMB.supprimerPlacement}">
-						<f:setPropertyActionListener
-							target="#{placeMB.placementTmp}" value="#{placement}" />
-					</p:commandButton>
-				</p:column>
+					<p:column headerText="Récupérer son placement">
+						<div align="center">
+							<p:commandButton icon="ui-icon-close"
+								action="#{placeMB.supprimerPlacement}">
+								<f:setPropertyActionListener target="#{placeMB.placementTmp}"
+									value="#{placement}" />
+							</p:commandButton>
+						</div>
+					</p:column>
 
-			</p:dataTable>
+				</p:dataTable>
 
 			</h:form>
 		</p:panel>
@@ -98,6 +100,18 @@
 		</p:panel>
 	</div>
 
+	<div align="center">
+		<p:panel id="panelD" style="margin-bottom:10px;"
+			rendered="#{placeMB.fondInsuff}">
+			<h3>Les fonds sont insuffisants</h3>
+		</p:panel>
+	</div>
+
+	<div align="center" style="margin-bottom: 10px;">
+		<h:form>
+			<p:commandButton value="Retour" action="#{placeMB.retourClient}"></p:commandButton>
+		</h:form>
+	</div>
 
 
 </h:body>

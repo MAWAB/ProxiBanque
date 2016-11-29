@@ -187,6 +187,7 @@ public class ClientManagedBean implements Serializable {
 	}
 	
 	public String navigationPatrimoine(){
+		session.setAttribute("fondInsuff", false);
 		session.setAttribute("client", this.client);
 		return "patrimoine.xhtml";
 	}
