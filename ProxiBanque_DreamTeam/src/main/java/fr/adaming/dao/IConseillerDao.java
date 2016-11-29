@@ -6,13 +6,16 @@ package fr.adaming.dao;
 import java.util.List;
 
 import fr.adaming.model.Conseiller;
+import fr.adaming.model.Gerant;
 
 /**
  * @author inti0302
  *
  */
 public interface IConseillerDao {
-
+	
+	public Gerant isExistGerantDao(String numeroImmatriculation, String motDePasse);
+	public Conseiller isExistConseillerDao(String numeroImmatriculation, String motDePasse);
 	public Conseiller getConseillerByIdDao(int id);
 	public List<Conseiller> getAllConseillerDao();
 	public Conseiller addConseillerDao(Conseiller conseiller);

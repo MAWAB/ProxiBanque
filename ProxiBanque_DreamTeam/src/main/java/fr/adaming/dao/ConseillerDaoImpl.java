@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +12,55 @@ import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Adresse;
 import fr.adaming.model.Conseiller;
+import fr.adaming.model.Gerant;
 
 @Repository("conseillerDaoImpl")
 public class ConseillerDaoImpl implements IConseillerDao {
 
-	@Autowired
-	private EntityManagerFactory emf;
+	@PersistenceContext
+	private EntityManager em;
 
-	public void setEmf(EntityManagerFactory emf) {
-		this.emf = emf;
+	/**
+	 * @param em the em to set
+	 */
+	public void setEm(EntityManager em) {
+		this.em = em;
 	}
-
 	
+	/** Authentification Gérant: requête sql car le discriminant n'est pas dans le modèle */
+	
+	@Override
+	public Gerant isExistGerantDao(String numeroImmatriculation, String motDePasse){
+		try{
+			String sqlReq="SELECT count(idConseiller) FROM conseillers WHERE numeroImmatriculation=? AND motDePasse=? AND discrim='G'";
+			Query query = em.createNativeQuery(sqlReq);
+			Gerant gege = (Gerant) query.getSingleResult();
+			return gege;
+		}catch(NullPointerException | IllegalArgumentException e){
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	/** Authentification Conseiller: requête sql car le discriminant n'est pas dans le modèle */
+	
+	@Override
+	public Conseiller isExistConseillerDao(String numeroImmatriculation, String motDePasse){
+		try{
+			String sqlReq="SELECT count(idConseiller) FROM conseillers WHERE numeroImmatriculation=? AND motDePasse=? AND discrim='C'";
+			Query query = em.createNativeQuery(sqlReq);
+			Conseiller coco = (Conseiller) query.getSingleResult();
+			return coco;
+		}catch(NullPointerException | IllegalArgumentException e){
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 
 	@Override
 	public Conseiller getConseillerByIdDao(int id) {
-		EntityManager em = emf.createEntityManager();
 		Conseiller cons = em.find(Conseiller.class, id);
 
 		return cons;
@@ -34,7 +68,6 @@ public class ConseillerDaoImpl implements IConseillerDao {
 
 	@Override
 	public List<Conseiller> getAllConseillerDao() {
-		EntityManager em = emf.createEntityManager();
 		String req = "SELECT c FROM Conseiller c";
 		Query query = em.createQuery(req);
 		List<Conseiller> liste = query.getResultList();
@@ -44,26 +77,17 @@ public class ConseillerDaoImpl implements IConseillerDao {
 
 	@Override
 	public Conseiller addConseillerDao(Conseiller conseiller) {
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
 		em.persist(conseiller);
-	
-		em.getTransaction().commit();
 		return conseiller;
 	}
 
 	@Override
 	public void deleteConseillerDao(Conseiller conseiller) {
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
 		em.remove(em.getReference(Conseiller.class, conseiller.getIdConseiller()));
-		em.getTransaction().commit();
 	}
 
 	@Override
 	public Conseiller updateConseillerDao(Conseiller conseiller) {
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
 		
 		String req = "SELECT c FROM Conseiller c WHERE c.idConseiller=:id";
 		Query query = em.createQuery(req);
@@ -86,7 +110,6 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		 
 		em.detach(c);
 		em.merge(c);
-		em.getTransaction().commit();
 		
 		return conseiller;
 	}
@@ -96,7 +119,6 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	@Override
 	public List<Conseiller> getConseillerByAgenceDao(int id) {
 
-		EntityManager em = emf.createEntityManager();
 		String req = "SELECT c FROM Conseiller c WHERE c.gerant.agence.idAgence=:id";
 		Query query = em.createQuery(req);
 		query.setParameter("id", id);
