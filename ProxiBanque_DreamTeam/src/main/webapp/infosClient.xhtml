@@ -142,6 +142,68 @@
 								</div>
 							</p:column>
 						</p:row>
+						<h:form
+							rendered="#{clientMB.client.compteCourant != null and clientMB.client.compteCourant.visaElectron != null}">
+							<f:facet name="header">
+								<p:row>
+									<p:column colspan="2">Carte Electron</p:column>
+								</p:row>
+							</f:facet>
+							<p:row>
+								<p:column>
+									<h:outputText value="Numéro de la carte : " />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{clientMB.client.compteCourant.visaElectron.idVisaElectron}"
+										style="font-weight: bold" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText value="Date d'expiration : " />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{clientMB.client.compteCourant.visaElectron.dateExpiration}"
+										style="font-weight: bold">
+										<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+									</h:outputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText value="Plafond de crédit : " />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{clientMB.client.compteCourant.visaElectron.plafondCredit}"
+										style="font-weight: bold" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputText value="Code PIN : " />
+								</p:column>
+								<p:column>
+									<h:outputText
+										value="#{clientMB.client.compteCourant.visaElectron.codePin}"
+										style="font-weight: bold" />
+								</p:column>
+							</p:row>
+						</h:form>
+						<p:row>
+							<p:column colspan="2">
+								<div align="center">
+									<h:form
+										rendered="#{clientMB.client.compteCourant != null and clientMB.client.compteCourant.visaElectron == null and clientMB.client.compteCourant.visaPremium == null}">
+										<p:commandButton value="Ajouter une carte"
+											action="#{clientMB.navigationInfoCartes}">
+										</p:commandButton>
+									</h:form>
+								</div>
+							</p:column>
+						</p:row>
 					</p:panelGrid>
 				</div>
 			</h:form>
