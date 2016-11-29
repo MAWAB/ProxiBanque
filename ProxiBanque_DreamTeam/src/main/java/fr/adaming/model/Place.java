@@ -36,7 +36,7 @@ public class Place implements Serializable {
 	private String nom;
 	private double taux;
 
-	@OneToMany(mappedBy = "place", fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.DETACH })
+	@OneToMany(mappedBy = "place", fetch = FetchType.EAGER, cascade =CascadeType.MERGE)
 	private List<Client> listeCl;
 
 	@OneToMany(mappedBy = "place", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

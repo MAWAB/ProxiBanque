@@ -24,9 +24,13 @@ public class PlacementServiceImpl implements IPlacementService {
 	@Autowired
 	@Qualifier("placementDaoImpl")
 	IPlacementDao placementDao;
-	
-	/* (non-Javadoc)
-	 * @see fr.adaming.service.IPlacementService#addPlacementService(fr.adaming.model.Placement)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.adaming.service.IPlacementService#addPlacementService(fr.adaming.model
+	 * .Placement)
 	 */
 	@Override
 	public void addPlacementService(Placement placement) {
@@ -34,8 +38,12 @@ public class PlacementServiceImpl implements IPlacementService {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.adaming.service.IPlacementService#updatePlacementService(fr.adaming.model.Placement)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.adaming.service.IPlacementService#updatePlacementService(fr.adaming.
+	 * model.Placement)
 	 */
 	@Override
 	public void updatePlacementService(Placement placement) {
@@ -43,15 +51,23 @@ public class PlacementServiceImpl implements IPlacementService {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.adaming.service.IPlacementService#deletePlacementService(int)
 	 */
 	@Override
 	public void deletePlacementService(int id) {
+		Placement pl = placementDao.getPlacementById(id);
+		pl.setClient(null);
+		pl.setPlace(null);
+		placementDao.updatePlacement(pl);
 		placementDao.deletePlacement(id);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.adaming.service.IPlacementService#getAllPlacementsService()
 	 */
 	@Override
@@ -59,23 +75,33 @@ public class PlacementServiceImpl implements IPlacementService {
 		return placementDao.getAllPlacements();
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.adaming.service.IPlacementService#getAllPlacementsByIdPlaceService(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.adaming.service.IPlacementService#getAllPlacementsByIdPlaceService(
+	 * int)
 	 */
 	@Override
 	public List<Placement> getAllPlacementsByIdPlaceService(int id) {
 		return placementDao.getAllPlacementsByIdPlace(id);
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.adaming.service.IPlacementService#getAllPlacementByIdClientService(int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.adaming.service.IPlacementService#getAllPlacementByIdClientService(
+	 * int)
 	 */
 	@Override
 	public List<Placement> getAllPlacementByIdClientService(int id) {
 		return placementDao.getAllPlacementByIdClient(id);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.adaming.service.IPlacementService#getPlacementByIdService(int)
 	 */
 	@Override
