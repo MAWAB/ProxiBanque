@@ -13,17 +13,47 @@
 </h:head>
 <h:body>
 
-<h:form id="id_menuSelectionAgence">
+	<h:form id="id_menuSelectionAgence">
 		<p:growl id="id_menuSelectionAgence" />
 		<p:menubar model="#{auditeurMB.menuListeDesAgences}" />
 	</h:form>
-<h:form id="id_selectionMenuAudit">
+	<h:form id="id_selectionMenuAudit">
 		<p:growl id="id_selectionMenuAudit" />
 		<p:menubar model="#{auditeurMB.menuListeDesOptionsAudit}" />
 	</h:form>
-<h1> nom d'agence : #{auditeurMB.agenceAAuditer.nom}</h1>
+	
+	
+	<div align="center">
+	<h1>Synthèse de #{auditeurMB.agenceAAuditer.nom}</h1>
 
 
+<table>
+			<tr>
+				<td>nombreClient</td>
+				<td>#{auditeurMB.nombreClient}</td>
+			</tr>
+			<tr>
+				<td>nombreCompteEpargne</td>
+				<td>#{auditeurMB.nombreCompteEpargne}</td>
+			</tr>
+			<tr>
+				<td>nombreCompteCourant</td>
+				<td>#{auditeurMB.nombreCompteCourant}</td>
+			</tr>
+			<tr>
+				<td>nombreCompteAValorise</td>
+				<td><strong>#{auditeurMB.nombreCompteAValorise}</strong></td>
+			</tr>
+			<tr>
+				<td>nombreCompteCourantDeficit</td>
+				<td><strong>#{auditeurMB.nombreCompteCourantDeficit}</strong></td>
+			</tr>
+			<tr>
+				<td>nombreConseiller</td>
+				<td>#{auditeurMB.nombreConseiller}</td>
+			</tr>	
+		</table>
+</div>
 </h:body>
 </h:html>
 

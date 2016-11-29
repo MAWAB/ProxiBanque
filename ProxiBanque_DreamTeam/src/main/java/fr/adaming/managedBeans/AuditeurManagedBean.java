@@ -25,6 +25,8 @@ import com.cdyne.ws.DelayedStockQuoteSoap;
 import com.cdyne.ws.QuoteData;
 
 import fr.adaming.model.Agence;
+import fr.adaming.model.Client;
+import fr.adaming.model.Conseiller;
 import fr.adaming.model.Place;
 import fr.adaming.service.IAuditRestService;
 
@@ -43,6 +45,16 @@ public class AuditeurManagedBean {
 	private List<Place> listeDesPlaces;
 	private MenuModel menuListeDesOptionsAudit;
 
+
+	private List<Client> listeClient;
+	private int nombreCompteEpargne;
+	private int nombreCompteCourant;
+	private int nombreCompteAValorise;
+	private int nombreCompteCourantDeficit;
+	private int nombreClient;
+	private int nombreConseiller;
+	
+	
 	@PostConstruct
 	public void init() {
 		menuListeDesAgences = new DefaultMenuModel();
@@ -53,6 +65,7 @@ public class AuditeurManagedBean {
 		creationMenuSelectionClientAModifier();
 		creationMenuSelectionOptionAudit();
 		listeDesPlaces = new ArrayList<Place>();
+
 	}
 
 	public AuditeurManagedBean() {
@@ -71,10 +84,6 @@ public class AuditeurManagedBean {
 		item.setParam("choixOptionAudit", 1);
 		item.setCommand("#{auditeurMB.selectionOptionAudit}");
 		submenu.addElement(item);
-		item = new DefaultMenuItem("Liste des comptes");
-		item.setParam("choixOptionAudit", 2);
-		item.setCommand("#{auditeurMB.selectionOptionAudit}");
-		submenu.addElement(item);
 		item = new DefaultMenuItem("mise à jour des placements");
 		item.setParam("choixOptionAudit", 3);
 		item.setCommand("#{auditeurMB.selectionOptionAudit}");
@@ -90,12 +99,12 @@ public class AuditeurManagedBean {
 		DefaultMenuItem menuItem = (DefaultMenuItem) ((MenuActionEvent) event).getMenuItem();
 		int choixAudit = Integer.parseInt(menuItem.getParams().get("choixOptionAudit").get(0));
 		switch (choixAudit) {
-		
+
 		case 0:
-			
+
 			return "auditAccueil";
 		case 1:
-			return "listeDesClients";
+			return "ClientsAudit";
 		case 2:
 			return "listeDesComptes";
 		case 3:
@@ -152,6 +161,16 @@ public class AuditeurManagedBean {
 		int id_agence = Integer.parseInt(menuItem.getParams().get("id_agence").get(0));
 		agenceAAuditer = auditRestService.getAgenceById(id_agence);
 		// rafraichir la page
+		
+		listeClient=auditRestService.getAllClients();
+		nombreCompteEpargne=auditRestService.getNumberCompteEpargne();
+		nombreCompteCourant=auditRestService.getNumberCompteCourant();
+		nombreCompteCourantDeficit= auditRestService.getNumberCompteCourantEnDefaut();
+		nombreCompteAValorise=auditRestService.getNumberCompteEpargneValorisee();
+		nombreClient=auditRestService.getNumberClients();
+		nombreConseiller= auditRestService.getNumberConseillers();
+		
+		
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
@@ -274,6 +293,104 @@ public class AuditeurManagedBean {
 	 */
 	public void setListeDesPlaces(List<Place> listeDesPlaces) {
 		this.listeDesPlaces = listeDesPlaces;
+	}
+
+	/**
+	 * @return the listeClient
+	 */
+	public List<Client> getListeClient() {
+		return listeClient;
+	}
+
+	/**
+	 * @param listeClient the listeClient to set
+	 */
+	public void setListeClient(List<Client> listeClient) {
+		this.listeClient = listeClient;
+	}
+
+	/**
+	 * @return the nombreCompteEpargne
+	 */
+	public int getNombreCompteEpargne() {
+		return nombreCompteEpargne;
+	}
+
+	/**
+	 * @param nombreCompteEpargne the nombreCompteEpargne to set
+	 */
+	public void setNombreCompteEpargne(int nombreCompteEpargne) {
+		this.nombreCompteEpargne = nombreCompteEpargne;
+	}
+
+	/**
+	 * @return the nombreCompteCourant
+	 */
+	public int getNombreCompteCourant() {
+		return nombreCompteCourant;
+	}
+
+	/**
+	 * @param nombreCompteCourant the nombreCompteCourant to set
+	 */
+	public void setNombreCompteCourant(int nombreCompteCourant) {
+		this.nombreCompteCourant = nombreCompteCourant;
+	}
+
+	/**
+	 * @return the nombreCompteAValorise
+	 */
+	public int getNombreCompteAValorise() {
+		return nombreCompteAValorise;
+	}
+
+	/**
+	 * @param nombreCompteAValorise the nombreCompteAValorise to set
+	 */
+	public void setNombreCompteAValorise(int nombreCompteAValorise) {
+		this.nombreCompteAValorise = nombreCompteAValorise;
+	}
+
+	/**
+	 * @return the nombreCompteCourantDeficit
+	 */
+	public int getNombreCompteCourantDeficit() {
+		return nombreCompteCourantDeficit;
+	}
+
+	/**
+	 * @param nombreCompteCourantDeficit the nombreCompteCourantDeficit to set
+	 */
+	public void setNombreCompteCourantDeficit(int nombreCompteCourantDeficit) {
+		this.nombreCompteCourantDeficit = nombreCompteCourantDeficit;
+	}
+
+	/**
+	 * @return the nombreClient
+	 */
+	public int getNombreClient() {
+		return nombreClient;
+	}
+
+	/**
+	 * @param nombreClient the nombreClient to set
+	 */
+	public void setNombreClient(int nombreClient) {
+		this.nombreClient = nombreClient;
+	}
+
+	/**
+	 * @return the nombreConseiller
+	 */
+	public int getNombreConseiller() {
+		return nombreConseiller;
+	}
+
+	/**
+	 * @param nombreConseiller the nombreConseiller to set
+	 */
+	public void setNombreConseiller(int nombreConseiller) {
+		this.nombreConseiller = nombreConseiller;
 	}
 
 }

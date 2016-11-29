@@ -9,17 +9,18 @@
 
 <h:head>
 
-	<title>Accueil conseiller</title>
+	<title>Clients de l'agence</title>
 </h:head>
 <h:body>
-	<ui:insert name="header">
-		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
-	</ui:insert>
-
 
 	<div align="center">
+			<h:form id="formMenu">
+<h:commandButton action="#{auditeurMB.navigationVersAccueil}" value="Accueil"></h:commandButton>
+		</h:form>
+		
+		<h1>Liste des clients de l'agence</h1>
 		<h:form>
-			<p:dataTable var="client" value="#{conseillerMB.listeClient}">
+			<p:dataTable var="client" value="#{auditeurMB.listeClient}">
 
 				<p:column headerText="numéro du client">
 					<h:outputText value="#{client.idClient}" />
@@ -37,34 +38,16 @@
 					<h:outputText value="#{client.dateDeNaissance}" />
 				</p:column>
 				<p:column headerText="Informations bancaires">
-					<div align="center">
-						<p:commandButton value="Informations bancaires"
-							action="#{conseillerMB.navigationInformationclient}">
-							<f:setPropertyActionListener
-								target="#{conseillerMB.clientAManipuler}" value="#{client}" />
-						</p:commandButton>
-					</div>
+					<h:commandButton value="informations bancaires"
+						action="#{gerantMB.navigationInformationclient()}">
+						<f:setPropertyActionListener
+							target="#{gerantMB.client}" value="#{client}" />
+					</h:commandButton>
 				</p:column>
 
 			</p:dataTable>
 		</h:form>
 
 	</div>
-	<p:dialog header="Impossible d'ajouter un client"
-		widgetVar="dialEchecAjoutClient" minHeight="40">
-		<h:form>
-			<h:outputText value="Vous suivez d'ores et déjà 10 clients" />
-			<br />
-
-			<h:commandButton type="submit" value="Ok"
-				oncomplete="PF('dialEchecAjoutClient').hide();">
-			</h:commandButton>
-		</h:form>
-	</p:dialog>
 </h:body>
 </h:html>
-
-
-
-
-

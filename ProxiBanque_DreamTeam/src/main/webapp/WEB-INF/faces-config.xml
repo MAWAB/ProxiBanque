@@ -35,10 +35,28 @@
 			<from-outcome>miseAjourPlacement</from-outcome>
 			<to-view-id>/miseAjourPlacement.xhtml</to-view-id>
 		</navigation-case>
+		
 	</navigation-rule>
 	
 	
-	
+		<navigation-rule>
+	<!-- à partir de quel page on crée des alias -->
+		<from-view-id>/ClientsAudit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>auditAccueil</from-outcome>
+			<to-view-id>/auditAccueil.xhtml</to-view-id>
+		</navigation-case>
+		
+						<navigation-case>
+			<from-outcome>listeDesClients</from-outcome>
+			<to-view-id>/ClientsAudit.xhtml</to-view-id>
+		</navigation-case>
+				<navigation-case>
+			<from-outcome>miseAjourPlacement</from-outcome>
+			<to-view-id>/miseAjourPlacement.xhtml</to-view-id>
+		</navigation-case>
+		
+	</navigation-rule>
 	
 	
 	<!-- ManagedBean conseiller -->

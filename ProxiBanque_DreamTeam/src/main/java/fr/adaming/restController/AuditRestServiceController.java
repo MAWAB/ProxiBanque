@@ -111,7 +111,7 @@ public class AuditRestServiceController {
 		{
 			if(listeClient.get(i).getCompteEpargne()!=null)
 			{
-				if(listeClient.get(i).getCompteEpargne().getSolde()<5000)
+				if(listeClient.get(i).getCompteCourant().getSolde()<-5000)
 				{
 					nombreCompteCourantEnDefaut++;					
 				}
@@ -131,6 +131,7 @@ public class AuditRestServiceController {
 	public int getNumberClients() {
 		return clientService.getAllClientsService().size();
 	}
+	
 	@GET
 	@Path("/getNumberConseillers")
 	@Produces(MediaType.APPLICATION_JSON)

@@ -11,8 +11,9 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
-
 import fr.adaming.model.Agence;
+import fr.adaming.model.Conseiller;
+
 
 @Service("auditeurServiceImpl")
 public class AuditRestService implements IAuditRestService {
@@ -53,7 +54,131 @@ public class AuditRestService implements IAuditRestService {
 		return agenceRecuperer;
 	}
 
-	public List<Client> getAllClients()
+	public List<fr.adaming.model.Client> getAllClients()
+	{
+		ClientConfig clientConfig = new DefaultClientConfig();
+		// pour faire le mapping objet java et objet json
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// etape 2
+		com.sun.jersey.api.client.Client cl = Client.create(clientConfig);
+		// etape 3 : creer une web ressource
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getAllClients";
+		WebResource webResource = cl.resource(empURL);
+		// invoquer le web service et recuperer le résultat
+		ClientResponse response = webResource.get(ClientResponse.class);
+		List<fr.adaming.model.Client> listeclient = response
+				.getEntity(new GenericType<List<fr.adaming.model.Client>>() {
+				});
+		return listeclient;
+	}
+	
+	public int getNumberCompteEpargne()
+	{
+		ClientConfig clientConfig = new DefaultClientConfig();
+		// pour faire le mapping objet java et objet json
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// etape 2
+		com.sun.jersey.api.client.Client cl = Client.create(clientConfig);
+		// etape 3 : creer une web ressource
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getNumberCompteEpargne";
+		WebResource webResource = cl.resource(empURL);
+		// invoquer le web service et recuperer le résultat
+		ClientResponse response = webResource.get(ClientResponse.class);
+		return response.getEntity(Integer.class);
+		
+		
+	}
+	public int getNumberCompteCourant()
+	{
+		ClientConfig clientConfig = new DefaultClientConfig();
+		// pour faire le mapping objet java et objet json
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// etape 2
+		com.sun.jersey.api.client.Client cl = Client.create(clientConfig);
+		// etape 3 : creer une web ressource
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getNumberCompteCourant";
+		WebResource webResource = cl.resource(empURL);
+		// invoquer le web service et recuperer le résultat
+		ClientResponse response = webResource.get(ClientResponse.class);
+		return response.getEntity(Integer.class);
+		
+		
+	}
+	
+	
+	public int getNumberCompteEpargneValorisee()
+	{
+		ClientConfig clientConfig = new DefaultClientConfig();
+		// pour faire le mapping objet java et objet json
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// etape 2
+		com.sun.jersey.api.client.Client cl = Client.create(clientConfig);
+		// etape 3 : creer une web ressource
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getNumberCompteEpargneValorisee";
+		WebResource webResource = cl.resource(empURL);
+		// invoquer le web service et recuperer le résultat
+		ClientResponse response = webResource.get(ClientResponse.class);
+		return response.getEntity(Integer.class);
+		
+		
+	}
+	
+	public int getNumberCompteCourantEnDefaut()
+	{
+		ClientConfig clientConfig = new DefaultClientConfig();
+		// pour faire le mapping objet java et objet json
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// etape 2
+		com.sun.jersey.api.client.Client cl = Client.create(clientConfig);
+		// etape 3 : creer une web ressource
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getNumberCompteCourantEnDefaut";
+		WebResource webResource = cl.resource(empURL);
+		// invoquer le web service et recuperer le résultat
+		ClientResponse response = webResource.get(ClientResponse.class);
+		return response.getEntity(Integer.class);
+		
+		
+	}
+	public int getNumberClients()
+	{
+		ClientConfig clientConfig = new DefaultClientConfig();
+		// pour faire le mapping objet java et objet json
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// etape 2
+		com.sun.jersey.api.client.Client cl = Client.create(clientConfig);
+		// etape 3 : creer une web ressource
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getNumberClient";
+		WebResource webResource = cl.resource(empURL);
+		// invoquer le web service et recuperer le résultat
+		ClientResponse response = webResource.get(ClientResponse.class);
+		return response.getEntity(Integer.class);
+
+	}
+	
+	public int getNumberConseillers()
+	{
+		ClientConfig clientConfig = new DefaultClientConfig();
+		// pour faire le mapping objet java et objet json
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// etape 2
+		com.sun.jersey.api.client.Client cl = Client.create(clientConfig);
+		// etape 3 : creer une web ressource
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getNumberConseillers";
+		WebResource webResource = cl.resource(empURL);
+		// invoquer le web service et recuperer le résultat
+		ClientResponse response = webResource.get(ClientResponse.class);
+		return response.getEntity(Integer.class);
+
+	}
+
+	public List<Conseiller> getAllConseillers()
 	{
 		ClientConfig clientConfig = new DefaultClientConfig();
 		// pour faire le mapping objet java et objet json
@@ -62,13 +187,14 @@ public class AuditRestService implements IAuditRestService {
 		// etape 2
 		Client cl = Client.create(clientConfig);
 		// etape 3 : creer une web ressource
-		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getAllClients";
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getAllConseillers";
 		WebResource webResource = cl.resource(empURL);
 		// invoquer le web service et recuperer le résultat
 		ClientResponse response = webResource.get(ClientResponse.class);
-		List<Client> listeclient = response
-				.getEntity(new GenericType<List<Client>>() {
+		List<Conseiller> listeConseiller = response
+				.getEntity(new GenericType<List<Conseiller>>() {
 				});
-		return listeclient;
+		return listeConseiller;
 	}
+
 }
