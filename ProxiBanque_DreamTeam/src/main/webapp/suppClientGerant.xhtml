@@ -37,18 +37,18 @@ ul.ui-menu-child {
 
 					<h:outputText value="Nom :">
 					</h:outputText>
-					<h:outputText value="#{conseillerMB.clientAManipuler.nom}">
+					<h:outputText value="#{gerantMB.client.nom}">
 					</h:outputText>
 					<h:outputText value="Prénom :">
 					</h:outputText>
-					<h:outputText value="#{conseillerMB.clientAManipuler.prenom}">
+					<h:outputText value="#{gerantMB.client.prenom}">
 					</h:outputText>
 
 
 				</h:panelGrid>
 				<br />
 				<h:commandButton value="Supprimer"
-					action="#{conseillerMB.supprimerClient}"></h:commandButton>
+					action="#{gerantMB.supprimerClient()}"></h:commandButton>
 			</h:form>
 			<br></br>
 

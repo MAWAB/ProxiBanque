@@ -84,7 +84,7 @@ public class ClientDaoImpl implements IClientDao {
 	public void deleteClient(int id) {
 
 		try {
-			em.getTransaction().begin();
+
 			String req = "SELECT cl FROM Client cl WHERE cl.idClient=:aId";
 			Query query = em.createQuery(req);
 			query.setParameter("aId", id);

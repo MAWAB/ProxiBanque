@@ -319,22 +319,7 @@ public class GerantManagedBean implements Serializable {
 		return "accueilGerant.xhtml";
 	}
 
-	public void creationMenuSelectionConseillerWithLess10Clients() {
-		menulisteConseillerLess10Clients = new DefaultMenuModel();
-		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du conseiller");
-		DefaultMenuItem item;
 
-		List<Conseiller> conseillerList = conseillerService.getConseillerWithLess10ClientByAgenceService(1);
-
-		for (int i = 0; i < conseillerList.size(); i++) {
-			item = new DefaultMenuItem("Id : " + conseillerList.get(i).getIdConseiller() + ", Nom : "
-					+ conseillerList.get(i).getNom() + ", Prénom : " + conseillerList.get(i).getPrenom());
-			item.setParam("id_conseiller", conseillerList.get(i).getIdConseiller());
-			item.setCommand("#{gerantMB.selectionConseiller()}");
-			submenu.addElement(item);
-		}
-		menulisteConseillerLess10Clients.addElement(submenu);
-	}
 
 	public void selectionConseiller(ActionEvent event) throws IOException {
 
@@ -350,6 +335,26 @@ public class GerantManagedBean implements Serializable {
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
 
+	public void creationMenuSelectionConseillerWithLess10Clients() {
+		
+		System.out.println("---------Creation menu déroulant----------");
+		menulisteConseillerLess10Clients = new DefaultMenuModel();
+		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du conseiller");
+		DefaultMenuItem item;
+
+		List<Conseiller> conseillerList = conseillerService.getConseillerWithLess10ClientByAgenceService(1);
+
+		for (int i = 0; i < conseillerList.size(); i++) {
+			item = new DefaultMenuItem("Id : " + conseillerList.get(i).getIdConseiller() + ", Nom : "
+					+ conseillerList.get(i).getNom() + ", Prénom : " + conseillerList.get(i).getPrenom());
+			item.setCommand("#{gerantMB.selectionConseiller}");
+			item.setParam("id_conseiller", conseillerList.get(i).getIdConseiller());
+			System.out.println(conseillerList.get(i).getIdConseiller());
+			submenu.addElement(item);
+		}
+		menulisteConseillerLess10Clients.addElement(submenu);
+	}
+	
 	public void creationMenuSelectionClientAModifier() {
 		menulisteClientAModifier = new DefaultMenuModel();
 		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du client");
