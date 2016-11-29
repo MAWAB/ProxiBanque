@@ -111,4 +111,21 @@ public class ConseillerServiceImpl implements IConseillerService {
 		return conseillerDao.getConseillerByAgenceDao(id);
 	}
 
+	
+	public List<Conseiller> getConseillerWithLess10ClientByAgenceService(int id) {
+		
+		// Récupérer tous les conseillers d'une agence
+		List<Conseiller> liste = conseillerDao.getConseillerByAgenceDao(id);
+		
+		// Retirer les conseillers avec déjà 10 clients
+		for (Conseiller c:liste) {
+			List<Client> clientList = c.getListeClients();
+			if (clientList.size() == 10) {
+				liste.remove(c);
+			}
+		}
+		
+		return liste;
+	}
+	
 }

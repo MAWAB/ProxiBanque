@@ -31,7 +31,7 @@ public class Client extends Personne implements Serializable {
 	private int numeroClient;
 	private String telephone;
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "id_conseiller", referencedColumnName = "idConseiller")
 	private Conseiller conseiller;
 

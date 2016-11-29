@@ -19,5 +19,6 @@ public interface IConseillerService {
 	public int deleteConseillerService(Conseiller conseiller);
 	public Conseiller updateConseillerService(Conseiller conseiller);
 	public List<Conseiller> getConseillerByAgenceService(int id);
+	public List<Conseiller> getConseillerWithLess10ClientByAgenceService(int id);
 	
 }

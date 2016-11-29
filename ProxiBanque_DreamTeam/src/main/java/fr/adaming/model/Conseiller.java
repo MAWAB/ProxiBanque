@@ -45,11 +45,11 @@ public class Conseiller extends Personne implements Serializable {
 	private String motDePasse;
 	// transormer l'agregation entre le conseiller et le gerant
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+	@ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.MERGE})
 	@JoinColumn(name="idGerant")
 	private Gerant gerant;
 
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="conseiller", cascade=CascadeType.MERGE)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="conseiller", cascade={CascadeType.MERGE})
 	private List<Client> listeClients = new ArrayList<Client>();
 
 	
