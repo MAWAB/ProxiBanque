@@ -8,16 +8,70 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Infos compte</title>
+	<title>Ajout de carte visa</title>
 	<style>
-
 </style>
 </h:head>
 <h:body>
 
-<ui:insert name="header">
+	<ui:insert name="header">
 		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
 	</ui:insert>
+<div align="center">
+		<p:panel id="panel" header="Ajout d'une carte Visa"
+			style="margin-top:20px;">
+			<h:form>
+
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					<p:outputLabel for="carte" value="Carte :" />
+					<p:selectOneRadio id="carte" value="#{compteMB.carte}">
+						<f:selectItem itemLabel="Visa Electron" itemValue="0" />
+						<f:selectItem itemLabel="Visa Premium" itemValue="1" />s
+						<f:ajax render="carteChoisie"></f:ajax>
+					</p:selectOneRadio>
+				</h:panelGrid>
+				<br />
+
+				<h:panelGroup id="carteChoisie">
+					<h:panelGrid columns="2" rendered="#{compteMB.carte == 0}">
+						<p:outputLabel for="dateExpC" value="Date d'expiration : " />
+						<p:calendar id="dateExpC"
+							value="#{compteMB.visaElectron.dateExpiration}" required="true"></p:calendar>
+
+						<p:outputLabel for="plafondC" value="Plafond de crédit: " />
+						<p:inputText id="plafondC" type="number"
+							value="#{compteMB.visaElectron.plafondCredit}" required="true" />
+
+						<p:outputLabel for="pinC" value="Code Pin : " />
+						<p:inputText id="pinC" value="#{compteMB.visaElectron.codePin}"
+							required="true" />
+					</h:panelGrid>
+
+
+
+					<h:panelGrid columns="2" rendered="#{compteMB.carte == 1}">
+						<p:outputLabel for="dateExpE" value="Date d'expiration : " />
+						<p:calendar id="dateExpE"
+							value="#{compteMB.visaPremium.dateExpiration}" required="true"></p:calendar>
+
+						<p:outputLabel for="plafondE" value="Plafond de retrait : " />
+						<p:inputText id="plafondE" type="number"
+							value="#{compteMB.visaPremium.plafondRetrait}" required="true" />
+
+						<p:outputLabel for="pinE" value="Code Pin : " />
+						<p:inputText id="pinE" value="#{compteMB.visaPremium.codePin}"
+							required="true" />
+
+					</h:panelGrid>
+
+				</h:panelGroup>
+
+				<br></br>
+				<p:commandButton value="Ajouter"
+					action="#{compteMB.addCarte}"></p:commandButton>
+			</h:form>
+		</p:panel>
+	</div>
 
 </h:body>
 </h:html>

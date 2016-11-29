@@ -19,9 +19,10 @@ import fr.adaming.model.CompteEpargne;
 import fr.adaming.model.VisaElectron;
 import fr.adaming.model.VisaPremium;
 import fr.adaming.service.ICarteService;
+import fr.adaming.service.IClientService;
 import fr.adaming.service.ICompteService;
 
-@ManagedBean(name="compteMB")
+@ManagedBean(name = "compteMB")
 @ViewScoped
 public class CompteManagedBean implements Serializable {
 
@@ -30,24 +31,28 @@ public class CompteManagedBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManagedProperty(value="#{cmpServiceBean}")
+	@ManagedProperty(value = "#{clientServiceImpl}")
+	IClientService clientService;
+
+	@ManagedProperty(value = "#{cmpServiceBean}")
 	ICompteService<Compte> compteService;
-	
-	@ManagedProperty(value="#{carteService}")
+
+	@ManagedProperty(value = "#{carteService}")
 	ICarteService<Carte> carteService;
-	
+
 	private Client client;
 	private CompteEpargne compteEpargne;
 	private CompteCourant compteCourant;
-	private int carte=0;
+	private int carte = 0;
 	private VisaElectron visaElectron;
 	private VisaPremium visaPremium;
-	private double somme=0;
-	
+	private double somme = 0;
+
 	HttpSession session;
 
-	// Getters & Setters ------------------------------------------------------------------------------------
-	
+	// Getters & Setters
+	// ------------------------------------------------------------------------------------
+
 	/**
 	 * @return the compteService
 	 */
@@ -55,14 +60,21 @@ public class CompteManagedBean implements Serializable {
 		return compteService;
 	}
 
+	public IClientService getClientService() {
+		return clientService;
+	}
+
+	public void setClientService(IClientService clientService) {
+		this.clientService = clientService;
+	}
 
 	/**
-	 * @param compteService the compteService to set
+	 * @param compteService
+	 *            the compteService to set
 	 */
 	public void setCompteService(ICompteService<Compte> compteService) {
 		this.compteService = compteService;
 	}
-
 
 	/**
 	 * @return the carteService
@@ -71,14 +83,13 @@ public class CompteManagedBean implements Serializable {
 		return carteService;
 	}
 
-
 	/**
-	 * @param carteService the carteService to set
+	 * @param carteService
+	 *            the carteService to set
 	 */
 	public void setCarteService(ICarteService<Carte> carteService) {
 		this.carteService = carteService;
 	}
-
 
 	/**
 	 * @return the client
@@ -87,15 +98,13 @@ public class CompteManagedBean implements Serializable {
 		return client;
 	}
 
-
 	/**
-	 * @param client the client to set
+	 * @param client
+	 *            the client to set
 	 */
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	
-
 
 	/**
 	 * @return the compteEpargne
@@ -104,14 +113,13 @@ public class CompteManagedBean implements Serializable {
 		return compteEpargne;
 	}
 
-
 	/**
-	 * @param compteEpargne the compteEpargne to set
+	 * @param compteEpargne
+	 *            the compteEpargne to set
 	 */
 	public void setCompteEpargne(CompteEpargne compteEpargne) {
 		this.compteEpargne = compteEpargne;
 	}
-
 
 	/**
 	 * @return the compteCourant
@@ -120,14 +128,13 @@ public class CompteManagedBean implements Serializable {
 		return compteCourant;
 	}
 
-
 	/**
-	 * @param compteCourant the compteCourant to set
+	 * @param compteCourant
+	 *            the compteCourant to set
 	 */
 	public void setCompteCourant(CompteCourant compteCourant) {
 		this.compteCourant = compteCourant;
 	}
-
 
 	/**
 	 * @return the carte
@@ -136,14 +143,13 @@ public class CompteManagedBean implements Serializable {
 		return carte;
 	}
 
-
 	/**
-	 * @param carte the carte to set
+	 * @param carte
+	 *            the carte to set
 	 */
 	public void setCarte(int carte) {
 		this.carte = carte;
 	}
-	
 
 	/**
 	 * @return the visaElectron
@@ -152,14 +158,13 @@ public class CompteManagedBean implements Serializable {
 		return visaElectron;
 	}
 
-
 	/**
-	 * @param visaElectron the visaElectron to set
+	 * @param visaElectron
+	 *            the visaElectron to set
 	 */
 	public void setVisaElectron(VisaElectron visaElectron) {
 		this.visaElectron = visaElectron;
 	}
-
 
 	/**
 	 * @return the visaPremium
@@ -168,15 +173,13 @@ public class CompteManagedBean implements Serializable {
 		return visaPremium;
 	}
 
-
 	/**
-	 * @param visaPremium the visaPremium to set
+	 * @param visaPremium
+	 *            the visaPremium to set
 	 */
 	public void setVisaPremium(VisaPremium visaPremium) {
 		this.visaPremium = visaPremium;
 	}
-	
-
 
 	/**
 	 * @return the somme
@@ -185,105 +188,124 @@ public class CompteManagedBean implements Serializable {
 		return somme;
 	}
 
-
 	/**
-	 * @param somme the somme to set
+	 * @param somme
+	 *            the somme to set
 	 */
 	public void setSomme(double somme) {
 		this.somme = somme;
 	}
 
-
-	// Init ------------------------------------------------------------------------------------------------------------
+	// Init
+	// ------------------------------------------------------------------------------------------------------------
 	@PostConstruct
 	public void init() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		this.client = (Client) session.getAttribute("client");
-		
+
 		this.compteCourant = new CompteCourant();
 		this.compteEpargne = new CompteEpargne();
 		this.visaElectron = new VisaElectron();
 		this.visaPremium = new VisaPremium();
 	}
-	
 
-	// Constructeur vide -----------------------------------------------------------------------------------------------
+	// Constructeur vide
+	// -----------------------------------------------------------------------------------------------
 	public CompteManagedBean() {
 		super();
 	}
-	
-	
-	// Méthodes --------------------------------------------------------------------------------------------------------
-	
+
+	// Méthodes
+	// --------------------------------------------------------------------------------------------------------
+
 	public String addCompteEpargne() {
-		
+
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, 1);
 		Date date = c.getTime();
 		compteEpargne.setDateCreation(date);
 		compteEpargne.setSolde(0);
 		compteEpargne.setClient(client);
-		
+
 		compteService.ajouterCompteService(compteEpargne);
 		client.setCompteEpargne(compteEpargne);
-		
+
 		return "infosClient.xhtml";
 	}
-	
-	
+
 	public String addCompteCourant() {
-		
+
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, 1);
 		Date dateJour = c.getTime();
-		
+
 		compteCourant.setDateCreation(dateJour);
 		compteCourant.setSolde(0);
 		compteCourant.setClient(client);
 		compteService.ajouterCompteService(compteCourant);
-		
+
 		if (carte == 1) {
-			
+
 			visaElectron.setActive(true);
 			carteService.ajouterCarteService(visaElectron);
 			visaElectron.setCompteCourant(compteCourant);
 			carteService.modifierCarteService(visaElectron);
-			
+
 		} else if (carte == 2) {
-			
+
 			visaPremium.setActive(true);
 			carteService.ajouterCarteService(visaPremium);
 			visaPremium.setCompteCourant(compteCourant);
 			carteService.modifierCarteService(visaPremium);
 		}
-		
+
 		compteService.modifierCompteService(compteCourant);
-		client.setCompteCourant(compteCourant);
-		session.setAttribute("client", client);
+		Client cl = clientService.getClientByIdService(client.getIdClient());
+		session.setAttribute("client", cl);
 		return "infosClient.xhtml";
 	}
 
-	
 	public String deleteCompte() {
-		
-		
-		
+
 		return "infosClient.xhtml";
 	}
-	
+
 	public String retirer() {
-		
+
 		compteService.retraitService(client.getCompteCourant(), somme);
 		return "infosClient.xhtml";
 	}
-	
+
 	public String deposer() {
-		
+
 		compteService.depotService(client.getCompteCourant(), somme);
 		return "infosClient.xhtml";
 	}
 	
+	public String addCarte() {
+		
+		if (carte == 0) {
+
+			visaElectron.setActive(true);
+			carteService.ajouterCarteService(visaElectron);
+			visaElectron.setCompteCourant(this.client.getCompteCourant());
+			carteService.modifierCarteService(visaElectron);
+
+		} else if (carte == 1) {
+
+			visaPremium.setActive(true);
+			carteService.ajouterCarteService(visaPremium);
+			visaPremium.setCompteCourant(this.client.getCompteCourant());
+			carteService.modifierCarteService(visaPremium);
+		}
+
+		compteService.modifierCompteService(this.client.getCompteCourant());
+		Client cl = clientService.getClientByIdService(client.getIdClient());
+		session.setAttribute("client", cl);
+		return "infosClient.xhtml";
+	}
 	
 	
+
 }

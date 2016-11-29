@@ -142,118 +142,6 @@
 								</div>
 							</p:column>
 						</p:row>
-						<h:form
-							rendered="#{clientMB.client.compteCourant != null and clientMB.client.compteCourant.visaElectron != null}">
-							<f:facet name="header">
-								<p:row>
-									<p:column colspan="2">Carte Visa Electron</p:column>
-								</p:row>
-							</f:facet>
-							<p:row>
-								<p:column>
-									<h:outputText value="Numéro de la carte : " />
-								</p:column>
-								<p:column>
-									<h:outputText
-										value="#{clientMB.client.compteCourant.visaElectron.idVisaElectron}"
-										style="font-weight: bold" />
-								</p:column>
-							</p:row>
-							<p:row>
-								<p:column>
-									<h:outputText value="Date d'expiration : " />
-								</p:column>
-								<p:column>
-									<h:outputText
-										value="#{clientMB.client.compteCourant.visaElectron.dateExpiration}"
-										style="font-weight: bold">
-										<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
-									</h:outputText>
-								</p:column>
-							</p:row>
-							<p:row>
-								<p:column>
-									<h:outputText value="Plafond de crédit : " />
-								</p:column>
-								<p:column>
-									<h:outputText
-										value="#{clientMB.client.compteCourant.visaElectron.plafondCredit}"
-										style="font-weight: bold" />
-								</p:column>
-							</p:row>
-							<p:row>
-								<p:column>
-									<h:outputText value="Code PIN : " />
-								</p:column>
-								<p:column>
-									<h:outputText
-										value="#{clientMB.client.compteCourant.visaElectron.codePin}"
-										style="font-weight: bold" />
-								</p:column>
-							</p:row>
-						</h:form>
-						<h:form
-							rendered="#{clientMB.client.compteCourant != null and clientMB.client.compteCourant.visaPremium != null}">
-							<f:facet name="header">
-								<p:row>
-									<p:column colspan="2">Carte Visa Premium</p:column>
-								</p:row>
-							</f:facet>
-							<p:row>
-								<p:column>
-									<h:outputText value="Numéro de la carte : " />
-								</p:column>
-								<p:column>
-									<h:outputText
-										value="#{clientMB.client.compteCourant.visaPremium.idVisaPremium}"
-										style="font-weight: bold" />
-								</p:column>
-							</p:row>
-							<p:row>
-								<p:column>
-									<h:outputText value="Date d'expiration : " />
-								</p:column>
-								<p:column>
-									<h:outputText
-										value="#{clientMB.client.compteCourant.visaPremium.dateExpiration}"
-										style="font-weight: bold">
-										<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
-									</h:outputText>
-								</p:column>
-							</p:row>
-							<p:row>
-								<p:column>
-									<h:outputText value="Plafond de retrait : " />
-								</p:column>
-								<p:column>
-									<h:outputText
-										value="#{clientMB.client.compteCourant.visaPremium.plafondRetrait}"
-										style="font-weight: bold" />
-								</p:column>
-							</p:row>
-							<p:row>
-								<p:column>
-									<h:outputText value="Code PIN : " />
-								</p:column>
-								<p:column>
-									<h:outputText
-										value="#{clientMB.client.compteCourant.visaPremium.codePin}"
-										style="font-weight: bold" />
-								</p:column>
-							</p:row>
-						</h:form>
-						<p:row>
-							<p:column colspan="2">
-								<div align="center">
-									<h:form
-										rendered="#{clientMB.client.compteCourant != null and clientMB.client.compteCourant.visaElectron == null and clientMB.client.compteCourant.visaPremium == null}">
-										<p:commandButton value="Ajouter une carte"
-											action="#{clientMB.navigationInfoCartes}">
-										</p:commandButton>
-									</h:form>
-								</div>
-							</p:column>
-						</p:row>
 					</p:panelGrid>
 				</div>
 			</h:form>
@@ -345,6 +233,79 @@
 					</h:form></td>
 			</tr>
 		</table>
+	</div>
+	<div align="center">
+		<p:panelGrid columns="1" style="width:30%; margin-top:20px"
+			rendered="#{clientMB.client.compteCourant != null}">
+			<f:facet name="header">Gestion des cartes</f:facet>
+			<p:outputPanel
+				rendered="#{clientMB.client.compteCourant.visaElectron != null}">
+				<div align="center">
+					<p:panelGrid columns="2" cellpadding="5">
+						<f:facet name="header">Carte Visa Electron</f:facet>
+						<h:outputText value="Numéro de la carte : " />
+						<h:outputText
+							value="#{clientMB.client.compteCourant.visaElectron.idVisaElectron}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Plafond de crédit : " />
+						<h:outputText
+							value="#{clientMB.client.compteCourant.visaElectron.plafondCredit}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Date d'expiration :" />
+						<h:outputText
+							value="#{clientMB.client.compteCourant.visaElectron.dateExpiration}"
+							style="font-weight: bold">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+						</h:outputText>
+						<h:outputText value="Code PIN :" />
+						<h:outputText
+							value="#{clientMB.client.compteCourant.visaElectron.codePin}"
+							style="font-weight: bold" />
+					</p:panelGrid>
+				</div>
+			</p:outputPanel>
+
+			<p:outputPanel
+				rendered="#{clientMB.client.compteCourant.visaPremium != null}">
+				<div align="center">
+					<p:panelGrid columns="2" cellpadding="5">
+						<f:facet name="header">Carte Visa Premium</f:facet>
+						<h:outputText value="Numéro de la carte : " />
+						<h:outputText
+							value="#{clientMB.client.compteCourant.visaPremium.idVisaPremium}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Plafond de Retrait : " />
+						<h:outputText
+							value="#{clientMB.client.compteCourant.visaPremium.plafondRetrait}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Date d'expiration :" />
+						<h:outputText
+							value="#{clientMB.client.compteCourant.visaPremium.dateExpiration}"
+							style="font-weight: bold">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+						</h:outputText>
+						<h:outputText value="Code PIN :" />
+						<h:outputText
+							value="#{clientMB.client.compteCourant.visaPremium.codePin}"
+							style="font-weight: bold" />
+					</p:panelGrid>
+				</div>
+			</p:outputPanel>
+			<p:outputPanel
+				rendered="#{clientMB.client.compteCourant.visaPremium == null and clientMB.client.compteCourant.visaElectron == null}">
+				<div align="center">
+					<h:panelGrid columns="1" cellpadding="4">
+						<p:commandButton value="Ajouter une carte"
+							action="#{clientMB.navigationInfoCartes}">
+						</p:commandButton>
+					</h:panelGrid>
+				</div>
+			</p:outputPanel>
+		</p:panelGrid>
 	</div>
 
 </h:body>
