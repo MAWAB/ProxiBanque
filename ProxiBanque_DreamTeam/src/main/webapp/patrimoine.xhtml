@@ -18,13 +18,11 @@
 		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
 	</ui:insert>
 
-	<div align="center" style="margin-top: 20px">
-		<h1>Gestion du Patrimoine</h1>
-	</div>
-
 	<div align="center">
-		<p:panel id="panel" header="Placement sur une place boursière"
-			style="margin-bottom:10px;" rendered="#{placeMB.client.place == null}">
+		<p:panel id="panelA"
+			header="Faire un placement sur une place boursière"
+			style="margin-bottom:10px;"
+			rendered="#{placeMB.client.place == null}">
 			<h:form>
 				<p:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 					<p:outputLabel for="place" value="Place boursière :" />
@@ -38,17 +36,69 @@
 				<p:panelGrid columns="2">
 
 					<p:outputLabel for="somme" value="Somme à placer : " />
-					<p:inputText id="somme" type="number"
-						value="#{placeMB.somme}"
+					<p:inputText id="somme" type="number" value="#{placeMB.somme}"
 						required="true" />
 				</p:panelGrid>
 
 				<br></br>
-				<p:commandButton value="Placer"
-					action="#{placeMB.placer}"></p:commandButton>
+				<p:commandButton value="Placer" action="#{placeMB.placer}"></p:commandButton>
 			</h:form>
 		</p:panel>
 	</div>
+
+	<div align="center">
+		<p:panel id="panelB" header="Vos placements"
+			style="margin-bottom:10px;"
+			rendered="#{placeMB.client.place != null}">
+			<h:form>
+				<p:dataTable var="placement" value="#{placeMB.listePlacements}">
+
+				<p:column headerText="Place">
+					<h:outputText value="#{placement.place.nom}" />
+				</p:column>
+
+				<p:column headerText="Taux">
+					<h:outputText value="#{placement.place.taux}" />
+				</p:column>
+
+				<p:column headerText="Somme placée">
+					<h:outputText value="#{placement.somme}" />
+				</p:column>
+
+				<p:column headerText="Récupérer son placement">
+					<p:commandButton icon="ui-icon-close"
+						action="#{placeMB.supprimerPlacement}">
+						<f:setPropertyActionListener
+							target="#{placeMB.placementTmp}" value="#{placement}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			</h:form>
+		</p:panel>
+	</div>
+
+	<div align="center">
+		<p:panel id="panelC" header="Faire un nouveau placement"
+			style="margin-bottom:10px;"
+			rendered="#{placeMB.client.place != null}">
+			<h:form>
+				<p:panelGrid columns="2">
+
+					<p:outputLabel for="somme"
+						value="Somme à placer à #{placeMB.client.place.nom} : " />
+					<p:inputText id="somme" type="number" value="#{placeMB.somme}"
+						required="true" />
+				</p:panelGrid>
+
+				<br></br>
+				<p:commandButton value="Placer" action="#{placeMB.nouveauPlacement}"></p:commandButton>
+			</h:form>
+		</p:panel>
+	</div>
+
+
 
 </h:body>
 </h:html>
