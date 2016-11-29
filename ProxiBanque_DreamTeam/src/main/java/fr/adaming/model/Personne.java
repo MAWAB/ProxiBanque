@@ -40,6 +40,7 @@ public abstract class Personne implements Serializable {
 	 */
 	public Personne() {
 		super();
+		this.adresse = new Adresse();
 	}
 	/**
 	 * @param nom

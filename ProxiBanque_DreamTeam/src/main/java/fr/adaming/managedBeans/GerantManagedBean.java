@@ -233,6 +233,7 @@ public class GerantManagedBean implements Serializable {
 		// clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
 		client = new Client();
 		conseiller = new Conseiller();
+		gerant = (Gerant) conseillerService.getConseillerByIdService(1);
 		listeConseiller = conseillerService.getAllConseillerService();
 		listeClient = clientService.getAllClientsService();
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -431,7 +432,7 @@ public class GerantManagedBean implements Serializable {
 
 	public String navigationInformationclient() {
 		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
-		return "infosClientGerant.xhtml";
+		return "infosClientsGerant.xhtml";
 	}
 
 	public String navigationVersAjoutClient() {
