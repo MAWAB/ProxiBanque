@@ -10,19 +10,6 @@
 
 	<h1>Accueil Gerant</h1>
 
-	<h:form>
-		<p:breadCrumb>
-			<p:menuitem value="accueilGerant" action="#" />
-			<p:menuitem value="#{gerantMB.getConseillerById()}"
-				url="getConseiller.xhtml" />
-			<p:menuitem value="#{gerantMB.ajouterConseiller()}"
-				url="ajouterConseiller.xhtml" />
-			<p:menuitem value="#{gerantMB.modifierConseiller()}"
-				url="modifierConseiller.xhtml" />
-			<p:menuitem value="#{gerantMB.supprimerConseiller()}"
-				url="supprimerConseiller.xhtml" />
-		</p:breadCrumb>
-	</h:form>
 
 
 
@@ -31,7 +18,7 @@
 
 		<p:separator />
 		<h2 style="color: red">ConseillerList</h2>
-		<p:dataTable id="DTP" var="conseiller"
+		<p:dataTable id="DT" var="conseiller"
 			value="#{gerantMB.listeConseiller}" style="text-align:center"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
 			paginator="true" rows="5">
@@ -83,7 +70,7 @@
 			<p:column headerText="Immatriculation">
 				<h:outputText value="" />
 				<p:inplace id="immatriculationConseiller" editor="true">
-					<p:inputText id="immatriculationDT" value="#{conseiller.Immatriculation}"
+					<p:inputText id="immatriculationDT" value="#{conseiller.numeroImmatriculation}"
 						required="true" label="Immatriculation">
 						<p:message for="immatriculationDT" style="color:red" />
 					</p:inputText>

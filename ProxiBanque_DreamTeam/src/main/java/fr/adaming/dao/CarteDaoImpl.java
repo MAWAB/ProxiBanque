@@ -61,8 +61,9 @@ public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 		
 	}
 
+	/** T correspond au type de carte*/
 	@Override
-	public T getCarteByIdCompteDao(int id, T carte) {
+	public T getCarteByIdCompteDao(int id_compte, T carte) {
 	EntityManager em = emf.createEntityManager();
 		
 		if(carte instanceof VisaElectron){
@@ -156,7 +157,7 @@ public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 		}else if (carte instanceof VisaPremium) {
 			try{
 				em.getTransaction().begin();
-				String req = "SELECT vP FROM VisaElectron vP WHERE vP.idVisaPremium=:vP_id";
+				String req = "SELECT vP FROM VisaPremium vP WHERE vP.idVisaPremium=:vP_id";
 				Query query = em.createQuery(req);
 				query.setParameter("vP_id", ((VisaPremium) carte).getIdVisaPremium());
 				
