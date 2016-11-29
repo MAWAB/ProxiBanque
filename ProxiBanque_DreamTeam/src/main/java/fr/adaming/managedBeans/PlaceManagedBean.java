@@ -210,6 +210,7 @@ public class PlaceManagedBean implements Serializable {
 		}
 
 		cl.setPlace(placeTmp);
+		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()-this.somme);
 		clientService.updateClientService(cl);
 
 		placement.setSomme(this.somme);
@@ -232,6 +233,9 @@ public class PlaceManagedBean implements Serializable {
 		Place place = this.client.getPlace();
 
 		Placement placement = new Placement();
+		
+		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()-this.somme);
+		clientService.updateClientService(cl);
 
 		placement.setSomme(this.somme);
 		placement.setClient(cl);
@@ -245,7 +249,18 @@ public class PlaceManagedBean implements Serializable {
 
 	public void supprimerPlacement() throws IOException {
 		
+		Client cl = clientService.getClientByIdService(this.client.getIdClient());
+		cl.getCompteEpargne().setSolde(cl.getCompteEpargne().getSolde()+this.placementTmp.getSomme());
+		clientService.updateClientService(cl);
+		
 		placementService.deletePlacementService(this.placementTmp.getIdPlacement());
+		
+		
+		if (placementService.getAllPlacementByIdClientService(this.client.getIdClient()).size() == 0){
+			this.client.setPlace(null);
+			clientService.updateClientService(this.client);
+		}
+		
 		session.setAttribute("client", this.client);
 
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
