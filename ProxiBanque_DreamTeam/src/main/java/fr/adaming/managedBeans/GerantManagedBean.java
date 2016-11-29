@@ -430,11 +430,19 @@ public class GerantManagedBean implements Serializable {
 	
 	/** Navigation */
 
+	/**
+	 * Aller à la page information du client
+	 * @return
+	 */
 	public String navigationInformationclient() {
 		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
 		return "infosClientsGerant.xhtml";
 	}
 
+	/**
+	 * Aller à la page ajout d'un client
+	 * @return
+	 */
 	public String navigationVersAjoutClient() {
 		client = new Client();
 		conseiller = new Conseiller();
@@ -442,29 +450,52 @@ public class GerantManagedBean implements Serializable {
 		return "ajoutClientGerant";
 	}
 
+	/**
+	 * Aller à la page Accueil
+	 * @return
+	 */
 	public String navigationVersAccueil() {
 		client = new Client();
 		return "accueilGerant";
 	}
 
+	/**
+	 * Aller à la page modification d'un client
+	 * Charger la liste des clients dans le menu déroulant
+	 * @return
+	 */
 	public String navigationModificationClient() {
 		client = new Client();
 		creationMenuSelectionClientAModifier();
 		return "modifClientGerant";
 	}
 
+	/**
+	 * Aller à la page suppression d'un client
+	 * Charger la liste des clients dans le menu déroulant
+	 * @return
+	 */
 	public String navigationSuppressionClient() {
 		client = new Client();
 		creationMenuSelectionClientAModifier();
 		return "suppClientGerant";
 	}
 
+	/**
+	 * Aller vers la page ajout conseiller
+	 * Charger la liste des conseillers avec moins de 10 clients
+	 * @return
+	 */
 	public String navigationVersAjoutConseiller() {
 		conseiller = new Conseiller();
 		creationMenuSelectionConseillerWithLess10Clients();
 		return "ajoutConseiller";
 	}
 
+	/**
+	 * Aller vers la page liste des clients de l'agence
+	 * @return
+	 */
 	public String navigationVersListeClients() {
 		listeClient = clientService.getAllClientsByIdAgenceService(1);
 		return "listeClients";
