@@ -101,12 +101,12 @@
 
 				<p:commandButton update="DT"
 					action="#{gerantMB.supprimerConseiller()}" icon="ui-icon-close">
-					<f:setPropertyActionListener target="#{conseiller}"
+					<f:setPropertyActionListener target="#{gerantMB.conseiller}"
 						value="#{conseiller}" />
 				</p:commandButton>
 				<p:commandButton update="DT"
 					action="#{gerantMB.modifierConseiller()}" icon="ui-icon-disk">
-					<f:setPropertyActionListener target="#{conseiller}"
+					<f:setPropertyActionListener target="#{gerantMB.conseiller}"
 						value="#{conseiller}" />
 				</p:commandButton>
 			</p:column>
