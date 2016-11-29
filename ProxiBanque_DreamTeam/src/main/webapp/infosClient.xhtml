@@ -69,7 +69,6 @@
 								<p:column colspan="2">Compte Courant</p:column>
 							</p:row>
 						</f:facet>
-
 						<p:row>
 							<p:column>
 								<h:outputText value="Numéro du compte : " />
@@ -219,13 +218,21 @@
 	</div>
 
 	<div align="center" style="margin-top: 20px">
-		<h:form
-			rendered="#{(clientMB.client.compteEpargne != null and clientMB.client.compteEpargne.solde >= 500000) or (clientMB.client.place != null)}">
-			<p:commandButton value="Gestion du patrimoine"
-				action="#{clientMB.navigationPatrimoine}">
-			</p:commandButton>
-		</h:form>
-
+		<table>
+			<tr>
+				<td><h:form>
+						<p:commandButton value="Faire un virement"
+							action="#{clientMB.navigationVirement}">
+						</p:commandButton>
+					</h:form></td>
+				<td><h:form
+						rendered="#{(clientMB.client.compteEpargne != null and clientMB.client.compteEpargne.solde >= 500000) or (clientMB.client.place != null)}">
+						<p:commandButton value="Gestion du patrimoine"
+							action="#{clientMB.navigationPatrimoine}">
+						</p:commandButton>
+					</h:form></td>
+			</tr>
+		</table>
 	</div>
 
 </h:body>
