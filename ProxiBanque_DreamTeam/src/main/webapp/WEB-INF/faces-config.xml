@@ -25,6 +25,7 @@
 	
 	<!-- managedBean auditeur -->
 	<navigation-rule>
+	<!-- à partir de quel page on crée des alias -->
 		<from-view-id>/auditAccueil.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>auditAccueil</from-outcome>
