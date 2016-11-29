@@ -8,8 +8,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<title>Modification client</title>
 
-	<title>Ajout client</title>
+<style>
+	ul.ui-menu-child {
+		white-space: nowrap;
+		width: auto !important;
+	}
+</style>
 </h:head>
 <h:body>
 
@@ -17,8 +23,14 @@
 		<ui:include src="/templates/headerGerant.xhtml"></ui:include>
 	</ui:insert>
 
+	<h:form id="id_selectionClientAModifier">
+		<p:growl id="id_selectionClientAModifier" />
+		<p:menubar model="#{gerantMB.menulisteClientAModifier}" />
+	</h:form>
+
 	<div align="center">
-		<p:panel id="panel" header="Ajout client" style="margin-bottom:10px;">
+		<p:panel id="panel" header="Modifier client"
+			style="margin-bottom:10px;">
 			<h:form>
 				<h:panelGrid columns="2">
 
@@ -29,7 +41,6 @@
 					<p:outputLabel for="prenom" value="Prenom : " />
 					<p:inputText id="prenom"
 						value="#{gerantMB.client.prenom}" required="true" />
-
 
 					<p:outputLabel for="dateDeNaissance" value="Date de naissance : " />
 					<p:inputText id="dateDeNaissance" type="date"
@@ -52,24 +63,15 @@
 						value="#{gerantMB.client.adresse.ville}"
 						required="true" />
 
-
 					<p:outputLabel for="codePostale" value="Code Postal : " />
 					<p:inputText id="codePostale"
 						value="#{gerantMB.client.adresse.codePostal}"
 						required="true" />
 
-					<h:form id="id_selectionConseiller">
-						<p:outputLabel for="id_selectionConseiller" value="Conseiller"/>
-						<p:growl id="id_selectionConseiller" />
-						<p:menubar model="#{gerantMB.menulisteConseillerLess10Clients}" />
-						<h:outputText value="#{gerantMB.conseiller.idConseiller}" />
-					</h:form>
-
 				</h:panelGrid>
-
 				<br></br>
 				<h:commandButton value="Valider"
-					action="#{gerantMB.ajouterClient()}"></h:commandButton>
+					action="#{gerantMB.modifierClient}"></h:commandButton>
 			</h:form>
 		</p:panel>
 	</div>

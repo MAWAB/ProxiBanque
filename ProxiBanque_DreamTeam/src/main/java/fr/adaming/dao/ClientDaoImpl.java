@@ -42,7 +42,7 @@ public class ClientDaoImpl implements IClientDao {
 	@Override
 	public void addClient(Client client) {
 
-		em.merge(client);
+		em.persist(client);
 	
 	}
 

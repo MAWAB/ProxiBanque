@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Infos client</title>
+	<style>
+.centered {
+	text-align: center;
+	margin-left: 50%;
+}
+</style>
+</h:head>
+<h:body>
+
+	<ui:insert name="header">
+		<ui:include src="/templates/headerGerant.xhtml"></ui:include>
+	</ui:insert>
+
+	<div align="center">
+		<p:panelGrid columns="1" style="width:50%; margin-top:20px">
+			<f:facet name="header">Informations du client</f:facet>
+			<p:outputPanel>
+				<div align="center">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputText value="Nom : " />
+						<h:outputText value="#{clientMB.client.nom}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Prénom : " />
+						<h:outputText value="#{clientMB.client.prenom}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Né le :" />
+						<h:outputText value="#{clientMB.client.dateDeNaissance}"
+							style="font-weight: bold">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+						</h:outputText>
+						<h:outputText value="Adresse :" />
+						<h:outputText value="#{clientMB.adresse}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Téléphone :" />
+						<h:outputText value="#{clientMB.client.telephone}"
+							style="font-weight: bold" />
+
+						<h:outputText value="Numéro client :" />
+						<h:outputText value="#{clientMB.client.idClient}"
+							style="font-weight: bold" />
+
+					</h:panelGrid>
+				</div>
+			</p:outputPanel>
+		</p:panelGrid>
+	</div>
+	<div align="center">
+		<p:panelGrid columns="2" style="width:80% ; margin-top:20px">
+			<f:facet name="header">Comptes</f:facet>
+			<h:form id="compteCourant">
+				<div align="center">
+					<p:panelGrid style="width:80%">
+						<f:facet name="header">
+							<p:row>
+								<p:column colspan="2">Compte Courant</p:column>
+							</p:row>
+						</f:facet>
+
+						<p:row>
+							<p:column>
+								<h:outputText value="Numéro du compte : " />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{clientMB.client.compteCourant.idCompte}"
+									style="font-weight: bold" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputText value="Date de création : " />
+							</p:column>
+							<p:column>
+								<h:outputText
+									value="#{clientMB.client.compteCourant.dateCreation}"
+									style="font-weight: bold">
+									<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputText value="Solde : " />
+							</p:column>
+							<p:column>
+								<h:outputText id="soldeCC"
+									value="#{clientMB.client.compteCourant.solde}"
+									style="font-weight: bold" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputText value="Découvert : " />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{clientMB.client.compteCourant.decouvert}"
+									style="font-weight: bold" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2" styleClass="ui-widget-header">
+								<p:spacer height="0" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2">
+								<div align="center">
+									<h:form rendered="#{clientMB.client.compteCourant == null}">
+										<p:commandButton value="Ajouter un compte courant"
+											action="#{clientMB.navigationAjoutCompteC}">
+										</p:commandButton>
+									</h:form>
+								</div>
+							</p:column>
+						</p:row>
+						<p:row rendered="#{clientMB.client.compteCourant != null}">
+							<p:column colspan="2">
+								<div align="center">
+
+									<h:outputLabel value="Montant : " />
+									<h:inputText value="#{clientMB.somme}" />
+									<br />
+									<p:commandButton value="Retrait" action="#{clientMB.retirer()}"
+										update="soldeCC">
+									</p:commandButton>
+									|
+									<p:commandButton value="Versement"
+										action="#{clientMB.deposer()}" update="soldeCC"></p:commandButton>
+
+								</div>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+			</h:form>
+
+			<h:form>
+				<div align="center">
+					<p:panelGrid style="width:80%">
+						<f:facet name="header">
+							<p:row>
+								<p:column colspan="2">Compte Epargne</p:column>
+							</p:row>
+						</f:facet>
+
+						<p:row>
+							<p:column>
+								<h:outputText value="Numéro du compte : " />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{clientMB.client.compteEpargne.idCompte}"
+									style="font-weight: bold" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputText value="Date de création : " />
+							</p:column>
+							<p:column>
+								<h:outputText
+									value="#{clientMB.client.compteEpargne.dateCreation}"
+									style="font-weight: bold">
+									<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputText value="Solde : " />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{clientMB.client.compteEpargne.solde}"
+									style="font-weight: bold" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputText value="Taux de rémunération : " />
+							</p:column>
+							<p:column>
+								<h:outputText
+									value="#{clientMB.client.compteEpargne.tauxRenumeration}"
+									style="font-weight: bold" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2" styleClass="ui-widget-header">
+								<p:spacer height="0" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2">
+								<div align="center">
+									<h:form rendered="#{clientMB.client.compteEpargne == null}">
+										<p:commandButton value="Ajouter un compte épargne"
+											action="#{clientMB.navigationAjoutCompteEp}">
+										</p:commandButton>
+									</h:form>
+								</div>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+			</h:form>
+		</p:panelGrid>
+	</div>
+
+	<div align="center" style="margin-top: 20px">
+		<h:form
+			rendered="#{(clientMB.client.compteEpargne != null and clientMB.client.compteEpargne.solde >= 500000) or (clientMB.client.place != null)}">
+			<p:commandButton value="Gestion du patrimoine"
+				action="#{clientMB.navigationPatrimoine}">
+			</p:commandButton>
+		</h:form>
+
+	</div>
+
+</h:body>
+</h:html>
+
+
+
+
+

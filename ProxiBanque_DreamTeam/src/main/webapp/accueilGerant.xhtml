@@ -8,8 +8,6 @@
 <h:head></h:head>
 <h:body>
 
-	<h1>Accueil Gerant</h1>
-
 	<ui:insert name="header">
 		<ui:include src="/templates/headerGerant.xhtml"></ui:include>
 	</ui:insert>
@@ -19,7 +17,6 @@
 		<p:spacer height="10" />
 
 		<p:separator />
-		<h2 style="color: red">ConseillerList</h2>
 		<p:dataTable id="DT" var="conseiller"
 			value="#{gerantMB.listeConseiller}" style="text-align:center"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
@@ -47,17 +44,37 @@
 					</p:inputText>
 				</p:inplace>
 			</p:column>
-			
-			<p:column headerText="adresse">
+
+			<p:column headerText="rue">
 				<h:outputText value="" />
-				<p:inplace id="adresseConseiller" editor="true">
-					<p:inputText id="adresseDT" value="#{conseiller.adresse}"
-						required="true" label="Adresse">
-						<p:message for="adresseDT" style="color:red" />
+				<p:inplace id="rueConseiller" editor="true">
+					<p:inputText id="rueDT" value="#{conseiller.adresse.rue}"
+						required="true" label="Rue">
+						<p:message for="rueDT" style="color:red" />
 					</p:inputText>
 				</p:inplace>
 			</p:column>
-			
+
+			<p:column headerText="Code Postal">
+				<h:outputText value="" />
+				<p:inplace id="CPConseiller" editor="true">
+					<p:inputText id="CPDT" value="#{conseiller.adresse.codePostal}"
+						required="true" label="Code Postal">
+						<p:message for="CPDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+
+			<p:column headerText="ville">
+				<h:outputText value="" />
+				<p:inplace id="villeConseiller" editor="true">
+					<p:inputText id="villeDT" value="#{conseiller.adresse.ville}"
+						required="true" label="Ville">
+						<p:message for="villeDT" style="color:red" />
+					</p:inputText>
+				</p:inplace>
+			</p:column>
+
 			<p:column headerText="dateDeNaissance">
 				<h:outputText value="" />
 				<p:inplace id="dnConseiller" editor="true">
@@ -68,12 +85,13 @@
 					</p:inputText>
 				</p:inplace>
 			</p:column>
-			
+
 			<p:column headerText="Immatriculation">
 				<h:outputText value="" />
 				<p:inplace id="immatriculationConseiller" editor="true">
-					<p:inputText id="immatriculationDT" value="#{conseiller.numeroImmatriculation}"
-						required="true" label="Immatriculation">
+					<p:inputText id="immatriculationDT"
+						value="#{conseiller.numeroImmatriculation}" required="true"
+						label="Immatriculation">
 						<p:message for="immatriculationDT" style="color:red" />
 					</p:inputText>
 				</p:inplace>
@@ -83,13 +101,13 @@
 
 				<p:commandButton update="DT"
 					action="#{gerantMB.supprimerConseiller()}" icon="ui-icon-close">
-					<f:setPropertyActionListener target="#{gerantMB.conseiller}"
-						value="#{cons}" />
+					<f:setPropertyActionListener target="#{conseiller}"
+						value="#{conseiller}" />
 				</p:commandButton>
 				<p:commandButton update="DT"
 					action="#{gerantMB.modifierConseiller()}" icon="ui-icon-disk">
-					<f:setPropertyActionListener target="#{gerantMB.conseiller}"
-						value="#{cons}" />
+					<f:setPropertyActionListener target="#{conseiller}"
+						value="#{conseiller}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
