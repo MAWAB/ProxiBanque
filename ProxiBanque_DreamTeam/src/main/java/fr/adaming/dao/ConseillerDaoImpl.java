@@ -26,6 +26,7 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	public void setEm(EntityManager em) {
 		this.em = em;
 	}
+
 	
 	/** Authentification Gérant: requête sql car le discriminant n'est pas dans le modèle */
 	

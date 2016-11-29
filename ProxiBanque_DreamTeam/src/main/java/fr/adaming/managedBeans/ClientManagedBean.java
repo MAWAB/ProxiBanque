@@ -191,5 +191,15 @@ public class ClientManagedBean implements Serializable {
 		session.setAttribute("client", this.client);
 		return "patrimoine.xhtml";
 	}
+	
+	public String navigationVirement(){
+		session.setAttribute("client", this.client);
+		return "virementRechercheCmp.xhtml";
+	}
+	
+	public String navigationInfoCartes(){
+		session.setAttribute("client", this.client);
+		return "infosCompte.xhtml";
+	}
 
 }

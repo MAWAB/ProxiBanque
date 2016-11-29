@@ -73,6 +73,7 @@ public class GerantManagedBean implements Serializable {
 	/** attributs supplémentaires */
 	MenuModel menulisteConseillerLess10Clients;
 	MenuModel menulisteAllConseiller;
+	MenuModel menulisteClientAModifier;
 
 	/** Constructeur vide */
 
@@ -201,8 +202,22 @@ public class GerantManagedBean implements Serializable {
 		this.menulisteAllConseiller = menulisteAllConseiller;
 	}
 
-	/** autres méthodes */
+	/**
+	 * @return the menulisteClientAModifier
+	 */
+	public MenuModel getMenulisteClientAModifier() {
+		return menulisteClientAModifier;
+	}
 
+	/**
+	 * @param menulisteClientAModifier the menulisteClientAModifier to set
+	 */
+	public void setMenulisteClientAModifier(MenuModel menulisteClientAModifier) {
+		this.menulisteClientAModifier = menulisteClientAModifier;
+	}
+
+	/** autres méthodes */
+	
 	/**
 	 * init: chargement de toutes les listes : il faudra utiliser les méthodes
 	 * en commentaires une fois la fonction login réalisée
@@ -214,12 +229,15 @@ public class GerantManagedBean implements Serializable {
 		// conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
 		// listeClient =
 		// clientService.getAllClientsByIdAgenceService(client.getConseiller().getGerant().getAgence().getIdAgence());
+		client = new Client();
+		conseiller = new Conseiller();
 		listeConseiller = conseillerService.getAllConseillerService();
 		listeClient = clientService.getAllClientsService();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		session = (HttpSession) fc.getExternalContext().getSession(false);
 		menulisteConseillerLess10Clients = new DefaultMenuModel();
 		menulisteAllConseiller = new DefaultMenuModel();
+		menulisteClientAModifier = new DefaultMenuModel();
 
 	}
 
@@ -301,7 +319,25 @@ public class GerantManagedBean implements Serializable {
 		return "accueilGerant.xhtml";
 	}
 
+
+
+	public void selectionConseiller(ActionEvent event) throws IOException {
+
+		System.out.println("Dans selection conseiller");
+		DefaultMenuItem menuItem = (DefaultMenuItem) ((MenuActionEvent) event).getMenuItem();
+		int id = Integer.parseInt(menuItem.getParams().get("id_conseiller").get(0));
+		System.out.println("id : "+id);
+		conseiller = conseillerService.getConseillerByIdService(id);
+		System.out.println("id conseiller : "+conseiller.getIdConseiller());
+		client.setConseiller(conseiller);
+		System.out.println("id conseiller du client : "+client.getConseiller().getIdConseiller());
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+	}
+
 	public void creationMenuSelectionConseillerWithLess10Clients() {
+		
+		System.out.println("---------Creation menu déroulant----------");
 		menulisteConseillerLess10Clients = new DefaultMenuModel();
 		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du conseiller");
 		DefaultMenuItem item;
@@ -311,45 +347,43 @@ public class GerantManagedBean implements Serializable {
 		for (int i = 0; i < conseillerList.size(); i++) {
 			item = new DefaultMenuItem("Id : " + conseillerList.get(i).getIdConseiller() + ", Nom : "
 					+ conseillerList.get(i).getNom() + ", Prénom : " + conseillerList.get(i).getPrenom());
-			item.setParam("id_conseiller", conseillerList.get(i).getIdConseiller());
 			item.setCommand("#{gerantMB.selectionConseiller}");
+			item.setParam("id_conseiller", conseillerList.get(i).getIdConseiller());
+			System.out.println(conseillerList.get(i).getIdConseiller());
 			submenu.addElement(item);
 		}
 		menulisteConseillerLess10Clients.addElement(submenu);
 	}
-
-	public void creationMenuSelectionAllConseillers() {
-		menulisteAllConseiller = new DefaultMenuModel();
-		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du conseiller");
+	
+	public void creationMenuSelectionClientAModifier() {
+		menulisteClientAModifier = new DefaultMenuModel();
+		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du client");
 		DefaultMenuItem item;
 
-		List<Conseiller> conseillerList = conseillerService.getAllConseillerService();
-
-		for (int i = 0; i < conseillerList.size(); i++) {
-			item = new DefaultMenuItem("Id : " + conseillerList.get(i).getIdConseiller() + ", Nom : "
-					+ conseillerList.get(i).getNom() + ", Prénom : " + conseillerList.get(i).getPrenom());
-			item.setParam("id_conseiller", conseillerList.get(i).getIdConseiller());
-			item.setCommand("#{gerantMB.selectionConseiller}");
+		for (int i = 0; i < listeClient.size(); i++) {
+			item = new DefaultMenuItem("Id : " + listeClient.get(i).getIdClient() + ", Nom : "
+					+ listeClient.get(i).getNom() + ", Prénom : " + listeClient.get(i).getPrenom());
+			item.setParam("id_client", listeClient.get(i).getIdClient());
+			item.setCommand("#{gerantMB.selectionClientAModifier}");
 			submenu.addElement(item);
 		}
-
-		menulisteAllConseiller.addElement(submenu);
+		menulisteClientAModifier.addElement(submenu);
 	}
 
-	public void selectionConseiller(ActionEvent event) throws IOException {
+	public void selectionClientAModifier(ActionEvent event) throws IOException {
 
 		DefaultMenuItem menuItem = (DefaultMenuItem) ((MenuActionEvent) event).getMenuItem();
-		int id = Integer.parseInt(menuItem.getParams().get("id_conseiller").get(0));
-		conseiller = conseillerService.getConseillerByIdService(id);
+		int id = Integer.parseInt(menuItem.getParams().get("id_client").get(0));
+		client = clientService.getClientByIdService(id);
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
-
+	
 	/** Navigation */
 
 	public String navigationInformationclient() {
 		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
-		return "infosClient.xhtml";
+		return "infosClientGerant.xhtml";
 	}
 
 	public String navigationVersAjoutClient() {
@@ -365,14 +399,14 @@ public class GerantManagedBean implements Serializable {
 
 	public String navigationModificationClient() {
 		client = new Client();
-		creationMenuSelectionConseillerWithLess10Clients();
-		return "modifClient";
+		creationMenuSelectionClientAModifier();
+		return "modifClientGerant";
 	}
 
 	public String navigationSuppressionClient() {
 		client = new Client();
-		creationMenuSelectionConseillerWithLess10Clients();
-		return "suppClient";
+		creationMenuSelectionClientAModifier();
+		return "suppClientGerant";
 	}
 
 	public String navigationVersAjoutConseiller() {

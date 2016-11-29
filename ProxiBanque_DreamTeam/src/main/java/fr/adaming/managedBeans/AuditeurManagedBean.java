@@ -1,7 +1,10 @@
 package fr.adaming.managedBeans;
 
 import java.io.IOException;
+import java.net.URL;
+import java.rmi.Remote;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,6 +19,11 @@ import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
+
+import com.cdyne.ws.DelayedStockQuote;
+import com.cdyne.ws.DelayedStockQuoteSoap;
+import com.cdyne.ws.QuoteData;
+
 import fr.adaming.model.Agence;
 import fr.adaming.service.IAuditRestService;
 
@@ -29,7 +37,9 @@ public class AuditeurManagedBean {
 	private MenuModel menuListeDesAgences;
 	private List<Agence> listeDesAgences;
 	private Agence agenceAAuditer;
-
+	private DelayedStockQuote stub;
+	private DelayedStockQuoteSoap service;
+	private List<QuoteData> listeDesCotes;
 	private MenuModel menuListeDesOptionsAudit;
 
 	@PostConstruct
@@ -41,6 +51,10 @@ public class AuditeurManagedBean {
 		menuListeDesOptionsAudit = new DefaultMenuModel();
 		creationMenuSelectionClientAModifier();
 		creationMenuSelectionOptionAudit();
+
+			
+		
+		
 	}
 
 	public AuditeurManagedBean() {
@@ -82,7 +96,15 @@ public class AuditeurManagedBean {
 			
 		case 2 : return "listeDesComptes";
 		
-		case 3 : return "miseAjourPlacement";
+		case 3 : 
+			DelayedStockQuote stub =new DelayedStockQuote();
+			DelayedStockQuoteSoap service=  stub.getDelayedStockQuoteSoap();
+			listeDesCotes=new ArrayList<QuoteData>();
+			listeDesCotes.add(service.getQuote("ac", "0"));
+		listeDesCotes.add(service.getQuote("b", "0"));
+		listeDesCotes.add(service.getQuote("c", "0"));
+		listeDesCotes.add(service.getQuote("d", "0"));
+		return "miseAjourPlacement";
 		
 		default: return "auditAccueil";
 		
@@ -183,6 +205,48 @@ public class AuditeurManagedBean {
 	 */
 	public void setMenuListeDesOptionsAudit(MenuModel menuListeDesOptionsAudit) {
 		this.menuListeDesOptionsAudit = menuListeDesOptionsAudit;
+	}
+
+	/**
+	 * @return the stub
+	 */
+	public DelayedStockQuote getStub() {
+		return stub;
+	}
+
+	/**
+	 * @param stub the stub to set
+	 */
+	public void setStub(DelayedStockQuote stub) {
+		this.stub = stub;
+	}
+
+	/**
+	 * @return the service
+	 */
+	public DelayedStockQuoteSoap getService() {
+		return service;
+	}
+
+	/**
+	 * @param service the service to set
+	 */
+	public void setService(DelayedStockQuoteSoap service) {
+		this.service = service;
+	}
+
+	/**
+	 * @return the listeDesCotes
+	 */
+	public List<QuoteData> getListeDesCotes() {
+		return listeDesCotes;
+	}
+
+	/**
+	 * @param listeDesCotes the listeDesCotes to set
+	 */
+	public void setListeDesCotes(List<QuoteData> listeDesCotes) {
+		this.listeDesCotes = listeDesCotes;
 	}
 
 }

@@ -3,7 +3,9 @@ package fr.adaming.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +33,7 @@ public class VisaPremium extends Carte implements Serializable {
 	@Temporal(TemporalType.DATE)
 	protected Date dateExpiration;
 	@JsonIgnore
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "compte_id", referencedColumnName = "id_compteC")
 	private CompteCourant compteCourant;
 

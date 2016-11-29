@@ -241,23 +241,26 @@ public class CompteManagedBean implements Serializable {
 		compteCourant.setDateCreation(dateJour);
 		compteCourant.setSolde(0);
 		compteCourant.setClient(client);
+		compteService.ajouterCompteService(compteCourant);
 		
 		if (carte == 1) {
 			
 			visaElectron.setActive(true);
 			carteService.ajouterCarteService(visaElectron);
-			compteCourant.setVisaElectron(visaElectron);
+			visaElectron.setCompteCourant(compteCourant);
+			carteService.modifierCarteService(visaElectron);
 			
 		} else if (carte == 2) {
 			
 			visaPremium.setActive(true);
 			carteService.ajouterCarteService(visaPremium);
-			compteCourant.setVisaPremium(visaPremium);
+			visaPremium.setCompteCourant(compteCourant);
+			carteService.modifierCarteService(visaPremium);
 		}
 		
-		compteService.ajouterCompteService(compteCourant);
+		compteService.modifierCompteService(compteCourant);
 		client.setCompteCourant(compteCourant);
-		
+		session.setAttribute("client", client);
 		return "infosClient.xhtml";
 	}
 
