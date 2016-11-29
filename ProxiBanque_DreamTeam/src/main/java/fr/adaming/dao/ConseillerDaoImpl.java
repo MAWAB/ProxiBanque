@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -28,37 +29,66 @@ public class ConseillerDaoImpl implements IConseillerDao {
 	}
 
 	
-	/** Authentification Gérant: requête sql car le discriminant n'est pas dans le modèle */
-	
-	@Override
-	public Gerant isExistGerantDao(String numeroImmatriculation, String motDePasse){
-		try{
-			String sqlReq="SELECT count(idConseiller) FROM conseillers WHERE numeroImmatriculation=? AND motDePasse=? AND discrim='G'";
-			Query query = em.createNativeQuery(sqlReq);
-			Gerant gege = (Gerant) query.getSingleResult();
-			return gege;
-		}catch(NullPointerException | IllegalArgumentException e){
-			e.printStackTrace();
-		}
-		return null;
-		
-	}
-	
-	/** Authentification Conseiller: requête sql car le discriminant n'est pas dans le modèle */
-	
-	@Override
-	public Conseiller isExistConseillerDao(String numeroImmatriculation, String motDePasse){
-		try{
-			String sqlReq="SELECT count(idConseiller) FROM conseillers WHERE numeroImmatriculation=? AND motDePasse=? AND discrim='C'";
-			Query query = em.createNativeQuery(sqlReq);
-			Conseiller coco = (Conseiller) query.getSingleResult();
-			return coco;
-		}catch(NullPointerException | IllegalArgumentException e){
-			e.printStackTrace();
-		}
-		return null;
-		
-	}
+//	/** Authentification Gérant: requête sql car le discriminant n'est pas dans le modèle */
+//	
+//	@Override
+//	public Gerant isExistGerantDao(String numeroImmatriculation, String motDePasse){
+//		try{
+//			String sqlReq="SELECT * FROM conseillers WHERE numeroImmatriculation=?1 AND motDePasse=?2 AND discrim='G'";
+//			Query query = em.createNativeQuery(sqlReq, Gerant.class);
+//			query.setParameter(1, numeroImmatriculation);
+//			query.setParameter(2, motDePasse);
+//		
+//			if(query.getResultList().size()>0)
+//			{
+//				String req = "SELECT g FROM Conseiller g WHERE g.numeroImmatriculation=:gni AND g.motDePasse=:gmdp";
+//				Query q = em.createQuery(req);
+//				query.setParameter("gni", numeroImmatriculation);
+//				query.setParameter("gmdp", motDePasse);
+//				return (Gerant) query.getSingleResult();
+//			}
+//			else
+//			{
+//				return null;
+//			}
+//			
+//			
+//		}catch(NullPointerException | IllegalArgumentException | NoResultException e){
+//			e.printStackTrace();
+//		}
+//		return null;	
+//	}
+//	
+//	/** Authentification Conseiller: requête sql car le discriminant n'est pas dans le modèle */
+//	
+//	@Override
+//	public Conseiller isExistConseillerDao(String numeroImmatriculation, String motDePasse){
+//		try{
+//			String sqlReq="SELECT * FROM conseillers WHERE numeroImmatriculation=?1 AND motDePasse=?2 AND discrim='C'";
+//			Query query = em.createNativeQuery(sqlReq, Conseiller.class);
+//			query.setParameter(1, numeroImmatriculation);
+//			query.setParameter(2, motDePasse);
+//			
+//			if(query.getResultList().size()>0)
+//			{
+//				String req = "SELECT c FROM Conseiller c WHERE c.numeroImmatriculation=:cni AND c.motDePasse=:cmdp";
+//				Query q = em.createQuery(req);
+//				query.setParameter("cni", numeroImmatriculation);
+//				query.setParameter("cmdp", motDePasse);
+//				return (Conseiller) query.getSingleResult();
+//			}
+//			else
+//			{
+//				return null;
+//			}
+//			
+//			
+//		}catch(NullPointerException | IllegalArgumentException | NoResultException e){
+//			e.printStackTrace();
+//		}
+//		return null;
+//		
+//	}
 
 	@Override
 	public Conseiller getConseillerByIdDao(int id) {

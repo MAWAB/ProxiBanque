@@ -132,21 +132,21 @@ public class ConseillerServiceImpl implements IConseillerService {
 		return liste;
 	}
 	
-	/** Authentification: globale côté service*/
-	@Override
-	public int isExistService(String numeroImmatriculation, String motDePasse) {
-		
-	Gerant gerantLog=conseillerDao.isExistGerantDao(numeroImmatriculation, motDePasse);
-	Conseiller consLog=conseillerDao.isExistConseillerDao(numeroImmatriculation, motDePasse);
-	
-	if(gerantLog != null){
-		return 1;
-	}else if (consLog != null) {
-		return 2;
-	}else{
-		return 0;
-	}
-		
-	}
+//	/** Authentification: globale côté service*/
+//	@Override
+//	public int isExistService(String numeroImmatriculation, String motDePasse) {
+//		
+//	Gerant gerantLog=conseillerDao.isExistGerantDao(numeroImmatriculation, motDePasse);
+//	Conseiller consLog=conseillerDao.isExistConseillerDao(numeroImmatriculation, motDePasse);
+//	
+//	if(gerantLog != null){
+//		return 1;
+//	}else if (consLog != null) {
+//		return 2;
+//	}else{
+//		return 0;
+//	}
+//		
+//	}
 	
 }
