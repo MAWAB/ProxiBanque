@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Infos client</title>
+</h:head>
+<h:body>
+
+	<ui:insert name="header">
+		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
+	</ui:insert>
+	
+	
+<h1 style="margin-top: 80px">Recherche des comptes par leurs Id</h1>
+
+ <h:form>
+ 	<p:outputLabel for="carte1" value="Type de compte :" />
+ 	<p:selectOneRadio id="carte1" value="#{compte2MB.compte1}">
+		<f:selectItem itemLabel="Compte Courant" itemValue="1" />
+		<f:selectItem itemLabel="Compte Epargne" itemValue="2" />
+		<f:ajax render="typeCmpDebit"></f:ajax>
+	</p:selectOneRadio>
+	
+	<h:panelGroup id="typeCmpDebit">
+		<p:panel rendered="#{compte2MB.compte1 == 1}">
+			<h:panelGrid columns="2">						
+				<p:outputLabel for="numCmpDbt1" value="Numéro du compte à débiter : " />
+				<p:inputText id="numCmpDbt1" type="number"
+					value="#{compte2MB.id_compte1}" required="true" />
+			</h:panelGrid>
+		</p:panel>
+		
+		
+		<p:panel rendered="#{compte2MB.compte1 == 2}">
+			<h:panelGrid columns="2">			
+				<p:outputLabel for="numCmpDbt2" value="Numéro du compte à débiter : " />
+				<p:inputText id="numCmpDbt2" type="number"
+					value="#{compte2MB.id_compte1}" required="true" />
+			</h:panelGrid>
+		</p:panel>
+	</h:panelGroup>
+	
+	
+	
+	<p:outputLabel for="carte2" value="Type de compte :" />
+	<p:selectOneRadio id="carte2" value="#{compte2MB.compte2}">
+		<f:selectItem itemLabel="Compte Courant" itemValue="1" />
+		<f:selectItem itemLabel="Compte Epargne" itemValue="2" />
+		<f:ajax render="typeCmpCredit"></f:ajax>
+	</p:selectOneRadio>
+	
+	<h:panelGroup id="typeCmpCredit">
+		<p:panel rendered="#{compte2MB.compte2 == 1}">
+			<h:panelGrid columns="2">						
+				<p:outputLabel for="numCmpCdt1" value="Numéro du compte à créditer : " />
+				<p:inputText id="numCmpCdt1" type="number"
+					value="#{compte2MB.id_compte2}" required="true" />
+			</h:panelGrid>
+		</p:panel>
+		
+		
+		<p:panel rendered="#{compte2MB.compte2 == 2}">
+			<h:panelGrid columns="2">			
+				<p:outputLabel for="numCmpCdt2" value="Numéro du compte à créditer : " />
+				<p:inputText id="numCmpCdt2" type="number"
+					value="#{compte2MB.id_compte2}" required="true" />
+			</h:panelGrid>
+		</p:panel>
+	</h:panelGroup>
+ 
+    <h:commandButton value="Valider" action="#{compte2MB.rechercheComptesVir()}"></h:commandButton>
+</h:form>
+	
+</h:body>
+</h:html>
