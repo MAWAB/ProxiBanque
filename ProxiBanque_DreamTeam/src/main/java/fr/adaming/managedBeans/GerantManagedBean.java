@@ -1,5 +1,7 @@
 package fr.adaming.managedBeans;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -250,6 +252,10 @@ public class GerantManagedBean implements Serializable {
 
 	/** CRUD conseiller */
 
+	/**
+	 * Récupérer un conseiller par son ID
+	 * Renvoie vers l'accueil Gérant
+	 */
 	public String getConseillerById() {
 		conseillerService.getConseillerByIdService(conseiller.getIdConseiller());
 		// listeConseiller =
@@ -258,7 +264,14 @@ public class GerantManagedBean implements Serializable {
 		return "accueilGerant.xhtml";
 	}
 
+	/**
+	 * Ajouter un conseiller
+	 * Renvoie vers l'accueil gérant
+	 */
 	public String ajouterConseiller() {
+		conseiller.setGerant(gerant);
+		conseiller.setAdresse(adresse);
+		conseiller.setListeClients(listeClient);
 		conseillerService.addConseillerService(conseiller);
 		// listeConseiller =
 		// conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
@@ -267,15 +280,25 @@ public class GerantManagedBean implements Serializable {
 
 	}
 
-	public String modifierConseiller() {
+	/**
+	 * Modifier un conseiller
+	 * Réactualise la page accueil gérant
+	 * @throws IOException
+	 */
+	public void modifierConseiller() throws IOException {
 		conseiller = conseillerService.getConseillerByIdService(conseiller.getIdConseiller());
 		conseillerService.updateConseillerService(conseiller);
 		// listeConseiller =
 		// conseillerService.getConseillerByAgenceService(conseiller.getGerant().getAgence().getIdAgence());
 		listeConseiller = conseillerService.getAllConseillerService();
-		return "accueilGerant.xhtml";
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
 
+	/**
+	 * Supprimer un conseiller depuis la page d'accueil du gérant
+	 * Réactualise la page
+	 */
 	public String supprimerConseiller() {
 		conseillerService.deleteConseillerService(conseiller);
 		// listeConseiller =
@@ -286,6 +309,10 @@ public class GerantManagedBean implements Serializable {
 
 	/** CRUD client */
 
+	/**
+	 * Récupérer un client par son Id
+	 * Renvoie vers la page d'accueil du gérant
+	 */
 	public String getClientById() {
 		clientService.getClientByIdService(client.getIdClient());
 		// listeClient =
@@ -294,6 +321,10 @@ public class GerantManagedBean implements Serializable {
 		return "accueilGerant.xhtml";
 	}
 
+	/**
+	 * Ajouter un client
+	 * Renvoie vers la page d'accueil du gérant
+	 */
 	public String ajouterClient() {
 		client.setConseiller(conseiller);
 		clientService.addClientService(client);
@@ -303,6 +334,10 @@ public class GerantManagedBean implements Serializable {
 		return "accueilGerant.xhtml";
 	}
 
+	/**
+	 * Modifier un client
+	 * Renvoie vers la page d'accueil du gérant
+	 */
 	public String modifierClient() {
 		clientService.updateClientService(client);
 		// listeClient =
@@ -311,6 +346,10 @@ public class GerantManagedBean implements Serializable {
 		return "accueilGerant.xhtml";
 	}
 
+	/**
+	 * Supprimer un client depuis la page d'accueil du gérant
+	 * Réactualise la page d'accueil
+	 */
 	public String supprimerClient() {
 		clientService.deleteClientService(client.getIdClient());
 		// listeClient =
@@ -320,24 +359,26 @@ public class GerantManagedBean implements Serializable {
 	}
 
 
-
+	/**
+	 * Sélectionner le conseiller à ajouter au client
+	 * @param event
+	 * @throws IOException
+	 */
 	public void selectionConseiller(ActionEvent event) throws IOException {
 
-		System.out.println("Dans selection conseiller");
 		DefaultMenuItem menuItem = (DefaultMenuItem) ((MenuActionEvent) event).getMenuItem();
 		int id = Integer.parseInt(menuItem.getParams().get("id_conseiller").get(0));
-		System.out.println("id : "+id);
 		conseiller = conseillerService.getConseillerByIdService(id);
-		System.out.println("id conseiller : "+conseiller.getIdConseiller());
 		client.setConseiller(conseiller);
-		System.out.println("id conseiller du client : "+client.getConseiller().getIdConseiller());
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
 
+	/**
+	 * Créer un menu déroulant contenant tous les conseillers avec moins de 10 clients
+	 */
 	public void creationMenuSelectionConseillerWithLess10Clients() {
 		
-		System.out.println("---------Creation menu déroulant----------");
 		menulisteConseillerLess10Clients = new DefaultMenuModel();
 		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du conseiller");
 		DefaultMenuItem item;
@@ -349,12 +390,14 @@ public class GerantManagedBean implements Serializable {
 					+ conseillerList.get(i).getNom() + ", Prénom : " + conseillerList.get(i).getPrenom());
 			item.setCommand("#{gerantMB.selectionConseiller}");
 			item.setParam("id_conseiller", conseillerList.get(i).getIdConseiller());
-			System.out.println(conseillerList.get(i).getIdConseiller());
 			submenu.addElement(item);
 		}
 		menulisteConseillerLess10Clients.addElement(submenu);
 	}
 	
+	/**
+	 * Créer un menu déroulant avec tous les clients
+	 */
 	public void creationMenuSelectionClientAModifier() {
 		menulisteClientAModifier = new DefaultMenuModel();
 		DefaultSubMenu submenu = new DefaultSubMenu("Sélection du client");
@@ -370,6 +413,11 @@ public class GerantManagedBean implements Serializable {
 		menulisteClientAModifier.addElement(submenu);
 	}
 
+	/**
+	 * Sélectionner le client dans le menu déroulant
+	 * @param event
+	 * @throws IOException
+	 */
 	public void selectionClientAModifier(ActionEvent event) throws IOException {
 
 		DefaultMenuItem menuItem = (DefaultMenuItem) ((MenuActionEvent) event).getMenuItem();
@@ -388,6 +436,7 @@ public class GerantManagedBean implements Serializable {
 
 	public String navigationVersAjoutClient() {
 		client = new Client();
+		conseiller = new Conseiller();
 		creationMenuSelectionConseillerWithLess10Clients();
 		return "ajoutClientGerant";
 	}

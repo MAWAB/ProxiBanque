@@ -17,6 +17,11 @@
 		<ui:include src="/templates/headerGerant.xhtml"></ui:include>
 	</ui:insert>
 
+	<h:form id="id_selectionConseiller">
+		<p:growl id="id_selectionConseiller" />
+		<p:menubar model="#{gerantMB.menulisteConseillerLess10Clients}" />
+	</h:form>
+
 	<div align="center">
 		<p:panel id="panel" header="Ajout client" style="margin-bottom:10px;">
 			<h:form>
@@ -27,43 +32,36 @@
 						required="true" />
 
 					<p:outputLabel for="prenom" value="Prenom : " />
-					<p:inputText id="prenom"
-						value="#{gerantMB.client.prenom}" required="true" />
+					<p:inputText id="prenom" value="#{gerantMB.client.prenom}"
+						required="true" />
 
 
 					<p:outputLabel for="dateDeNaissance" value="Date de naissance : " />
 					<p:inputText id="dateDeNaissance" type="date"
-						value="#{gerantMB.client.dateDeNaissance}"
-						required="true">
+						value="#{gerantMB.client.dateDeNaissance}" required="true">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</p:inputText>
 
 					<p:outputLabel for="telephone" value="Téléphone  : " />
-					<p:inputText id="telephone"
-						value="#{gerantMB.client.telephone}" required="true" />
+					<p:inputText id="telephone" value="#{gerantMB.client.telephone}"
+						required="true" />
 
 					<p:outputLabel for="rue" value="Rue : " />
-					<p:inputText id="rue"
-						value="#{gerantMB.client.adresse.rue}"
+					<p:inputText id="rue" value="#{gerantMB.client.adresse.rue}"
 						required="true" />
 
 					<p:outputLabel for="ville" value="Ville : " />
-					<p:inputText id="ville"
-						value="#{gerantMB.client.adresse.ville}"
+					<p:inputText id="ville" value="#{gerantMB.client.adresse.ville}"
 						required="true" />
 
 
 					<p:outputLabel for="codePostale" value="Code Postal : " />
 					<p:inputText id="codePostale"
-						value="#{gerantMB.client.adresse.codePostal}"
-						required="true" />
+						value="#{gerantMB.client.adresse.codePostal}" required="true" />
 
-					<h:form id="id_selectionConseiller">
-						<p:outputLabel for="id_selectionConseiller" value="Conseiller"/>
-						<p:growl id="id_selectionConseiller" />
-						<p:menubar model="#{gerantMB.menulisteConseillerLess10Clients}" />
-						<h:outputText value="#{gerantMB.conseiller.idConseiller}" />
-					</h:form>
+					<p:outputLabel value="Conseiller : " />
+					<h:outputText value="#{gerantMB.conseiller.idConseiller}" />
+
 
 				</h:panelGrid>
 
