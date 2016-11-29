@@ -16,6 +16,24 @@
 
 	<div align="center">
 <h1>Mise a jour placements</h1>
+
+	<h:form>
+			<p:dataTable var="cote" value="#{auditeurMB.listeDesCotes}">
+
+				<p:column headerText="nom de la compagnie">
+					<h:outputText value="#{cote.companyName}" />
+				</p:column>
+
+				<p:column headerText="cout de l'action">
+					<h:outputText value="#{cote.pe}" />
+				</p:column>
+
+				<p:column headerText="Gain par action">
+					<h:outputText value="#{cote.earnPerShare}" />
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
 	</div>
 </h:body>
 </h:html>
