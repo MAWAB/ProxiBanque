@@ -3,6 +3,7 @@ package fr.adaming.restController;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import fr.adaming.service.IConseillerService;
 
 @Component
 @Path("/audit")		// néccessaire pour détecter cette classe en tant que webservice
-public class AuditRest {
+public class AuditRestServiceController {
 
 	@Autowired
 	@Qualifier("clientServiceImpl")
@@ -38,6 +39,15 @@ public class AuditRest {
 		return clientService.getAllClientsService();
 	}
 
+	
+	@GET
+	@Path("/getAgenceById/{id_agence}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Agence getAgenceById(@PathParam("id_agence") int id_agence) {
+		return agenceService.getAgenceById(id_agence);
+	}
+	
+	
 	@GET
 	@Path("/getAllConseillers")
 	@Produces(MediaType.APPLICATION_JSON)
