@@ -15,9 +15,13 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import fr.adaming.model.Carte;
 import fr.adaming.model.Client;
 import fr.adaming.model.Compte;
 import fr.adaming.model.CompteCourant;
+import fr.adaming.model.VisaElectron;
+import fr.adaming.model.VisaPremium;
+import fr.adaming.service.ICarteService;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.ICompteService;
 
@@ -36,13 +40,16 @@ public class ClientManagedBean implements Serializable {
 
 	@ManagedProperty(value = "#{clientServiceImpl}")
 	IClientService clientService;
-	
-	@ManagedProperty(value="#{cmpServiceBean}")
+
+	@ManagedProperty(value = "#{cmpServiceBean}")
 	ICompteService<Compte> compteService;
+
+	@ManagedProperty(value = "#{carteService}")
+	ICarteService<Carte> carteService;
 
 	private Client client;
 	private String adresse;
-	
+
 	private CompteCourant compteCourant;
 	private double somme;
 
@@ -78,7 +85,6 @@ public class ClientManagedBean implements Serializable {
 		this.clientService = clientService;
 	}
 
-	
 	/**
 	 * @return the compteService
 	 */
@@ -87,7 +93,8 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	/**
-	 * @param compteService the compteService to set
+	 * @param compteService
+	 *            the compteService to set
 	 */
 	public void setCompteService(ICompteService<Compte> compteService) {
 		this.compteService = compteService;
@@ -116,7 +123,8 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	/**
-	 * @param compteCourant the compteCourant to set
+	 * @param compteCourant
+	 *            the compteCourant to set
 	 */
 	public void setCompteCourant(CompteCourant compteCourant) {
 		this.compteCourant = compteCourant;
@@ -130,10 +138,19 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	/**
-	 * @param somme the somme to set
+	 * @param somme
+	 *            the somme to set
 	 */
 	public void setSomme(double somme) {
 		this.somme = somme;
+	}
+
+	public ICarteService<Carte> getCarteService() {
+		return carteService;
+	}
+
+	public void setCarteService(ICarteService<Carte> carteService) {
+		this.carteService = carteService;
 	}
 
 	@PostConstruct
@@ -150,56 +167,85 @@ public class ClientManagedBean implements Serializable {
 		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
 		return "ajoutCC.xhtml";
 	}
-	
+
 	public String navigationAjoutCompteEp() {
 		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
 		return "ajoutCE.xhtml";
 	}
-	
+
 	public void retirer() throws IOException {
-		
+
 		compteCourant = client.getCompteCourant();
 		compteService.retraitService(compteCourant, somme);
 		client.setCompteCourant(compteCourant);
 		clientService.updateClientService(client);
-		
+
 		this.client = clientService.getClientByIdService(client.getIdClient());
 		session.setAttribute("client", client);
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 
 	}
-	
+
 	public String deposer() throws IOException {
-		
+
 		compteCourant = client.getCompteCourant();
 		compteService.depotService(compteCourant, somme);
 		client.setCompteCourant(compteCourant);
 		clientService.updateClientService(client);
-		
+
 		this.client = clientService.getClientByIdService(client.getIdClient());
 		session.setAttribute("client", client);
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 		this.client = (Client) session.getAttribute("client");
-		
+
 		return "infosClient.xhtml";
 	}
-	
-	public String navigationPatrimoine(){
+
+	public String navigationPatrimoine() {
 		session.setAttribute("fondInsuff", false);
 		session.setAttribute("client", this.client);
 		return "patrimoine.xhtml";
 	}
-	
-	public String navigationVirement(){
+
+	public String navigationVirement() {
 		session.setAttribute("client", this.client);
 		return "virementRechercheCmp.xhtml";
 	}
-	
-	public String navigationInfoCartes(){
+
+	public String navigationInfoCartes() {
 		session.setAttribute("client", this.client);
 		return "infosCompte.xhtml";
 	}
 
+	public void supprimerCarteElectron() throws IOException {
+
+		VisaElectron vp = (VisaElectron) carteService.getCarteByIdService(client.getCompteCourant().getVisaElectron());
+
+		vp.setCompteCourant(null);
+		carteService.modifierCarteService(vp);
+
+		carteService.supprimerCarteService(vp);
+
+		this.client = clientService.getClientByIdService(client.getIdClient());
+		session.setAttribute("client", client);
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+	}
+
+	public void supprimerCartePremium() throws IOException {
+
+		VisaPremium vp = (VisaPremium) carteService.getCarteByIdService(client.getCompteCourant().getVisaPremium());
+
+		vp.setCompteCourant(null);
+		carteService.modifierCarteService(vp);
+
+		carteService.supprimerCarteService(vp);
+
+		this.client = clientService.getClientByIdService(client.getIdClient());
+		session.setAttribute("client", client);
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+	}
 }

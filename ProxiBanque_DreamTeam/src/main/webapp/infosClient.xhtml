@@ -296,6 +296,26 @@
 				</div>
 			</p:outputPanel>
 			<p:outputPanel
+				rendered="#{clientMB.client.compteCourant.visaPremium != null}">
+				<div align="center">
+					<h:panelGrid columns="1" cellpadding="4">
+						<p:commandButton value="Supprimer la carte"
+							action="#{clientMB.supprimerCartePremium}">
+						</p:commandButton>
+					</h:panelGrid>
+				</div>
+			</p:outputPanel>
+			<p:outputPanel
+				rendered="#{clientMB.client.compteCourant.visaElectron != null}">
+				<div align="center">
+					<h:panelGrid columns="1" cellpadding="4">
+						<p:commandButton value="Supprimer la carte"
+							action="#{clientMB.supprimerCarteElectron}">
+						</p:commandButton>
+					</h:panelGrid>
+				</div>
+			</p:outputPanel>
+			<p:outputPanel
 				rendered="#{clientMB.client.compteCourant.visaPremium == null and clientMB.client.compteCourant.visaElectron == null}">
 				<div align="center">
 					<h:panelGrid columns="1" cellpadding="4">
