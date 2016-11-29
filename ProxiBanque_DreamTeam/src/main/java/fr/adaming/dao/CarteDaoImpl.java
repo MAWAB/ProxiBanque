@@ -71,7 +71,7 @@ public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 			try{
 				String req = "SELECT vE FROM VisaElectron vE WHERE vE.compteCourant.idCompte=:c_id";
 				Query query = em.createQuery(req);
-				query.setParameter("c_id", ((VisaElectron) carte).getCompteCourant().getIdCompte());
+				query.setParameter("c_id", id_compte);
 				
 				return (T) query.getSingleResult();
 				
@@ -85,7 +85,7 @@ public class CarteDaoImpl <T extends Carte> implements ICarteDao<T> {
 			try{
 				String req = "SELECT vP FROM VisaPremium vP WHERE vP.compteCourant.idCompte=:c_id";
 				Query query = em.createQuery(req);
-				query.setParameter("c_id", ((VisaPremium) carte).getCompteCourant().getIdCompte());
+				query.setParameter("c_id", id_compte);
 				
 				return (T) query.getSingleResult();
 				

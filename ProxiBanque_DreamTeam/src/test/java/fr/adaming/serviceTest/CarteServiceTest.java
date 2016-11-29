@@ -88,9 +88,20 @@
 //		
 //		carteService.modifierCarteService(electronModif);
 //	}
-//	
+//	@Test
 //	public void testGetIdByCompte(){
 //		
+//		VisaElectron ve1 = new VisaElectron();
+//		VisaPremium vp1 = new VisaPremium(); 
+//		ve1.setIdVisaElectron(1);
+//		vp1.setIdVisaPremium(1);
+//		
+//		VisaElectron ve2 = (VisaElectron) carteService.getCarteByIdCompteService(1, ve1);
+//		VisaPremium vp2 = (VisaPremium) carteService.getCarteByIdCompteService(1, vp1);
+//		
+//		System.out.println("===================================================================================");
+//		System.out.println(ve2);
+//		System.out.println(vp2);
 //	}
 //	
 //
