@@ -72,4 +72,13 @@
 			<to-view-id>accueilConseiller.xhtml</to-view-id>
 		</navigation-case>
 		</navigation-rule>
+		
+		
+				<navigation-rule>
+		<from-view-id>miseAjourPlacement.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>auditAccueil</from-outcome>
+			<to-view-id>auditAccueil.xhtml</to-view-id>
+		</navigation-case>
+		</navigation-rule>
 </faces-config>

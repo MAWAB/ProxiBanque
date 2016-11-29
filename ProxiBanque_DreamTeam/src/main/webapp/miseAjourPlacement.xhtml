@@ -16,23 +16,24 @@
 
 	<div align="center">
 <h1>Mise a jour placements</h1>
-
+		<h:form id="formMenu">
+<h:commandButton action="#{auditeurMB.navigationVersAccueil}" value="Accueil"></h:commandButton>
+		</h:form>
 	<h:form>
-			<p:dataTable var="cote" value="#{auditeurMB.listeDesCotes}">
+			<p:dataTable var="cote" value="#{auditeurMB.listeDesPlaces}">
 
 				<p:column headerText="nom de la compagnie">
-					<h:outputText value="#{cote.companyName}" />
+					<h:outputText value="#{cote.nom}" />
 				</p:column>
 
 				<p:column headerText="cout de l'action">
-					<h:outputText value="#{cote.pe}" />
+					<h:outputText value="#{cote.taux}" />
 				</p:column>
 
-				<p:column headerText="Gain par action">
-					<h:outputText value="#{cote.earnPerShare}" />
-				</p:column>
 			</p:dataTable>
-			
+			<p:commandButton value="mise a jour des placements"
+							action="#{auditeurMB.miseAJourPlacement}">
+					</p:commandButton>
 		</h:form>
 	</div>
 </h:body>

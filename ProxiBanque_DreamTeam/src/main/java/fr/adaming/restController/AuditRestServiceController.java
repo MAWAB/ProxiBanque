@@ -37,9 +37,108 @@ public class AuditRestServiceController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Client> getAllClients() {
 		return clientService.getAllClientsService();
+		
 	}
 
+	@GET
+	@Path("/getNumberCompteCourant")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getNumberCompteCourant() {
+		List<Client>  listeClient=clientService.getAllClientsService();
+		int nombreComteCourant=0;
+		for(int i=0;i<listeClient.size();i++)
+		{
+			if(listeClient.get(i).getCompteCourant()!=null)
+			{
+				nombreComteCourant++;
+			}
+		}
+		return nombreComteCourant;
+		
+		
+	}
 	
+	
+	@GET
+	@Path("/getNumberCompteEpargne")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getNumberCompteEpargne() {
+		List<Client>  listeClient=clientService.getAllClientsService();
+		int nombreCompteEpargne=0;
+		for(int i=0;i<listeClient.size();i++)
+		{
+			if(listeClient.get(i).getCompteEpargne()!=null)
+			{
+				nombreCompteEpargne++;
+			}
+		}
+		return nombreCompteEpargne;
+		
+		
+	}
+	
+	@GET
+	@Path("/getNumberCompteEpargneValorisee")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getNumberCompteEpargneEnDefaut() {
+		List<Client>  listeClient=clientService.getAllClientsService();
+		int nombreCompteEpargneValorisee=0;
+		for(int i=0;i<listeClient.size();i++)
+		{
+			if(listeClient.get(i).getCompteEpargne()!=null)
+			{
+				if(listeClient.get(i).getCompteEpargne().getSolde()>500000)
+				{
+					nombreCompteEpargneValorisee++;					
+				}
+
+			}
+		}
+		return nombreCompteEpargneValorisee;
+	}
+	
+	
+	
+	
+	
+	@GET
+	@Path("/getNumberCompteCourantEnDefaut")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getNumberCompteCourantEnDefaut() {
+		List<Client>  listeClient=clientService.getAllClientsService();
+		int nombreCompteCourantEnDefaut=0;
+		for(int i=0;i<listeClient.size();i++)
+		{
+			if(listeClient.get(i).getCompteEpargne()!=null)
+			{
+				if(listeClient.get(i).getCompteEpargne().getSolde()<5000)
+				{
+					nombreCompteCourantEnDefaut++;					
+				}
+
+			}
+		}
+		return nombreCompteCourantEnDefaut;
+	}
+	
+	
+	
+	
+	
+	@GET
+	@Path("/getNumberClient")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getNumberClients() {
+		return clientService.getAllClientsService().size();
+	}
+	@GET
+	@Path("/getNumberConseillers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getNumberConseillers()
+	{
+		return conseillerService.getAllConseillerService().size();
+		
+	}
 	@GET
 	@Path("/getAgenceById/{id_agence}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -62,19 +161,8 @@ public class AuditRestServiceController {
 		return agenceService.getAllAgences();
 	}
 
-//	@RequestMapping(value = "/getAllComptesCourant/{id_agence}", method = RequestMethod.GET, produces = "application/json", consumes= "application/json")	
-//	public List<CompteCourant> getAllCompteCourant(@PathVariable int id_agence)
-//	{
-//		return compteService.getComptesCourantByIdAgenceService(id_agence);	
-//				
-//	}
-//	@RequestMapping(value = "/getAllComptesCourant/{id_agence}", method = RequestMethod.GET, produces = "application/json", consumes= "application/json")
-//	public List<CompteCourant> getAllCompteEpargne(@PathVariable int id_agence)
-//	{
-//		return compteService.getComptesEpargneByIdAgenceService(id_agence);
-//				
-//	}
 	
+
 	
 	
 

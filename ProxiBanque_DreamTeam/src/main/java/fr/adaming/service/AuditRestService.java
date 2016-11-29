@@ -53,4 +53,22 @@ public class AuditRestService implements IAuditRestService {
 		return agenceRecuperer;
 	}
 
+	public List<Client> getAllClients()
+	{
+		ClientConfig clientConfig = new DefaultClientConfig();
+		// pour faire le mapping objet java et objet json
+		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING,
+				Boolean.TRUE);
+		// etape 2
+		Client cl = Client.create(clientConfig);
+		// etape 3 : creer une web ressource
+		String empURL = "http://localhost:8080/ProxiBanque_DreamTeam/rest/audit/getAllClients";
+		WebResource webResource = cl.resource(empURL);
+		// invoquer le web service et recuperer le résultat
+		ClientResponse response = webResource.get(ClientResponse.class);
+		List<Client> listeclient = response
+				.getEntity(new GenericType<List<Client>>() {
+				});
+		return listeclient;
+	}
 }

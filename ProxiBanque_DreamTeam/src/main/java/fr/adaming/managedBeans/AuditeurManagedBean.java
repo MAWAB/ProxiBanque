@@ -25,6 +25,7 @@ import com.cdyne.ws.DelayedStockQuoteSoap;
 import com.cdyne.ws.QuoteData;
 
 import fr.adaming.model.Agence;
+import fr.adaming.model.Place;
 import fr.adaming.service.IAuditRestService;
 
 @ManagedBean(name = "auditeurMB")
@@ -39,7 +40,7 @@ public class AuditeurManagedBean {
 	private Agence agenceAAuditer;
 	private DelayedStockQuote stub;
 	private DelayedStockQuoteSoap service;
-	private List<QuoteData> listeDesCotes;
+	private List<Place> listeDesPlaces;
 	private MenuModel menuListeDesOptionsAudit;
 
 	@PostConstruct
@@ -51,65 +52,87 @@ public class AuditeurManagedBean {
 		menuListeDesOptionsAudit = new DefaultMenuModel();
 		creationMenuSelectionClientAModifier();
 		creationMenuSelectionOptionAudit();
-
-			
-		
-		
+		listeDesPlaces = new ArrayList<Place>();
 	}
 
 	public AuditeurManagedBean() {
 
 	}
 
-	public void creationMenuSelectionOptionAudit()
-	{
+	public void creationMenuSelectionOptionAudit() {
 
 		DefaultSubMenu submenu = new DefaultSubMenu("Sélection de l'audit à réaliser");
 		DefaultMenuItem item;
-			item = new DefaultMenuItem("Synthèse");
-			item.setParam("choixOptionAudit", 0);
-			item.setCommand("#{auditeurMB.selectionOptionAudit}");
-			submenu.addElement(item);
-			item = new DefaultMenuItem("Liste des clients");
-			item.setParam("choixOptionAudit", 1);
-			item.setCommand("#{auditeurMB.selectionOptionAudit}");
-			submenu.addElement(item);
-			item = new DefaultMenuItem("Liste des comptes");
-			item.setParam("choixOptionAudit", 2);
-			item.setCommand("#{auditeurMB.selectionOptionAudit}");
-			submenu.addElement(item);
-			item = new DefaultMenuItem("mise à jour des placements");
-			item.setParam("choixOptionAudit", 3);
-			item.setCommand("#{auditeurMB.selectionOptionAudit}");
-			submenu.addElement(item);		
+		item = new DefaultMenuItem("Synthèse");
+		item.setParam("choixOptionAudit", 0);
+		item.setCommand("#{auditeurMB.selectionOptionAudit}");
+		submenu.addElement(item);
+		item = new DefaultMenuItem("Liste des clients");
+		item.setParam("choixOptionAudit", 1);
+		item.setCommand("#{auditeurMB.selectionOptionAudit}");
+		submenu.addElement(item);
+		item = new DefaultMenuItem("Liste des comptes");
+		item.setParam("choixOptionAudit", 2);
+		item.setCommand("#{auditeurMB.selectionOptionAudit}");
+		submenu.addElement(item);
+		item = new DefaultMenuItem("mise à jour des placements");
+		item.setParam("choixOptionAudit", 3);
+		item.setCommand("#{auditeurMB.selectionOptionAudit}");
+		submenu.addElement(item);
 		menuListeDesAgences.addElement(submenu);
 	}
-	public String selectionOptionAudit(ActionEvent event) throws IOException
-	{
+
+	public void miseAJourPlacement() {
+		System.out.println("methode pour updater les placements");
+	}
+
+	public String selectionOptionAudit(ActionEvent event) throws IOException {
 		DefaultMenuItem menuItem = (DefaultMenuItem) ((MenuActionEvent) event).getMenuItem();
 		int choixAudit = Integer.parseInt(menuItem.getParams().get("choixOptionAudit").get(0));
-		switch(choixAudit)
-		{
-		case 0 : return "auditAccueil";
-					
-		case 1 :  return "listeDesClients";
+		switch (choixAudit) {
+		
+		case 0:
 			
-		case 2 : return "listeDesComptes";
-		
-		case 3 : 
-			DelayedStockQuote stub =new DelayedStockQuote();
-			DelayedStockQuoteSoap service=  stub.getDelayedStockQuoteSoap();
-			listeDesCotes=new ArrayList<QuoteData>();
-			listeDesCotes.add(service.getQuote("ac", "0"));
-		listeDesCotes.add(service.getQuote("b", "0"));
-		listeDesCotes.add(service.getQuote("c", "0"));
-		listeDesCotes.add(service.getQuote("d", "0"));
-		return "miseAjourPlacement";
-		
-		default: return "auditAccueil";
-		
+			return "auditAccueil";
+		case 1:
+			return "listeDesClients";
+		case 2:
+			return "listeDesComptes";
+		case 3:
+			DelayedStockQuote stub = new DelayedStockQuote();
+			DelayedStockQuoteSoap service = stub.getDelayedStockQuoteSoap();
+			QuoteData data = service.getQuote("ac", "0");
+			Place placeToUpdate = new Place();
+			placeToUpdate.setNom(data.getCompanyName());
+			placeToUpdate.setTaux(Double.parseDouble(data.getEarnPerShare().toString()));
+			listeDesPlaces.add(placeToUpdate);
+			data = service.getQuote("b", "0");
+			placeToUpdate = new Place();
+			placeToUpdate.setNom(data.getCompanyName());
+			placeToUpdate.setTaux(Double.parseDouble(data.getEarnPerShare().toString()));
+			listeDesPlaces.add(placeToUpdate);
+			data = service.getQuote("c", "0");
+			placeToUpdate = new Place();
+			placeToUpdate.setNom(data.getCompanyName());
+			placeToUpdate.setTaux(Double.parseDouble(data.getEarnPerShare().toString()));
+			listeDesPlaces.add(placeToUpdate);
+			data = service.getQuote("d", "0");
+			placeToUpdate = new Place();
+			placeToUpdate.setTaux(Double.parseDouble(data.getEarnPerShare().toString()));
+			placeToUpdate.setNom(data.getCompanyName());
+			listeDesPlaces.add(placeToUpdate);
+			return "miseAjourPlacement";
+
+		default:
+			return "auditAccueil";
+
 		}
 	}
+
+	public String navigationVersAccueil() {
+		return "auditAccueil";
+	}
+
 	public void creationMenuSelectionClientAModifier() {
 
 		DefaultSubMenu submenu = new DefaultSubMenu("Sélection de l'agence à auditer");
@@ -201,7 +224,8 @@ public class AuditeurManagedBean {
 	}
 
 	/**
-	 * @param menuListeDesOptionsAudit the menuListeDesOptionsAudit to set
+	 * @param menuListeDesOptionsAudit
+	 *            the menuListeDesOptionsAudit to set
 	 */
 	public void setMenuListeDesOptionsAudit(MenuModel menuListeDesOptionsAudit) {
 		this.menuListeDesOptionsAudit = menuListeDesOptionsAudit;
@@ -215,7 +239,8 @@ public class AuditeurManagedBean {
 	}
 
 	/**
-	 * @param stub the stub to set
+	 * @param stub
+	 *            the stub to set
 	 */
 	public void setStub(DelayedStockQuote stub) {
 		this.stub = stub;
@@ -229,24 +254,26 @@ public class AuditeurManagedBean {
 	}
 
 	/**
-	 * @param service the service to set
+	 * @param service
+	 *            the service to set
 	 */
 	public void setService(DelayedStockQuoteSoap service) {
 		this.service = service;
 	}
 
 	/**
-	 * @return the listeDesCotes
+	 * @return the listeDesPlaces
 	 */
-	public List<QuoteData> getListeDesCotes() {
-		return listeDesCotes;
+	public List<Place> getListeDesPlaces() {
+		return listeDesPlaces;
 	}
 
 	/**
-	 * @param listeDesCotes the listeDesCotes to set
+	 * @param listeDesPlaces
+	 *            the listeDesPlaces to set
 	 */
-	public void setListeDesCotes(List<QuoteData> listeDesCotes) {
-		this.listeDesCotes = listeDesCotes;
+	public void setListeDesPlaces(List<Place> listeDesPlaces) {
+		this.listeDesPlaces = listeDesPlaces;
 	}
 
 }
