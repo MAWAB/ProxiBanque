@@ -1,14 +1,11 @@
 package fr.adaming.managedBeans;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -18,22 +15,21 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.MenuActionEvent;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
 import fr.adaming.model.Adresse;
+import fr.adaming.model.Agence;
 import fr.adaming.model.Client;
+import fr.adaming.model.Compte;
+import fr.adaming.model.CompteCourant;
+import fr.adaming.model.CompteEpargne;
 import fr.adaming.model.Conseiller;
 import fr.adaming.model.Gerant;
 import fr.adaming.service.IClientService;
+import fr.adaming.service.ICompteService;
 import fr.adaming.service.IConseillerService;
 
 @ManagedBean(name = "gerantMB")
@@ -52,6 +48,7 @@ public class GerantManagedBean implements Serializable {
 	private Gerant gerant;
 	private String nom;
 	private String password;
+	private Agence agence;
 
 	/** attributs conseiller */
 	@ManagedProperty(value = "#{conseillerService}")
@@ -69,7 +66,10 @@ public class GerantManagedBean implements Serializable {
 	private List<Client> listeClient;
 
 	/** attributs comptes */
-
+	@ManagedProperty(value="#{cmpServiceBean}")
+	ICompteService<Compte> compteService;
+	private List<Compte> listeCompte;
+	
 	/** attributs cartes */
 
 	/** attributs supplémentaires */
@@ -84,86 +84,203 @@ public class GerantManagedBean implements Serializable {
 		this.client = new Client();
 		this.gerant = new Gerant();
 		this.adresse = new Adresse();
+		this.agence = new Agence();
 	}
 
 	/** Getters & Setters */
-	public IConseillerService getConseillerService() {
-		return conseillerService;
-	}
+	
 
-	public void setConseillerService(IConseillerService conseillerService) {
-		this.conseillerService = conseillerService;
-	}
-
-	public Conseiller getConseiller() {
-		return conseiller;
-	}
-
-	public void setConseiller(Conseiller conseiller) {
-		this.conseiller = conseiller;
-	}
-
-	public List<Conseiller> getListeConseiller() {
-		return listeConseiller;
-	}
-
-	public void setListeConseiller(List<Conseiller> listeConseiller) {
-		this.listeConseiller = listeConseiller;
-	}
-
-	public IClientService getClientService() {
-		return clientService;
-	}
-
-	public void setClientService(IClientService clientService) {
-		this.clientService = clientService;
-	}
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
-	public List<Client> getListeClient() {
-		return listeClient;
-	}
-
-	public void setListeClient(List<Client> listeClient) {
-		this.listeClient = listeClient;
-	}
-
-	public Gerant getGerant() {
-		return gerant;
-	}
-
-	public void setGerant(Gerant gerant) {
-		this.gerant = gerant;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+	
+	
 	/**
 	 * @return the adresse
 	 */
 	public Adresse getAdresse() {
 		return adresse;
+	}
+
+	/**
+	 * @return the agence
+	 */
+	public Agence getAgence() {
+		return agence;
+	}
+
+	/**
+	 * @param agence the agence to set
+	 */
+	public void setAgence(Agence agence) {
+		this.agence = agence;
+	}
+
+	/**
+	 * @return the session
+	 */
+	public HttpSession getSession() {
+		return session;
+	}
+
+	/**
+	 * @param session the session to set
+	 */
+	public void setSession(HttpSession session) {
+		this.session = session;
+	}
+
+	/**
+	 * @return the gerant
+	 */
+	public Gerant getGerant() {
+		return gerant;
+	}
+
+	/**
+	 * @param gerant the gerant to set
+	 */
+	public void setGerant(Gerant gerant) {
+		this.gerant = gerant;
+	}
+
+	/**
+	 * @return the nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * @param nom the nom to set
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @return the conseillerService
+	 */
+	public IConseillerService getConseillerService() {
+		return conseillerService;
+	}
+
+	/**
+	 * @param conseillerService the conseillerService to set
+	 */
+	public void setConseillerService(IConseillerService conseillerService) {
+		this.conseillerService = conseillerService;
+	}
+
+	/**
+	 * @return the conseiller
+	 */
+	public Conseiller getConseiller() {
+		return conseiller;
+	}
+
+	/**
+	 * @param conseiller the conseiller to set
+	 */
+	public void setConseiller(Conseiller conseiller) {
+		this.conseiller = conseiller;
+	}
+
+	/**
+	 * @return the listeConseiller
+	 */
+	public List<Conseiller> getListeConseiller() {
+		return listeConseiller;
+	}
+
+	/**
+	 * @param listeConseiller the listeConseiller to set
+	 */
+	public void setListeConseiller(List<Conseiller> listeConseiller) {
+		this.listeConseiller = listeConseiller;
+	}
+
+	
+	
+	/**
+	 * @return the compteService
+	 */
+	public ICompteService<Compte> getCompteService() {
+		return compteService;
+	}
+
+	/**
+	 * @param compteService the compteService to set
+	 */
+	public void setCompteService(ICompteService<Compte> compteService) {
+		this.compteService = compteService;
+	}
+
+	/**
+	 * @return the listeCompte
+	 */
+	public List<Compte> getListeCompte() {
+		return listeCompte;
+	}
+
+	/**
+	 * @param listeCompte the listeCompte to set
+	 */
+	public void setListeCompte(List<Compte> listeCompte) {
+		this.listeCompte = listeCompte;
+	}
+
+	/**
+	 * @return the clientService
+	 */
+	public IClientService getClientService() {
+		return clientService;
+	}
+
+	/**
+	 * @param clientService the clientService to set
+	 */
+	public void setClientService(IClientService clientService) {
+		this.clientService = clientService;
+	}
+
+	/**
+	 * @return the client
+	 */
+	public Client getClient() {
+		return client;
+	}
+
+	/**
+	 * @param client the client to set
+	 */
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	/**
+	 * @return the listeClient
+	 */
+	public List<Client> getListeClient() {
+		return listeClient;
+	}
+
+	/**
+	 * @param listeClient the listeClient to set
+	 */
+	public void setListeClient(List<Client> listeClient) {
+		this.listeClient = listeClient;
 	}
 
 	/**
@@ -234,6 +351,7 @@ public class GerantManagedBean implements Serializable {
 		client = new Client();
 		conseiller = new Conseiller();
 		gerant = (Gerant) conseillerService.getConseillerByIdService(1);
+		agence=gerant.getAgence();
 		listeConseiller = conseillerService.getAllConseillerService();
 		listeClient = clientService.getAllClientsService();
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -359,6 +477,30 @@ public class GerantManagedBean implements Serializable {
 		return "accueilGerant.xhtml";
 	}
 
+	
+	/**
+	 * Afficher tous les comptes 
+	 */
+	public String getAllComptesByAgence() {
+		
+		listeCompte = new ArrayList<Compte>();
+		
+		listeClient = clientService.getAllClientsByIdAgenceService(agence.getIdAgence());
+		for (Client cl:listeClient) {
+			CompteCourant cc = (CompteCourant) compteService.getComptesCourantByIdClientService(cl.getIdClient());
+			CompteEpargne ce = (CompteEpargne) compteService.getComptesEpargneByIdClientService(cl.getIdClient());
+			int idcc = cc.getIdCompte();
+			int idce = ce.getIdCompte();
+			cc.setNumeroCompte(String.valueOf(idcc));
+			ce.setNumeroCompte(String.valueOf(idce));
+			listeCompte.add(cc);
+			listeCompte.add(ce);
+		}
+		
+		return "listeComptesGerant";
+	}
+	
+	
 
 	/**
 	 * Sélectionner le conseiller à ajouter au client
