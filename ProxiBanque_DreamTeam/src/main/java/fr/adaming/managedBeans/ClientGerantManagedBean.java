@@ -178,7 +178,7 @@ public class ClientGerantManagedBean implements Serializable {
 		compteCourant = client.getCompteCourant();
 		compteService.retraitService(compteCourant, somme);
 		client.setCompteCourant(compteCourant);
-		clientService.updateClientService(client);
+		//clientService.updateClientService(client);
 
 		this.client = clientService.getClientByIdService(client.getIdClient());
 		session.setAttribute("client", client);
@@ -192,7 +192,7 @@ public class ClientGerantManagedBean implements Serializable {
 		compteCourant = client.getCompteCourant();
 		compteService.depotService(compteCourant, somme);
 		client.setCompteCourant(compteCourant);
-		clientService.updateClientService(client);
+		//clientService.updateClientService(client);
 
 		this.client = clientService.getClientByIdService(client.getIdClient());
 		session.setAttribute("client", client);

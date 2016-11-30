@@ -1,5 +1,6 @@
 package fr.adaming.managedBeans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,7 +9,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Carte;
@@ -271,16 +274,44 @@ public class CompteGerantManagedBean implements Serializable {
 		return "infosClientsGerant.xhtml";
 	}
 
-	public String retirer() {
+//	public String retirer() {
+//
+//		compteService.retraitService(client.getCompteCourant(), somme);
+//		return "infosClientsGerant.xhtml";
+//	}
+//
+//	public String deposer() {
+//
+//		compteService.depotService(client.getCompteCourant(), somme);
+//		return "infosClientsGerant.xhtml";
+//	}
+	
+	public void retirer() throws IOException {
 
-		compteService.retraitService(client.getCompteCourant(), somme);
-		return "infosClientsGerant.xhtml";
+		compteCourant = client.getCompteCourant();
+		compteService.retraitService(compteCourant, somme);
+		client.setCompteCourant(compteCourant);
+		clientService.updateClientService(client);
+
+		this.client = clientService.getClientByIdService(client.getIdClient());
+		session.setAttribute("client", client);
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+
 	}
 
-	public String deposer() {
+	public void deposer() throws IOException {
 
-		compteService.depotService(client.getCompteCourant(), somme);
-		return "infosClientsGerant.xhtml";
+		compteCourant = client.getCompteCourant();
+		compteService.depotService(compteCourant, somme);
+		client.setCompteCourant(compteCourant);
+		clientService.updateClientService(client);
+
+		this.client = clientService.getClientByIdService(client.getIdClient());
+		session.setAttribute("client", client);
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+
 	}
 	
 	public String addCarte() {
