@@ -82,7 +82,7 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 		if (compte1 instanceof CompteCourant && compte2 instanceof CompteCourant) {
 			CompteCourant cc1=(CompteCourant) compteDao.getCompteByIdDao(compte1);
 			
-			if(cc1.getSolde()-somme >= -5000){
+			if(cc1.getSolde()-somme >= -cc1.getDecouvert()){
 				compteDao.virementDao(compte1, compte2, somme);
 				return 1;
 			}else{
@@ -92,7 +92,7 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 		}else if (compte1 instanceof CompteCourant && compte2 instanceof CompteEpargne) {
 			CompteCourant cc1=(CompteCourant) compteDao.getCompteByIdDao(compte1);
 			
-			if(cc1.getSolde()-somme >= -5000){
+			if(cc1.getSolde()-somme >= -cc1.getDecouvert()){
 				compteDao.virementDao(compte1, compte2, somme);
 				return 1;
 			}else{
@@ -119,7 +119,7 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 		if (compte instanceof CompteCourant) {
 			CompteCourant compte1=(CompteCourant) compteDao.getCompteByIdDao(compte);
 			
-			if(compte1.getSolde()-somme >= -5000){
+			if(compte1.getSolde()-somme >= -compte1.getDecouvert()){
 				compteDao.retraitDao(compte, somme);
 				return 1;
 			}else{
