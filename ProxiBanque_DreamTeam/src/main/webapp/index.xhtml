@@ -9,25 +9,29 @@
 
 <h:head>
 
-<title>login</title>
+	<title>login</title>
 </h:head>
 <h:body>
 
 
 	<div align="center">
-		<h1>direction en attendant spring sécurité</h1>
+		<h1>Application de ProxyBanque</h1>
 
-<h:form>
-			<h:commandButton value="Accueil Conseiller"
-				action="accueilConseiller"></h:commandButton>
-				
-				<h:commandButton value="Accueil Gerant"
-				action="accueilGerant"></h:commandButton>
-				
-				<h:commandButton value="Accueil Auditeur"
-				action="accueilAuditeur"></h:commandButton>
-				
-</h:form>
+		<h:form>
+
+			<h:panelGrid columns="1" style="margin-top:50px;">
+				<div   style="text-align: center;">
+					<p:commandButton value="Accueil Conseiller"
+						action="accueilConseiller"></p:commandButton>
+				</div>
+				<div style="text-align: center;">
+					<p:commandButton value="Accueil Gerant" action="accueilGerant"></p:commandButton>
+				</div>
+				<div  style="text-align: center;">
+					<p:commandButton value="Accueil Auditeur" action="accueilAuditeur"></p:commandButton>
+				</div>
+			</h:panelGrid>
+		</h:form>
 	</div>
 </h:body>
 </h:html>
