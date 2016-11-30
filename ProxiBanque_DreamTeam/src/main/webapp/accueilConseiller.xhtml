@@ -15,39 +15,47 @@
 	<ui:insert name="header">
 		<ui:include src="/templates/headerConseiller.xhtml"></ui:include>
 	</ui:insert>
-
-
+	
 	<div align="center">
-		<h:form>
-			<p:dataTable var="client" value="#{conseillerMB.listeClients}">
+		<h:panelGrid columns="1" style="width:100%; margin-top:10px">
+			<h1 align="center">Liste des clients gérés par Mr/Mme
+				#{conseillerMB.conseillerLogged.prenom}</h1>
+		</h:panelGrid>
+	</div>
+	
+	<div align="center">
+		<h:panelGrid columns="1" style="width:100%; margin-top:10px">
+			<h:form>
+				<p:dataTable var="client" value="#{conseillerMB.listeClients}">
 
-				<p:column headerText="numéro du client">
-					<h:outputText value="#{client.idClient}" />
-				</p:column>
+					<p:column headerText="numéro du client">
+						<h:outputText value="#{client.idClient}" />
+					</p:column>
 
-				<p:column headerText="Nom du client">
-					<h:outputText value="#{client.nom}" />
-				</p:column>
+					<p:column headerText="Nom du client">
+						<h:outputText value="#{client.nom}" />
+					</p:column>
 
-				<p:column headerText="Prénom du client">
-					<h:outputText value="#{client.prenom}" />
-				</p:column>
+					<p:column headerText="Prénom du client">
+						<h:outputText value="#{client.prenom}" />
+					</p:column>
 
-				<p:column headerText="Date de naissance du client">
-					<h:outputText value="#{client.dateDeNaissance}" />
-				</p:column>
-				<p:column headerText="Informations bancaires">
-					<div align="center">
-						<p:commandButton value="Informations bancaires"
-							action="#{conseillerMB.navigationInformationclient}">
-							<f:setPropertyActionListener
-								target="#{conseillerMB.clientAManipuler}" value="#{client}" />
-						</p:commandButton>
-					</div>
-				</p:column>
+					<p:column headerText="Date de naissance du client">
+						<h:outputText value="#{client.dateDeNaissance}" />
+					</p:column>
+					<p:column headerText="Informations bancaires">
+						<div align="center">
+							<p:commandButton value="Informations bancaires"
+								action="#{conseillerMB.navigationInformationclient}">
+								<f:setPropertyActionListener
+									target="#{conseillerMB.clientAManipuler}" value="#{client}" />
+							</p:commandButton>
+						</div>
+					</p:column>
 
-			</p:dataTable>
-		</h:form>
+				</p:dataTable>
+			</h:form>
+		</h:panelGrid>
 
 	</div>
 	<p:dialog header="Impossible d'ajouter un client"
