@@ -642,4 +642,30 @@ public class GerantManagedBean implements Serializable {
 		listeClient = clientService.getAllClientsByIdAgenceService(1);
 		return "listeClients";
 	}
+	
+	public String navigationAjoutCompteC() {
+		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
+		return "ajoutCCGerant.xhtml";
+	}
+
+	public String navigationAjoutCompteEp() {
+		session.setAttribute("client", clientService.getClientByIdService(this.client.getIdClient()));
+		return "ajoutCEGerant.xhtml";
+	}
+	
+	public String navigationPatrimoine() {
+		session.setAttribute("fondInsuff", false);
+		session.setAttribute("client", this.client);
+		return "patrimoine.xhtml";
+	}
+
+	public String navigationVirement() {
+		session.setAttribute("client", this.client);
+		return "virementRechercheCmpGerant.xhtml";
+	}
+
+	public String navigationInfoCartes() {
+		session.setAttribute("client", this.client);
+		return "infosComptesGerant.xhtml";
+	}
 }

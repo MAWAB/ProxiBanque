@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Ajout d'un compte courant</title>
+</h:head>
+<h:body>
+
+	<ui:insert name="header">
+		<ui:include src="/templates/headerGerant.xhtml"></ui:include>
+	</ui:insert>
+
+	<div align="center">
+		<p:panel id="panel" header="Ajout d'un compte courant"
+			style="margin-bottom:10px;">
+			<h:form>
+				<h:panelGrid columns="2">
+
+
+					<p:outputLabel for="decouvert" value="Découvert autorisé : " />
+					<p:inputText type="number" id="decouvert"
+						value="#{compteGerantMB.compteCourant.decouvert}" required="true" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					<p:outputLabel for="carte" value="Carte :" />
+					<p:selectOneRadio id="carte" value="#{compteGerantMB.carte}">
+						<f:selectItem itemLabel="Pas de cartes" itemValue="0" />
+						<f:selectItem itemLabel="Visa Electron" itemValue="1" />
+						<f:selectItem itemLabel="Visa Premium" itemValue="2" />
+						<f:ajax render="carteChoisie"></f:ajax>
+					</p:selectOneRadio>
+				</h:panelGrid>
+				<br />
+
+				<h:panelGroup id="carteChoisie">
+
+
+					<h:panelGrid columns="2" rendered="#{compteGerantMB.carte == 1}">
+						<p:outputLabel for="dateExpC" value="Date d'expiration : " />
+						<p:calendar id="dateExpC"
+							value="#{compteGerantMB.visaElectron.dateExpiration}" required="true"></p:calendar>
+
+						<p:outputLabel for="plafondC" value="Plafond de crédit: " />
+						<p:inputText id="plafondC" type="number"
+							value="#{compteGerantMB.visaElectron.plafondCredit}" required="true" />
+
+						<p:outputLabel for="pinC" value="Code Pin : " />
+						<p:inputText id="pinC" value="#{compteGerantMB.visaElectron.codePin}"
+							required="true" />
+					</h:panelGrid>
+
+
+
+					<h:panelGrid columns="2" rendered="#{compteGerantMB.carte == 2}">
+						<p:outputLabel for="dateExpE" value="Date d'expiration : " />
+						<p:calendar id="dateExpE"
+							value="#{compteGerantMB.visaPremium.dateExpiration}" required="true"></p:calendar>
+
+						<p:outputLabel for="plafondE" value="Plafond de retrait : " />
+						<p:inputText id="plafondE" type="number"
+							value="#{compteGerantMB.visaPremium.plafondRetrait}" required="true" />
+
+						<p:outputLabel for="pinE" value="Code Pin : " />
+						<p:inputText id="pinE" value="#{compteGerantMB.visaPremium.codePin}"
+							required="true" />
+
+					</h:panelGrid>
+
+				</h:panelGroup>
+
+
+
+				<br></br>
+				<h:commandButton value="Valider"
+					action="#{compteGerantMB.addCompteCourant()}"></h:commandButton>
+			</h:form>
+		</p:panel>
+	</div>
+</h:body>
+</h:html>
+
+
+
+
+
