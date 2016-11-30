@@ -28,6 +28,24 @@ public class ConseillerDaoImpl implements IConseillerDao {
 		this.em = em;
 	}
 
+	/** isExist*/
+	
+	public Conseiller isExistDao(String numeroImmatriculation, String motDePasse){
+	
+		String req = "SELECT c FROM Conseiller c WHERE c.numeroImmatriculation=:ni AND c.motDePasse=:mdp";
+		Query q = em.createQuery(req);
+		q.setParameter("ni", numeroImmatriculation);
+		q.setParameter("mdp", motDePasse);
+		if(q.getFirstResult()!=0){
+			return (Conseiller) q.getSingleResult();
+		}
+		else{
+			return null;
+		}
+		
+		
+	}
+	
 	
 //	/** Authentification Gérant: requête sql car le discriminant n'est pas dans le modèle */
 //	

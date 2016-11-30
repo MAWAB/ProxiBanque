@@ -115,9 +115,18 @@ public class ConseillerManagedBean implements Serializable {
 	}
 
 	public String supprimerClient() {
-		clientService.deleteClientService(clientAManipuler.getIdClient());
-		listeClients = clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
-		return "accueilConseiller";
+		int check = clientService.deleteClientService(clientAManipuler.getIdClient());
+		if (check == 1){
+			listeClients = clientService.getAllClientsByIdConseillerService(conseillerLogged.getIdConseiller());
+			return "accueilConseiller";
+		}
+		else {
+			RequestContext context = RequestContext.getCurrentInstance();
+			context.execute("PF('dialEchecSupprClient').show(); return false;");
+			return "accueilConseiller";			
+		}
+		
+		
 	}
 
 	/* méthodes de navigation */

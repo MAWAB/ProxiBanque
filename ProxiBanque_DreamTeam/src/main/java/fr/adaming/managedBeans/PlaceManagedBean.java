@@ -323,4 +323,9 @@ public class PlaceManagedBean implements Serializable {
 		session.setAttribute("client", this.client);
 		return "infosClient.xhtml";
 	}
+	
+	public String retourClientGerant() {
+		session.setAttribute("client", this.client);
+		return "infosClientsGerant.xhtml";
+	}
 }

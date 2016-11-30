@@ -14,6 +14,7 @@ import fr.adaming.model.Gerant;
  */
 public interface IConseillerDao {
 	
+	public Conseiller isExistDao(String numeroImmatriculation, String motDePasse);
 //	public Gerant isExistGerantDao(String numeroImmatriculation, String motDePasse);
 //	public Conseiller isExistConseillerDao(String numeroImmatriculation, String motDePasse);
 	public Conseiller getConseillerByIdDao(int id);

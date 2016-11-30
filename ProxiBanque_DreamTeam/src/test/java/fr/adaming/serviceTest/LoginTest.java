@@ -39,7 +39,7 @@
 //	public void testLogin(){
 //
 //		
-//		int i = conseillerService.isExistService("1", "a");
+//		int i = conseillerService.isExistService("3", "j");
 //		
 //		System.out.println(i);
 //		

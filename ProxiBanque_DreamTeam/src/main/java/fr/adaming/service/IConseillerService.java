@@ -13,6 +13,7 @@ import fr.adaming.model.Conseiller;
  */
 public interface IConseillerService {
 	
+	public int isExistService(String numeroImmatriculation, String motDePasse);
 	//public int isExistService(String numeroImmatriculation, String motDePasse);
 	public Conseiller getConseillerByIdService(int id);
 	public List<Conseiller> getAllConseillerService();
