@@ -131,6 +131,27 @@ public class ConseillerServiceImpl implements IConseillerService {
 		
 		return liste;
 	}
+
+	@Override
+	public int isExistService(String numeroImmatriculation, String motDePasse) {
+		
+	Conseiller coco=conseillerDao.isExistDao(numeroImmatriculation, motDePasse);
+	if(coco!=null)
+	{
+		if(coco.getIdConseiller() == coco.getGerant().getIdConseiller()){
+			
+			return 1;
+		}
+		
+		else{
+			return 2;
+		}
+		
+	
+		}else{
+		return -1;
+	}
+}
 	
 //	/** Authentification: globale côté service*/
 //	@Override
