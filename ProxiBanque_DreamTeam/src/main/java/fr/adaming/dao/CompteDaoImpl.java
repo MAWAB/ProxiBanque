@@ -208,11 +208,8 @@ public class CompteDaoImpl<C extends Compte> implements ICompteDao<C> {
 	@Override
 	public void supprimerCompteDao(C compte) {
 		EntityManager em = emf.createEntityManager();
-		System.out.println("OK1");
 		if (compte instanceof CompteCourant) {
-			System.out.println("OK2");
 			try {
-				System.out.println("OK3");
 				em.getTransaction().begin();
 				String req = "SELECT cmpC FROM CompteCourant cmpC WHERE cmpC.idCompte=:cmp_id";
 				Query query = em.createQuery(req);
@@ -220,9 +217,7 @@ public class CompteDaoImpl<C extends Compte> implements ICompteDao<C> {
 				query.setParameter("cmp_id", ((CompteCourant) compte).getIdCompte());
 
 				CompteCourant cmpC = (CompteCourant) query.getSingleResult();
-				System.out.println("OK4");
 				em.remove(cmpC);
-				System.out.println("OK5");
 				em.getTransaction().commit();
 
 			} catch (Exception e) {

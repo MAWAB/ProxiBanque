@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.ICompteDao;
 import fr.adaming.model.Compte;
+import fr.adaming.model.CompteCourant;
+import fr.adaming.model.CompteEpargne;
 
 @Service("cmpServiceBean")
 @Transactional
@@ -75,14 +77,66 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 	}
 
 	@Override
-	public void virementService(C compte1, C compte2, double somme) {
+	public int virementService(C compte1, C compte2, double somme) {
 		compteDao.virementDao(compte1, compte2, somme);
+		
+		if (compte1 instanceof CompteCourant && compte2 instanceof CompteCourant) {
+			CompteCourant cc1=(CompteCourant) compteDao.getCompteByIdDao(compte1);
+			
+			if(cc1.getSolde()-somme >= -5000){
+				compteDao.virementDao(compte1, compte2, somme);
+				return 1;
+			}else{
+				return -1;
+			}
+			
+		}else if (compte1 instanceof CompteCourant && compte2 instanceof CompteEpargne) {
+			CompteCourant cc1=(CompteCourant) compteDao.getCompteByIdDao(compte1);
+			
+			if(cc1.getSolde()-somme >= -5000){
+				compteDao.virementDao(compte1, compte2, somme);
+				return 1;
+			}else{
+				return -1;
+			}
+			
+		}else if (compte1 instanceof CompteEpargne && compte2 instanceof CompteCourant) {
+			CompteEpargne ce1=(CompteEpargne) compteDao.getCompteByIdDao(compte1);
+			
+			if(ce1.getSolde()-somme >= 10){
+				compteDao.virementDao(compte1, compte2, somme);
+				return 1;
+			}else{
+				return -1;
+			}
+		}
+		
+		return 0;
 		
 	}
 
 	@Override
-	public void retraitService(C compte, double somme) {
-		compteDao.retraitDao(compte, somme);
+	public int retraitService(C compte, double somme) {
+		if (compte instanceof CompteCourant) {
+			CompteCourant compte1=(CompteCourant) compteDao.getCompteByIdDao(compte);
+			
+			if(compte1.getSolde()-somme >= -5000){
+				compteDao.retraitDao(compte, somme);
+				return 1;
+			}else{
+				return -1;
+			}
+		}else if (compte instanceof CompteEpargne) {
+			CompteEpargne compte1=(CompteEpargne) compteDao.getCompteByIdDao(compte);
+			
+			if(compte1.getSolde()-somme >= 10){
+				compteDao.retraitDao(compte, somme);
+				return 1;
+			}else{
+				return -1;
+			}
+		}
+		return 0;
 		
 	}
 
