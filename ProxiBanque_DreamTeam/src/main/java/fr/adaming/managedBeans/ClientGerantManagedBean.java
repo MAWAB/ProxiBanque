@@ -206,7 +206,7 @@ public class ClientGerantManagedBean implements Serializable {
 	public String navigationPatrimoine() {
 		session.setAttribute("fondInsuff", false);
 		session.setAttribute("client", this.client);
-		return "patrimoine.xhtml";
+		return "patrimoineGerant.xhtml";
 	}
 
 	public String navigationVirement() {
