@@ -78,7 +78,6 @@ public class CompteServiceImpl <C extends Compte> implements ICompteService<C>{
 
 	@Override
 	public int virementService(C compte1, C compte2, double somme) {
-		compteDao.virementDao(compte1, compte2, somme);
 		
 		if (compte1 instanceof CompteCourant && compte2 instanceof CompteCourant) {
 			CompteCourant cc1=(CompteCourant) compteDao.getCompteByIdDao(compte1);
