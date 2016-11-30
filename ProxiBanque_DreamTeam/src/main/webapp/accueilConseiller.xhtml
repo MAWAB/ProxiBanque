@@ -61,6 +61,19 @@
 			</h:commandButton>
 		</h:form>
 	</p:dialog>
+
+	<p:dialog header="Impossible de supprimer ce client"
+		widgetVar="dialEchecSupprClient" minHeight="40">
+		<h:form>
+			<h:outputText value="Ce client possède des placements en bourse" />
+			<br />
+			<div align="center">
+				<p:commandButton type="submit" value="Ok"
+					oncomplete="PF('dialEchecSupprClient').hide();">
+				</p:commandButton>
+			</div>
+		</h:form>
+	</p:dialog>
 </h:body>
 </h:html>
 

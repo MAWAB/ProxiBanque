@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import fr.adaming.dao.IClientDao;
+import fr.adaming.dao.IPlacementDao;
 import fr.adaming.model.Client;
 
 /**
@@ -23,6 +24,10 @@ public class ClientServiceImpl implements IClientService {
 	@Autowired
 	@Qualifier("clientDaoImpl")
 	IClientDao clientDao;
+	
+	@Autowired
+	@Qualifier("placementDaoImpl")
+	IPlacementDao placementDao;
 
 	/*
 	 * (non-Javadoc)
@@ -58,8 +63,14 @@ public class ClientServiceImpl implements IClientService {
 	 * @see fr.adaming.service.IClientService#deleteClientService(int)
 	 */
 	@Override
-	public void deleteClientService(int id) {
-		clientDao.deleteClient(id);
+	public int deleteClientService(int id) {
+		if (placementDao.getAllPlacementByIdClient(id) == null || placementDao.getAllPlacementByIdClient(id).size() == 0){
+			clientDao.deleteClient(id);
+			return 1;
+		}
+		else{
+			return 0;
+		}
 	}
 
 	/*
